@@ -858,14 +858,13 @@ S.sold = sortByDate(mergeUnique(baseSold, S.sold, ‘property’), ‘closeDate�
 S.market = mergeUnique(baseJLLIn, S.market, ‘property’);
 S.compmarket = mergeUnique(baseCompIn, S.compmarket, ‘property’);
 
-```
 renderTab('market');
 document.getElementById('badge-sold').textContent = S.sold.length || '';
 document.getElementById('badge-leasecomps').textContent = S.leasecomps.length > 99 ? '99+' : S.leasecomps.length;
 var ct = S.compmarket.length + S.compsold.length;
 document.getElementById('badge-comp').textContent = ct || '';
 document.getElementById('badge-offmarket').textContent = S.offmarket.length || '';
-```
+
 
 });
 }
