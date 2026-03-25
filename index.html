@@ -643,230 +643,224 @@ function renderAddForm() {
       h += '</select>';
     } else if (f.type === 'textarea') {
       h += '<textarea class="form-input" id="af-' + f.id + '" rows="3" style="resize:none"></textarea>';
-
-```
-} else {
-  h += '<input class="form-input" type="' + (f.type||'text') + '" id="af-' + f.id + '">';
-}
-h += '</div>';
-```
-
-});
-setHTML(‘add-form’, h);
+    } else {
+      h += '<input class="form-input" type="' + (f.type||'text') + '" id="af-' + f.id + '">';
+    }
+    h += '</div>';
+  });
+  setHTML('add-form', h);
 }
 function saveEntry() {
-var sec = document.getElementById(‘add-section-sel’).value;
-var flds = ADD_FIELDS[sec] || [];
-var entry = { _added: new Date().toISOString() };
-flds.forEach(function(f) {
-var el = document.getElementById(‘af-’ + f.id);
-entry[f.id] = el ? el.value.trim() : ‘’;
-});
-if (sec === ‘comp’) {
-S.compmarket.push(entry);
-} else {
-S[sec].push(entry);
-}
-closeAdd();
-saveToStorage();
-renderTab(S.currentTab);
+  var sec = document.getElementById('add-section-sel').value;
+  var flds = ADD_FIELDS[sec] || [];
+  var entry = { _added: new Date().toISOString() };
+  flds.forEach(function(f) {
+    var el = document.getElementById('af-' + f.id);
+    entry[f.id] = el ? el.value.trim() : '';
+  });
+  if (sec === 'comp') {
+    S.compmarket.push(entry);
+  } else {
+    S[sec].push(entry);
+  }
+  closeAdd();
+  saveToStorage();
+  renderTab(S.currentTab);
 }
 
 var INTEL = {
-vacancy:‘8.3%’, avgRent:’$15.19’, ytdAbs:‘450K SF’,
-submarkets:[
-{name:‘Urban’,sub:‘17.1M SF - 203 props’,rent:’$33.87’,vac:7.0},
-{name:‘North’,sub:‘44.8M SF - 484 props’,rent:’$18.33’,vac:6.3},
-{name:‘South’,sub:‘86.1M SF - 765 props’,rent:’$13.48’,vac:10.4},
-{name:‘West’,sub:‘24.6M SF - 205 props’,rent:’$12.81’,vac:5.3},
-{name:‘Worcester County’,sub:‘45.6M SF - 429 props’,rent:’$12.46’,vac:10.0},
-{name:‘S. New Hampshire’,sub:‘39.3M SF - 364 props’,rent:’$12.35’,vac:6.2}
-],
-specUC:[
-{name:‘Charlton Commerce Center’,city:‘Charlton’,mkt:‘Worcester Co.’,dev:‘GFI Partners’,sf:‘1,197,000’,lsd:‘0%’,del:‘Q1 2027’},
-{name:‘Trident Logistics Center’,city:‘Revere’,mkt:‘Urban’,dev:‘Link / Saracen’,sf:‘367,400’,lsd:‘0%’,del:‘Q4 2025’},
-{name:‘Maple Street Bldg 1’,city:‘Stoughton’,mkt:‘South’,dev:‘Brookfield Properties’,sf:‘274,827’,lsd:‘0%’,del:‘Q3 2026’},
-{name:‘415 Green Street’,city:‘Marlborough’,mkt:‘West’,dev:‘Lincoln Property Co’,sf:‘203,265’,lsd:‘0%’,del:‘Q2 2026’},
-{name:‘440 Hartford Tpke’,city:‘Shrewsbury’,mkt:‘South’,dev:‘GFI Partners’,sf:‘133,750’,lsd:‘100%’,del:‘Q4 2025’},
-{name:‘2 Commerce Drive’,city:‘Tyngsboro’,mkt:‘North’,dev:‘Marcus Partners’,sf:‘125,000’,lsd:‘0%’,del:‘Q1 2026’},
-{name:‘600 Griffin Brook Dr’,city:‘Methuen’,mkt:‘North’,dev:‘RJ Kelly’,sf:‘95,700’,lsd:‘0%’,del:‘Q4 2025’},
-{name:‘63 Londonderry Tpke’,city:‘Hooksett’,mkt:‘S. New Hamp.’,dev:‘Morgan Storage’,sf:‘94,800’,lsd:‘0%’,del:‘Q4 2025’},
-{name:‘270 Billerica Ave’,city:‘Chelmsford’,mkt:‘North’,dev:‘DH Property Holdings’,sf:‘91,500’,lsd:‘0%’,del:‘Q4 2025’}
-],
-btsUC:[
-{name:‘43 Steele Rd’,city:‘Hudson’,mkt:‘S. New Hamp.’,tenant:‘Target’,sf:‘1,400,000’,del:‘Q4 2026’},
-{name:‘50 Centennial Dr’,city:‘Shrewsbury’,mkt:‘West’,tenant:‘UPS Distribution Center’,sf:‘845,000’,del:‘Q1 2027’},
-{name:‘65 Theodore Dr’,city:‘Westminster’,mkt:‘West’,tenant:‘Home Depot Distribution’,sf:‘600,000’,del:‘Q4 2025’},
-{name:‘1151 Innovation Way’,city:‘Fall River’,mkt:‘South’,tenant:‘FreezPak’,sf:‘203,397’,del:‘Q1 2026’},
-{name:‘30 Burtt Rd’,city:‘Andover’,mkt:‘North’,tenant:‘Gillette Expansion’,sf:‘201,684’,del:‘Q3 2026’},
-{name:‘70 Corporate Dr’,city:‘Portsmouth’,mkt:‘S. New Hamp.’,tenant:‘Lonza’,sf:‘100,000’,del:‘Q4 2025’},
-{name:‘2 Creek Brook Dr’,city:‘Haverhill’,mkt:‘North’,tenant:‘Cafua / Dunkin’,sf:‘93,500’,del:‘Q4 2025’}
-],
-vacancies:[
-{name:‘123 Gilboa Street’,city:‘Douglas’,mkt:‘West’,dev:‘CRG’,sf:‘1,102,500’,lsd:‘0%’,del:‘Q1 2024’,note:‘Largest vacant spec block in market’},
-{name:‘64 Leona Dr’,city:‘Middleborough’,mkt:‘South’,dev:’’,sf:‘805,347’,lsd:‘0%’,del:‘1995’,note:‘Amazon trading paper to lease for 5 yrs - early stages’},
-{name:‘27 Cross Street’,city:‘Plainville’,mkt:‘South’,dev:‘CRG’,sf:‘662,500’,lsd:‘0%’,del:‘2023’,note:‘Negotiating with 2 tenants to potentially fill the building’},
-{name:‘75 Plain Street’,city:‘Hopedale’,mkt:‘South’,dev:‘GFI Partners’,sf:‘616,875’,lsd:‘0%’,del:‘2024’,note:‘Amazon HazMat contract (Maersk) allegedly getting done for full building’},
-{name:‘40 Lackey Dam Road’,city:‘Uxbridge’,mkt:‘West’,dev:‘Scannell / Crow Holdings’,sf:‘607,486’,lsd:‘73%’,del:‘Q1 2023’,note:‘McKesson anchor; 27% available’},
-{name:‘145 Commerce Drive’,city:‘Warwick’,mkt:‘RI’,dev:‘NorthPoint Development’,sf:‘491,500’,lsd:‘45%’,del:‘Q1 2023’,note:‘~270k SF available’},
-{name:‘139 Campanelli Drive’,city:‘Uxbridge’,mkt:‘West’,dev:‘Seyon / Morgan Stanley’,sf:‘450,800’,lsd:‘0%’,del:‘Q1 2023’,note:’’},
-{name:‘Maple St Bldg 3’,city:‘Stoughton’,mkt:‘South’,dev:‘Brookfield Properties’,sf:‘411,930’,lsd:‘0%’,del:‘2026’,note:‘Amazon has a lease out (possibly SSD)’},
-{name:‘211 Highland Street’,city:‘E. Bridgewater’,mkt:‘South’,dev:‘Greystar’,sf:‘412,500’,lsd:‘0%’,del:‘2023’,note:‘Going to market for sale vacant’},
-{name:‘35 United Drive’,city:‘W. Bridgewater’,mkt:‘South’,dev:’’,sf:‘493,000’,lsd:‘56%’,del:‘1987’,note:‘278,181 SF available’},
-{name:‘50 Robert Milligan Pkwy’,city:‘Merrimack’,mkt:‘S. New Hamp.’,dev:‘Trammell Crow / Diamond’,sf:‘323,750’,lsd:‘0%’,del:‘Q1 2024’,note:’’},
-{name:‘550 Forbes Blvd’,city:‘Mansfield’,mkt:‘South’,dev:’’,sf:‘222,357’,lsd:‘0%’,del:‘1988’,note:‘Trading LOIs with tenant for 50% of space’},
-{name:‘900 Bedford Street’,city:‘Bridgewater’,mkt:‘South’,dev:‘Calare Properties’,sf:‘219,000’,lsd:‘18%’,del:‘2023’,note:‘40K SF leased to Red Bull’},
-{name:‘152 Depot Street’,city:‘Bellingham’,mkt:‘South’,dev:‘2020 Acquisitions’,sf:‘201,545’,lsd:‘0%’,del:‘Q4 2023’,note:’’},
-{name:‘Maple St Bldg 2’,city:‘Stoughton’,mkt:‘South’,dev:‘Brookfield Properties’,sf:‘193,208’,lsd:‘0%’,del:‘Q3 2025’,note:‘Newly delivered’},
-{name:‘1000 Nickerson Road’,city:‘Marlborough’,mkt:‘West’,dev:‘Lincoln Property Co’,sf:‘120,600’,lsd:‘0%’,del:‘Q3 2023’,note:’’},
-{name:‘21 Randolph Road’,city:‘Randolph’,mkt:‘South’,dev:‘Bluewater / Affinius’,sf:‘120,000’,lsd:‘0%’,del:‘Q1 2025’,note:’’}
-],
-tims:{total:‘14.4M SF’,reqs:97,median:‘70,000 SF’,
-by:[[‘South’,‘4.6M SF’],[‘Multi-Market’,‘5.2M SF’],[‘North / SNH’,‘2.9M SF’],[‘West & Worcester’,‘1.3M SF’],[‘Urban’,‘365K SF’]],
-names:‘Amazon, Tesla, DHL, Walmart, Pepsico, General Dynamics, PODS, Eversource, Lantheus’
-},
-southActivity:{
-stats:{inventory:‘88.1M SF’,uc:‘930K SF’,vacancy:‘11.2%’,rent:’$13.44’},
-potentiallyLeased:‘3.6M SF - 52% of total market availability’,
-notable:[‘Electric Boat signed in Warwick, RI for 271K SF net new’,‘Recent big renewals: NDCP, Victory Packaging, Owens & Minors’],
-requirements:[‘Eversource’,‘National Grid’,‘Woodgrain’,‘Organogenesis’,‘Modine’,‘Bossard’,‘Chex Finer Foods’,‘MEI Industrial Solutions’,‘Blue Valley Cabinets’,‘JSI Cabinetry’,‘Precision Coating’,‘TricorBraun’,‘CVS’]
-}
+  vacancy:'8.3%', avgRent:'$15.19', ytdAbs:'450K SF',
+  submarkets:[
+    {name:'Urban',sub:'17.1M SF - 203 props',rent:'$33.87',vac:7.0},
+    {name:'North',sub:'44.8M SF - 484 props',rent:'$18.33',vac:6.3},
+    {name:'South',sub:'86.1M SF - 765 props',rent:'$13.48',vac:10.4},
+    {name:'West',sub:'24.6M SF - 205 props',rent:'$12.81',vac:5.3},
+    {name:'Worcester County',sub:'45.6M SF - 429 props',rent:'$12.46',vac:10.0},
+    {name:'S. New Hampshire',sub:'39.3M SF - 364 props',rent:'$12.35',vac:6.2}
+  ],
+  specUC:[
+    {name:'Charlton Commerce Center',city:'Charlton',mkt:'Worcester Co.',dev:'GFI Partners',sf:'1,197,000',lsd:'0%',del:'Q1 2027'},
+    {name:'Trident Logistics Center',city:'Revere',mkt:'Urban',dev:'Link / Saracen',sf:'367,400',lsd:'0%',del:'Q4 2025'},
+    {name:'Maple Street Bldg 1',city:'Stoughton',mkt:'South',dev:'Brookfield Properties',sf:'274,827',lsd:'0%',del:'Q3 2026'},
+    {name:'415 Green Street',city:'Marlborough',mkt:'West',dev:'Lincoln Property Co',sf:'203,265',lsd:'0%',del:'Q2 2026'},
+    {name:'440 Hartford Tpke',city:'Shrewsbury',mkt:'South',dev:'GFI Partners',sf:'133,750',lsd:'100%',del:'Q4 2025'},
+    {name:'2 Commerce Drive',city:'Tyngsboro',mkt:'North',dev:'Marcus Partners',sf:'125,000',lsd:'0%',del:'Q1 2026'},
+    {name:'600 Griffin Brook Dr',city:'Methuen',mkt:'North',dev:'RJ Kelly',sf:'95,700',lsd:'0%',del:'Q4 2025'},
+    {name:'63 Londonderry Tpke',city:'Hooksett',mkt:'S. New Hamp.',dev:'Morgan Storage',sf:'94,800',lsd:'0%',del:'Q4 2025'},
+    {name:'270 Billerica Ave',city:'Chelmsford',mkt:'North',dev:'DH Property Holdings',sf:'91,500',lsd:'0%',del:'Q4 2025'}
+  ],
+  btsUC:[
+    {name:'43 Steele Rd',city:'Hudson',mkt:'S. New Hamp.',tenant:'Target',sf:'1,400,000',del:'Q4 2026'},
+    {name:'50 Centennial Dr',city:'Shrewsbury',mkt:'West',tenant:'UPS Distribution Center',sf:'845,000',del:'Q1 2027'},
+    {name:'65 Theodore Dr',city:'Westminster',mkt:'West',tenant:'Home Depot Distribution',sf:'600,000',del:'Q4 2025'},
+    {name:'1151 Innovation Way',city:'Fall River',mkt:'South',tenant:'FreezPak',sf:'203,397',del:'Q1 2026'},
+    {name:'30 Burtt Rd',city:'Andover',mkt:'North',tenant:'Gillette Expansion',sf:'201,684',del:'Q3 2026'},
+    {name:'70 Corporate Dr',city:'Portsmouth',mkt:'S. New Hamp.',tenant:'Lonza',sf:'100,000',del:'Q4 2025'},
+    {name:'2 Creek Brook Dr',city:'Haverhill',mkt:'North',tenant:'Cafua / Dunkin',sf:'93,500',del:'Q4 2025'}
+  ],
+  vacancies:[
+    {name:'123 Gilboa Street',city:'Douglas',mkt:'West',dev:'CRG',sf:'1,102,500',lsd:'0%',del:'Q1 2024',note:'Largest vacant spec block in market'},
+    {name:'64 Leona Dr',city:'Middleborough',mkt:'South',dev:'',sf:'805,347',lsd:'0%',del:'1995',note:'Amazon trading paper to lease for 5 yrs - early stages'},
+    {name:'27 Cross Street',city:'Plainville',mkt:'South',dev:'CRG',sf:'662,500',lsd:'0%',del:'2023',note:'Negotiating with 2 tenants to potentially fill the building'},
+    {name:'75 Plain Street',city:'Hopedale',mkt:'South',dev:'GFI Partners',sf:'616,875',lsd:'0%',del:'2024',note:'Amazon HazMat contract (Maersk) allegedly getting done for full building'},
+    {name:'40 Lackey Dam Road',city:'Uxbridge',mkt:'West',dev:'Scannell / Crow Holdings',sf:'607,486',lsd:'73%',del:'Q1 2023',note:'McKesson anchor; 27% available'},
+    {name:'145 Commerce Drive',city:'Warwick',mkt:'RI',dev:'NorthPoint Development',sf:'491,500',lsd:'45%',del:'Q1 2023',note:'~270k SF available'},
+    {name:'139 Campanelli Drive',city:'Uxbridge',mkt:'West',dev:'Seyon / Morgan Stanley',sf:'450,800',lsd:'0%',del:'Q1 2023',note:''},
+    {name:'Maple St Bldg 3',city:'Stoughton',mkt:'South',dev:'Brookfield Properties',sf:'411,930',lsd:'0%',del:'2026',note:'Amazon has a lease out (possibly SSD)'},
+    {name:'211 Highland Street',city:'E. Bridgewater',mkt:'South',dev:'Greystar',sf:'412,500',lsd:'0%',del:'2023',note:'Going to market for sale vacant'},
+    {name:'35 United Drive',city:'W. Bridgewater',mkt:'South',dev:'',sf:'493,000',lsd:'56%',del:'1987',note:'278,181 SF available'},
+    {name:'50 Robert Milligan Pkwy',city:'Merrimack',mkt:'S. New Hamp.',dev:'Trammell Crow / Diamond',sf:'323,750',lsd:'0%',del:'Q1 2024',note:''},
+    {name:'550 Forbes Blvd',city:'Mansfield',mkt:'South',dev:'',sf:'222,357',lsd:'0%',del:'1988',note:'Trading LOIs with tenant for 50% of space'},
+    {name:'900 Bedford Street',city:'Bridgewater',mkt:'South',dev:'Calare Properties',sf:'219,000',lsd:'18%',del:'2023',note:'40K SF leased to Red Bull'},
+    {name:'152 Depot Street',city:'Bellingham',mkt:'South',dev:'2020 Acquisitions',sf:'201,545',lsd:'0%',del:'Q4 2023',note:''},
+    {name:'Maple St Bldg 2',city:'Stoughton',mkt:'South',dev:'Brookfield Properties',sf:'193,208',lsd:'0%',del:'Q3 2025',note:'Newly delivered'},
+    {name:'1000 Nickerson Road',city:'Marlborough',mkt:'West',dev:'Lincoln Property Co',sf:'120,600',lsd:'0%',del:'Q3 2023',note:''},
+    {name:'21 Randolph Road',city:'Randolph',mkt:'South',dev:'Bluewater / Affinius',sf:'120,000',lsd:'0%',del:'Q1 2025',note:''}
+  ],
+  tims:{total:'14.4M SF',reqs:97,median:'70,000 SF',
+    by:[['South','4.6M SF'],['Multi-Market','5.2M SF'],['North / SNH','2.9M SF'],['West & Worcester','1.3M SF'],['Urban','365K SF']],
+    names:'Amazon, Tesla, DHL, Walmart, Pepsico, General Dynamics, PODS, Eversource, Lantheus'
+  },
+  southActivity:{
+    stats:{inventory:'88.1M SF',uc:'930K SF',vacancy:'11.2%',rent:'$13.44'},
+    potentiallyLeased:'3.6M SF - 52% of total market availability',
+    notable:['Electric Boat signed in Warwick, RI for 271K SF net new','Recent big renewals: NDCP, Victory Packaging, Owens & Minors'],
+    requirements:['Eversource','National Grid','Woodgrain','Organogenesis','Modine','Bossard','Chex Finer Foods','MEI Industrial Solutions','Blue Valley Cabinets','JSI Cabinetry','Precision Coating','TricorBraun','CVS']
+  }
 };
 
 function renderIntel() {
-function leasedTag(pct) {
-if (pct===‘100%’) return ‘<span class="pill pill-leased">100% Leased</span>’;
-if (pct===‘0%’) return ‘<span class="pill pill-vacant">Vacant</span>’;
-return ‘<span class="pill pill-partial">’ + pct + ’ Leased</span>’;
-}
-var h = ‘’;
-h += ‘<div class="intel-hero"><div class="intel-hero-title">Greater Boston Industrial</div><div class="intel-hero-sub">JLL Q3 2025 Market Overview</div></div>’;
-h += ‘<div class="intel-kpi-row">’;
-h += ‘<div class="intel-kpi"><div class="intel-kpi-val">’ + INTEL.vacancy + ‘</div><div class="intel-kpi-lbl">Vacancy</div></div>’;
-h += ‘<div class="intel-kpi"><div class="intel-kpi-val">’ + INTEL.avgRent + ‘</div><div class="intel-kpi-lbl">Avg NNN Rent</div></div>’;
-h += ‘<div class="intel-kpi"><div class="intel-kpi-val">’ + INTEL.ytdAbs + ‘</div><div class="intel-kpi-lbl">YTD Absorption</div></div>’;
-h += ‘</div>’;
-h += ‘<div class="intel-sec"><div class="intel-sec-hdr">Submarket Snapshot <span class="intel-sec-hdr-sub">Q3 2025</span></div>’;
-h += ‘<div class="intel-table">’;
-h += ‘<div class="intel-table-hdr"><div class="intel-table-hdr-cell" style="flex:1">Submarket</div><div class="intel-table-hdr-cell" style="width:56px;text-align:right">Rent</div><div class="intel-table-hdr-cell" style="width:60px;text-align:right">Vacancy</div></div>’;
-INTEL.submarkets.forEach(function(s) {
-var vc = s.vac>9?‘var(–red)’:s.vac>7?‘var(–amber)’:‘var(–green)’;
-var pct = Math.min(Math.round(s.vac/15*100),100);
-h += ‘<div class="submarket-row">’;
-h += ‘<div class="submarket-name">’ + s.name + ‘<br><span class="submarket-name-sub">’ + s.sub + ‘</span></div>’;
-h += ‘<div class="submarket-rent">’ + s.rent + ‘</div>’;
-h += ‘<div class="vac-wrap"><div class="vac-track"><div class="vac-fill" style="width:' + pct + '%;background:' + vc + '"></div></div><div class="vac-pct" style="color:' + vc + '">’ + s.vac + ‘%</div></div>’;
-h += ‘</div>’;
-});
-h += ‘</div></div>’;
-h += ‘<div class="intel-sec"><div class="intel-sec-hdr">Large Block Availabilities <span class="intel-sec-hdr-sub">Q4 2025</span></div>’;
-var sa = INTEL.southActivity;
-h += ‘<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);border-radius:8px;overflow:hidden;margin-bottom:10px">’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">’ + sa.stats.inventory + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">South Inventory</div></div>’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--amber)">’ + sa.stats.vacancy + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">South Vacancy</div></div>’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">’ + sa.stats.rent + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Avg Asking Rent</div></div>’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">’ + sa.stats.uc + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Under Construction</div></div>’;
-h += ‘</div>’;
-h += ‘<div style="background:var(--green-dim);border:1px solid rgba(52,211,153,0.25);border-radius:8px;padding:10px 12px;margin-bottom:10px">’;
-h += ‘<div style="font-size:9px;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:2px">Potentially Leased</div>’;
-h += ‘<div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--green)">’ + sa.potentiallyLeased + ‘</div></div>’;
-sa.notable.forEach(function(n) { h += ‘<div style="background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:11px;color:var(--text2);line-height:1.4">► ’ + n + ‘</div>’; });
-h += ‘<div style="background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;margin-bottom:12px">’;
-h += ‘<div style="font-size:9px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px">Active 75K+ SF Requirements</div>’;
-h += ‘<div style="display:flex;flex-wrap:wrap;gap:5px">’;
-sa.requirements.forEach(function(r) { h += ‘<span class="pill pill-mkt">’ + r + ‘</span>’; });
-h += ‘</div></div>’;
-INTEL.vacancies.forEach(function(p) {
-h += ‘<div class="intel-card"><div class="intel-card-top">’;
-h += ‘<div class="intel-card-name">’ + p.name + ‘<br><span class="intel-card-name-sub">’ + p.city + ‘</span></div>’;
-h += ‘<div class="intel-card-sf">’ + p.sf + ’ SF</div></div>’;
-h += ‘<div class="intel-card-meta"><span class="pill pill-mkt">’ + p.mkt + ‘</span>’;
-if (p.dev) h += ‘<span class="pill pill-dev">’ + p.dev + ‘</span>’;
-h += ‘<span class="pill pill-del">’ + p.del + ‘</span>’ + leasedTag(p.lsd) + ‘</div>’;
-if (p.note) h += ‘<div class="intel-card-note">’ + p.note + ‘</div>’;
-h += ‘</div>’;
-});
-h += ‘</div>’;
-h += ‘<div class="intel-sec"><div class="intel-sec-hdr">Spec Under Construction <span class="intel-sec-hdr-sub">2.6M SF Total</span></div>’;
-INTEL.specUC.forEach(function(p) {
-h += ‘<div class="intel-card"><div class="intel-card-top">’;
-h += ‘<div class="intel-card-name">’ + p.name + ‘<br><span class="intel-card-name-sub">’ + p.city + ‘</span></div>’;
-h += ‘<div class="intel-card-sf">’ + p.sf + ’ SF</div></div>’;
-h += ‘<div class="intel-card-meta"><span class="pill pill-mkt">’ + p.mkt + ‘</span><span class="pill pill-dev">’ + p.dev + ‘</span><span class="pill pill-del">’ + p.del + ‘</span>’ + leasedTag(p.lsd) + ‘</div></div>’;
-});
-h += ‘</div>’;
-h += ‘<div class="intel-sec"><div class="intel-sec-hdr">BTS Under Construction <span class="intel-sec-hdr-sub">3.6M SF Total</span></div>’;
-INTEL.btsUC.forEach(function(p) {
-h += ‘<div class="intel-card"><div class="intel-card-top">’;
-h += ‘<div class="intel-card-name">’ + p.name + ‘<br><span class="intel-card-name-sub">’ + p.city + ‘</span></div>’;
-h += ‘<div class="intel-card-sf">’ + p.sf + ’ SF</div></div>’;
-h += ‘<div class="intel-card-meta"><span class="pill pill-mkt">’ + p.mkt + ‘</span><span class="pill pill-tenant">’ + p.tenant + ‘</span><span class="pill pill-del">’ + p.del + ‘</span></div></div>’;
-});
-h += ‘</div>’;
-h += ‘<div class="intel-sec"><div class="intel-sec-hdr">Tenants In Market <span class="intel-sec-hdr-sub">’ + INTEL.tims.reqs + ’ requirements</span></div>’;
-h += ‘<div style="background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:12px;margin-bottom:14px">’;
-h += ‘<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border2);border-radius:6px;overflow:hidden;margin-bottom:10px">’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">’ + INTEL.tims.total + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Total Demand</div></div>’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">’ + INTEL.tims.reqs + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Requirements</div></div>’;
-h += ‘<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">’ + INTEL.tims.median + ‘</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Median Req</div></div>’;
-h += ‘</div>’;
-INTEL.tims.by.forEach(function(b) { h += ‘<div class="demand-row"><div class="demand-name">’ + b[0] + ‘</div><div class="demand-sf">’ + b[1] + ‘</div></div>’; });
-h += ’<div style="margin-top:8px;font-size:9px;color:var(--text3)">Active tenants include: ’ + INTEL.tims.names + ‘</div>’;
-h += ‘</div></div>’;
-h += ‘<div class="intel-bottom-pad"></div>’;
-setHTML(‘intel-content’, h);
+  function leasedTag(pct) {
+    if (pct==='100%') return '<span class="pill pill-leased">100% Leased</span>';
+    if (pct==='0%') return '<span class="pill pill-vacant">Vacant</span>';
+    return '<span class="pill pill-partial">' + pct + ' Leased</span>';
+  }
+  var h = '';
+  h += '<div class="intel-hero"><div class="intel-hero-title">Greater Boston Industrial</div><div class="intel-hero-sub">JLL Q3 2025 Market Overview</div></div>';
+  h += '<div class="intel-kpi-row">';
+  h += '<div class="intel-kpi"><div class="intel-kpi-val">' + INTEL.vacancy + '</div><div class="intel-kpi-lbl">Vacancy</div></div>';
+  h += '<div class="intel-kpi"><div class="intel-kpi-val">' + INTEL.avgRent + '</div><div class="intel-kpi-lbl">Avg NNN Rent</div></div>';
+  h += '<div class="intel-kpi"><div class="intel-kpi-val">' + INTEL.ytdAbs + '</div><div class="intel-kpi-lbl">YTD Absorption</div></div>';
+  h += '</div>';
+  h += '<div class="intel-sec"><div class="intel-sec-hdr">Submarket Snapshot <span class="intel-sec-hdr-sub">Q3 2025</span></div>';
+  h += '<div class="intel-table">';
+  h += '<div class="intel-table-hdr"><div class="intel-table-hdr-cell" style="flex:1">Submarket</div><div class="intel-table-hdr-cell" style="width:56px;text-align:right">Rent</div><div class="intel-table-hdr-cell" style="width:60px;text-align:right">Vacancy</div></div>';
+  INTEL.submarkets.forEach(function(s) {
+    var vc = s.vac>9?'var(--red)':s.vac>7?'var(--amber)':'var(--green)';
+    var pct = Math.min(Math.round(s.vac/15*100),100);
+    h += '<div class="submarket-row">';
+    h += '<div class="submarket-name">' + s.name + '<br><span class="submarket-name-sub">' + s.sub + '</span></div>';
+    h += '<div class="submarket-rent">' + s.rent + '</div>';
+    h += '<div class="vac-wrap"><div class="vac-track"><div class="vac-fill" style="width:' + pct + '%;background:' + vc + '"></div></div><div class="vac-pct" style="color:' + vc + '">' + s.vac + '%</div></div>';
+    h += '</div>';
+  });
+  h += '</div></div>';
+  h += '<div class="intel-sec"><div class="intel-sec-hdr">Large Block Availabilities <span class="intel-sec-hdr-sub">Q4 2025</span></div>';
+  var sa = INTEL.southActivity;
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);border-radius:8px;overflow:hidden;margin-bottom:10px">';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">' + sa.stats.inventory + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">South Inventory</div></div>';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--amber)">' + sa.stats.vacancy + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">South Vacancy</div></div>';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">' + sa.stats.rent + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Avg Asking Rent</div></div>';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold)">' + sa.stats.uc + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Under Construction</div></div>';
+  h += '</div>';
+  h += '<div style="background:var(--green-dim);border:1px solid rgba(52,211,153,0.25);border-radius:8px;padding:10px 12px;margin-bottom:10px">';
+  h += '<div style="font-size:9px;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:2px">Potentially Leased</div>';
+  h += '<div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--green)">' + sa.potentiallyLeased + '</div></div>';
+  sa.notable.forEach(function(n) { h += '<div style="background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:11px;color:var(--text2);line-height:1.4">&#9658; ' + n + '</div>'; });
+  h += '<div style="background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;margin-bottom:12px">';
+  h += '<div style="font-size:9px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px">Active 75K+ SF Requirements</div>';
+  h += '<div style="display:flex;flex-wrap:wrap;gap:5px">';
+  sa.requirements.forEach(function(r) { h += '<span class="pill pill-mkt">' + r + '</span>'; });
+  h += '</div></div>';
+  INTEL.vacancies.forEach(function(p) {
+    h += '<div class="intel-card"><div class="intel-card-top">';
+    h += '<div class="intel-card-name">' + p.name + '<br><span class="intel-card-name-sub">' + p.city + '</span></div>';
+    h += '<div class="intel-card-sf">' + p.sf + ' SF</div></div>';
+    h += '<div class="intel-card-meta"><span class="pill pill-mkt">' + p.mkt + '</span>';
+    if (p.dev) h += '<span class="pill pill-dev">' + p.dev + '</span>';
+    h += '<span class="pill pill-del">' + p.del + '</span>' + leasedTag(p.lsd) + '</div>';
+    if (p.note) h += '<div class="intel-card-note">' + p.note + '</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  h += '<div class="intel-sec"><div class="intel-sec-hdr">Spec Under Construction <span class="intel-sec-hdr-sub">2.6M SF Total</span></div>';
+  INTEL.specUC.forEach(function(p) {
+    h += '<div class="intel-card"><div class="intel-card-top">';
+    h += '<div class="intel-card-name">' + p.name + '<br><span class="intel-card-name-sub">' + p.city + '</span></div>';
+    h += '<div class="intel-card-sf">' + p.sf + ' SF</div></div>';
+    h += '<div class="intel-card-meta"><span class="pill pill-mkt">' + p.mkt + '</span><span class="pill pill-dev">' + p.dev + '</span><span class="pill pill-del">' + p.del + '</span>' + leasedTag(p.lsd) + '</div></div>';
+  });
+  h += '</div>';
+  h += '<div class="intel-sec"><div class="intel-sec-hdr">BTS Under Construction <span class="intel-sec-hdr-sub">3.6M SF Total</span></div>';
+  INTEL.btsUC.forEach(function(p) {
+    h += '<div class="intel-card"><div class="intel-card-top">';
+    h += '<div class="intel-card-name">' + p.name + '<br><span class="intel-card-name-sub">' + p.city + '</span></div>';
+    h += '<div class="intel-card-sf">' + p.sf + ' SF</div></div>';
+    h += '<div class="intel-card-meta"><span class="pill pill-mkt">' + p.mkt + '</span><span class="pill pill-tenant">' + p.tenant + '</span><span class="pill pill-del">' + p.del + '</span></div></div>';
+  });
+  h += '</div>';
+  h += '<div class="intel-sec"><div class="intel-sec-hdr">Tenants In Market <span class="intel-sec-hdr-sub">' + INTEL.tims.reqs + ' requirements</span></div>';
+  h += '<div style="background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:12px;margin-bottom:14px">';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border2);border-radius:6px;overflow:hidden;margin-bottom:10px">';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">' + INTEL.tims.total + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Total Demand</div></div>';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">' + INTEL.tims.reqs + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Requirements</div></div>';
+  h += '<div style="background:var(--surface2);padding:10px 8px;text-align:center"><div style="font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--gold)">' + INTEL.tims.median + '</div><div style="font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px">Median Req</div></div>';
+  h += '</div>';
+  INTEL.tims.by.forEach(function(b) { h += '<div class="demand-row"><div class="demand-name">' + b[0] + '</div><div class="demand-sf">' + b[1] + '</div></div>'; });
+  h += '<div style="margin-top:8px;font-size:9px;color:var(--text3)">Active tenants include: ' + INTEL.tims.names + '</div>';
+  h += '</div></div>';
+  h += '<div class="intel-bottom-pad"></div>';
+  setHTML('intel-content', h);
 }
 
 function saveToStorage() {
-try {
-var d = JSON.stringify({market:S.market,sold:S.sold,compmarket:S.compmarket,compsold:S.compsold,offmarket:S.offmarket});
-sessionStorage.setItem(‘dt’, d);
-} catch(e) {}
+  try {
+    var d = JSON.stringify({market:S.market,sold:S.sold,compmarket:S.compmarket,compsold:S.compsold,offmarket:S.offmarket});
+    sessionStorage.setItem('dt', d);
+  } catch(e) {}
 }
 
 function loadFromStorage(cb) {
-try {
-var d = sessionStorage.getItem(‘dt’);
-if (d) {
-var p = JSON.parse(d);
-[‘market’,‘sold’,‘compmarket’,‘compsold’,‘offmarket’].forEach(function(k){ if(p[k]&&p[k].length) S[k]=p[k]; });
-}
-} catch(e) {}
-cb();
+  try {
+    var d = sessionStorage.getItem('dt');
+    if (d) {
+      var p = JSON.parse(d);
+      ['market','sold','compmarket','compsold','offmarket'].forEach(function(k){ if(p[k]&&p[k].length) S[k]=p[k]; });
+    }
+  } catch(e) {}
+  cb();
 }
 
 function sortByDate(arr, field) {
-return arr.slice().sort(function(a,b) {
-try { return new Date(b[field]) - new Date(a[field]); } catch(e) { return 0; }
-});
+  return arr.slice().sort(function(a,b) {
+    try { return new Date(b[field]) - new Date(a[field]); } catch(e) { return 0; }
+  });
 }
 
 function init() {
-S.leasecomps = (typeof IMPORTED_LEASE_COMPS !== ‘undefined’) ? sortByDate(IMPORTED_LEASE_COMPS, ‘closeDate’) : [];
-var baseSold = (typeof SALE_COMPS !== ‘undefined’) ? SALE_COMPS : [];
-var baseJLLIn = (typeof JLL_IN_MARKET !== ‘undefined’) ? JLL_IN_MARKET : [];
-var baseCompIn = (typeof COMP_IN_MARKET !== ‘undefined’) ? COMP_IN_MARKET : [];
+  S.leasecomps = (typeof IMPORTED_LEASE_COMPS !== 'undefined') ? sortByDate(IMPORTED_LEASE_COMPS, 'closeDate') : [];
+  var baseSold = (typeof SALE_COMPS !== 'undefined') ? SALE_COMPS : [];
+  var baseJLLIn = (typeof JLL_IN_MARKET !== 'undefined') ? JLL_IN_MARKET : [];
+  var baseCompIn = (typeof COMP_IN_MARKET !== 'undefined') ? COMP_IN_MARKET : [];
 
-loadFromStorage(function() {
-function mergeUnique(base, stored, keyField) {
-var baseKeys = {};
-base.forEach(function(r) { baseKeys[r[keyField||‘property’]] = true; });
-var extras = stored.filter(function(r) { return !baseKeys[r[keyField||‘property’]]; });
-return base.concat(extras);
-}
-S.sold = sortByDate(mergeUnique(baseSold, S.sold, ‘property’), ‘closeDate’);
-S.market = mergeUnique(baseJLLIn, S.market, ‘property’);
-S.compmarket = mergeUnique(baseCompIn, S.compmarket, ‘property’);
+  loadFromStorage(function() {
+    function mergeUnique(base, stored, keyField) {
+      var baseKeys = {};
+      base.forEach(function(r) { baseKeys[r[keyField||'property']] = true; });
+      var extras = stored.filter(function(r) { return !baseKeys[r[keyField||'property']]; });
+      return base.concat(extras);
+    }
+    S.sold = sortByDate(mergeUnique(baseSold, S.sold, 'property'), 'closeDate');
+    S.market = mergeUnique(baseJLLIn, S.market, 'property');
+    S.compmarket = mergeUnique(baseCompIn, S.compmarket, 'property');
 
-renderTab('market');
-document.getElementById('badge-sold').textContent = S.sold.length || '';
-document.getElementById('badge-leasecomps').textContent = S.leasecomps.length > 99 ? '99+' : S.leasecomps.length;
-var ct = S.compmarket.length + S.compsold.length;
-document.getElementById('badge-comp').textContent = ct || '';
-document.getElementById('badge-offmarket').textContent = S.offmarket.length || '';
-
-
-});
+    renderTab('market');
+    document.getElementById('badge-sold').textContent = S.sold.length || '';
+    document.getElementById('badge-leasecomps').textContent = S.leasecomps.length > 99 ? '99+' : S.leasecomps.length;
+    var ct = S.compmarket.length + S.compsold.length;
+    document.getElementById('badge-comp').textContent = ct || '';
+    document.getElementById('badge-offmarket').textContent = S.offmarket.length || '';
+  });
 }
 
 init();
