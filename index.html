@@ -873,12 +873,21 @@ document.getElementById(‘market-list’).innerHTML = ‘<div class="empty-stat
 }
 }
 
-// Defensive init with error surfacing
+// Init
+(function() {
+var ml = document.getElementById(‘market-list’);
+if (!ml) { alert(‘market-list not found’); return; }
 try {
 init();
-} catch(e) {
-document.getElementById(‘market-list’).innerHTML = ‘<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Load Error</div><div class="empty-sub">’ + e.message + ‘</div></div>’;
+if (!ml.innerHTML) {
+ml.innerHTML = ‘<div class="empty-state"><div class="empty-title">Rendered Empty</div><div class="empty-sub">S.market length: ’ + S.market.length + ‘</div></div>’;
 }
+} catch(e) {
+ml.innerHTML = ‘<div style="padding:20px;color:#f87171;font-size:13px;font-family:monospace">’ +
+‘<b>ERROR:</b> ’ + e.message + ‘<br><br>’ +
+(e.stack || ‘’).replace(/</g,’<’).substring(0,500) + ‘</div>’;
+}
+})();
 </script>
 
 </body>
