@@ -830,7 +830,22 @@ sessionStorage.setItem(‘dt’, d);
 } catch(e) {}
 }
 
-function loadFromStorage(cb) {
+function sortByDate(arr, field) {
+return arr.slice().sort(function(a,b) {
+try { return new Date(b[field]) - new Date(a[field]); } catch(e) { return 0; }
+});
+}
+
+function mergeUnique(base, stored, keyField) {
+var baseKeys = {};
+base.forEach(function(r) { baseKeys[r[keyField||‘property’]] = true; });
+var extras = stored.filter(function(r) { return !baseKeys[r[keyField||‘property’]]; });
+return base.concat(extras);
+}
+
+function init() {
+try {
+// Load session data
 try {
 var d = sessionStorage.getItem(‘dt’);
 if (d) {
@@ -838,42 +853,24 @@ var p = JSON.parse(d);
 [‘market’,‘sold’,‘compmarket’,‘compsold’,‘offmarket’].forEach(function(k){ if(p[k]&&p[k].length) S[k]=p[k]; });
 }
 } catch(e) {}
-cb();
-}
-
-function sortByDate(arr, field) {
-return arr.slice().sort(function(a,b) {
-try { return new Date(b[field]) - new Date(a[field]); } catch(e) { return 0; }
-});
-}
-
-function init() {
-S.leasecomps = (typeof IMPORTED_LEASE_COMPS !== ‘undefined’) ? sortByDate(IMPORTED_LEASE_COMPS, ‘closeDate’) : [];
-var baseSold = (typeof SALE_COMPS !== ‘undefined’) ? SALE_COMPS : [];
-var baseJLLIn = (typeof JLL_IN_MARKET !== ‘undefined’) ? JLL_IN_MARKET : [];
-var baseCompIn = (typeof COMP_IN_MARKET !== ‘undefined’) ? COMP_IN_MARKET : [];
-
-loadFromStorage(function() {
-function mergeUnique(base, stored, keyField) {
-var baseKeys = {};
-base.forEach(function(r) { baseKeys[r[keyField||‘property’]] = true; });
-var extras = stored.filter(function(r) { return !baseKeys[r[keyField||‘property’]]; });
-return base.concat(extras);
-}
-S.sold = sortByDate(mergeUnique(baseSold, S.sold, ‘property’), ‘closeDate’);
-S.market = mergeUnique(baseJLLIn, S.market, ‘property’);
-S.compmarket = mergeUnique(baseCompIn, S.compmarket, ‘property’);
 
 ```
+S.leasecomps = sortByDate(IMPORTED_LEASE_COMPS || [], 'closeDate');
+S.sold = sortByDate(mergeUnique(SALE_COMPS || [], S.sold, 'property'), 'closeDate');
+S.market = mergeUnique(JLL_IN_MARKET || [], S.market, 'property');
+S.compmarket = mergeUnique(COMP_IN_MARKET || [], S.compmarket, 'property');
+
 renderTab('market');
+
 document.getElementById('badge-sold').textContent = S.sold.length || '';
 document.getElementById('badge-leasecomps').textContent = S.leasecomps.length > 99 ? '99+' : S.leasecomps.length;
-var ct = S.compmarket.length + S.compsold.length;
-document.getElementById('badge-comp').textContent = ct || '';
-document.getElementById('badge-offmarket').textContent = S.offmarket.length || '';
+document.getElementById('badge-comp').textContent = (S.compmarket.length + S.compsold.length) || '';
+document.getElementById('badge-offmarket').textContent = (PIPELINE_DEALS||[]).length || '';
 ```
 
-});
+} catch(e) {
+document.getElementById(‘market-list’).innerHTML = ‘<div class="empty-state"><div class="empty-title" style="color:var(--red)">Init Error</div><div class="empty-sub" style="color:var(--text)">’ + e.message + ‘<br><br>’ + (e.stack||’’).substring(0,200) + ‘</div></div>’;
+}
 }
 
 // Defensive init with error surfacing
