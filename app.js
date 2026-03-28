@@ -738,7 +738,7 @@ document.getElementById('badge-leasecomps').textContent = S.leasecomps.length > 
 var ct = S.compmarket.length + S.compsold.length;
 document.getElementById('badge-comp').textContent = ct || '';
 document.getElementById('badge-offmarket').textContent = S.offmarket.length || '';
-```
+
 
 });
 }
