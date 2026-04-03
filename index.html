@@ -4,754 +4,882 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IOS Comps | Greater Boston</title>
-<style>
-  @import url('data:text/css,');
-</style>
+<title>Industrial Dashboard | Greater Boston</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0f14;
-    --surface: #151820;
-    --card: #1c2030;
-    --border: #252a3a;
-    --accent: #e8c84a;
-    --accent2: #4a9ee8;
-    --accent3: #e84a6f;
-    --text: #f0f2f8;
-    --muted: #7a8299;
-    --soft: #3a4260;
+    --bg: #f4f2ee;
+    --surface: #ffffff;
+    --surface2: #f9f8f5;
+    --border: #e2ddd6;
+    --navy: #1a2744;
+    --gold: #b8913a;
+    --green: #2d7a4f;
+    --blue: #2c5f8a;
+    --red: #a83228;
+    --purple: #6b3fa0;
+    --text: #1a1a1a;
+    --muted: #8a8580;
+    --light: #c8c3bb;
   }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-- { box-sizing: border-box; margin: 0; padding: 0; }
+.header { background: var(–navy); padding: 14px 16px 0; position: sticky; top: 0; z-index: 100; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.hdr-left h1 { font-family: ‘Libre Baskerville’, serif; font-size: 16px; color: #fff; font-weight: 700; }
+.hdr-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase; }
+.hdr-badge { background: var(–gold); color: #fff; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
 
-body {
-background: var(–bg);
-color: var(–text);
-font-family: -apple-system, BlinkMacSystemFont, ‘SF Pro Text’, ‘Segoe UI’, sans-serif;
-font-size: 14px;
-min-height: 100vh;
-padding-bottom: 40px;
-}
+.toggle-row { display: flex; gap: 0; margin-bottom: 12px; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 3px; }
+.toggle-btn { flex: 1; font-family: ‘Inter’, sans-serif; font-size: 11px; font-weight: 600; padding: 7px 0; border: none; background: transparent; color: rgba(255,255,255,0.5); cursor: pointer; border-radius: 6px; transition: all 0.15s; text-align: center; }
+.toggle-btn.active { background: #fff; color: var(–navy); }
 
-/* HEADER */
-.header {
-background: linear-gradient(135deg, #0d0f14 0%, #151c2e 100%);
-border-bottom: 1px solid var(–border);
-padding: 20px 16px 16px;
-position: sticky;
-top: 0;
-z-index: 100;
-backdrop-filter: blur(12px);
-}
-.header-top {
-display: flex;
-align-items: flex-start;
-justify-content: space-between;
-margin-bottom: 14px;
-}
-.header-title {
-font-family: -apple-system, BlinkMacSystemFont, ‘SF Pro Display’, ‘Segoe UI’, sans-serif;
-font-size: 22px;
-font-weight: 800;
-letter-spacing: -0.5px;
-line-height: 1.1;
-}
-.header-title span { color: var(–accent); }
-.header-sub {
-font-size: 11px;
-color: var(–muted);
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-letter-spacing: 0.5px;
-margin-top: 3px;
-}
-.last-updated {
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 10px;
-color: var(–muted);
-text-align: right;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 6px;
-padding: 4px 8px;
-}
+.search-wrap { position: relative; margin-bottom: 10px; }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); font-size: 13px; pointer-events: none; }
+input[type=search] { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #fff; font-family: ‘Inter’, sans-serif; font-size: 13px; padding: 8px 10px 8px 30px; outline: none; -webkit-appearance: none; }
+input[type=search]::placeholder { color: rgba(255,255,255,0.35); }
+input[type=search]:focus { border-color: var(–gold); }
 
-/* STATS STRIP */
-.stats-strip {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 8px;
-padding: 12px 16px;
-background: var(–surface);
-border-bottom: 1px solid var(–border);
-}
-.stat-box {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: 8px;
-padding: 10px 8px;
-text-align: center;
-}
-.stat-val {
-font-family: -apple-system, BlinkMacSystemFont, ‘SF Pro Display’, ‘Segoe UI’, sans-serif;
-font-size: 16px;
-font-weight: 800;
-color: var(–accent);
-line-height: 1;
-}
-.stat-lbl {
-font-size: 9px;
-color: var(–muted);
-margin-top: 3px;
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-letter-spacing: 0.3px;
-}
-
-/* FILTERS */
-.filters {
-padding: 12px 16px;
-background: var(–bg);
-border-bottom: 1px solid var(–border);
-display: flex;
-gap: 8px;
-overflow-x: auto;
-scrollbar-width: none;
-}
+.filters { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 12px; }
 .filters::-webkit-scrollbar { display: none; }
-.filter-btn {
-background: var(–surface);
-border: 1px solid var(–border);
-color: var(–muted);
-border-radius: 20px;
-padding: 6px 14px;
-font-size: 12px;
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-cursor: pointer;
-white-space: nowrap;
-transition: all 0.2s;
-flex-shrink: 0;
-}
-.filter-btn.active {
-background: var(–accent);
-color: #0d0f14;
-border-color: var(–accent);
-font-weight: 500;
-}
+.pill { white-space: nowrap; font-size: 10px; font-weight: 500; padding: 5px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.15s; }
+.pill.active { background: var(–gold); color: #fff; border-color: var(–gold); }
 
-/* SORT BAR */
-.sort-bar {
-padding: 10px 16px;
-display: flex;
-align-items: center;
-gap: 8px;
-overflow-x: auto;
-scrollbar-width: none;
-border-bottom: 1px solid var(–border);
-}
+.stats-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; padding: 12px; background: var(–surface); border-bottom: 1px solid var(–border); }
+.stat { text-align: center; }
+.stat-val { font-family: ‘Libre Baskerville’, serif; font-size: 18px; color: var(–navy); font-weight: 700; }
+.stat-lbl { font-size: 9px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+.sort-bar { display: flex; overflow-x: auto; scrollbar-width: none; background: var(–surface); border-bottom: 1px solid var(–border); }
 .sort-bar::-webkit-scrollbar { display: none; }
-.sort-lbl {
-font-size: 10px;
-color: var(–muted);
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-flex-shrink: 0;
-}
-.sort-btn {
-background: none;
-border: 1px solid var(–border);
-color: var(–muted);
-border-radius: 6px;
-padding: 4px 10px;
-font-size: 11px;
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-cursor: pointer;
-white-space: nowrap;
-transition: all 0.2s;
-flex-shrink: 0;
-}
-.sort-btn.active {
-border-color: var(–accent2);
-color: var(–accent2);
-}
+.sort-btn { font-size: 10px; font-weight: 500; padding: 8px 12px; border: none; background: transparent; color: var(–muted); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; }
+.sort-btn.active { color: var(–navy); border-bottom-color: var(–gold); }
 
-/* COUNT */
-.result-count {
-padding: 8px 16px;
-font-size: 11px;
-color: var(–muted);
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-}
-.result-count span { color: var(–accent); }
+.comps-list { padding: 8px 12px 80px; display: flex; flex-direction: column; gap: 8px; }
 
-/* CARDS */
-.cards {
-padding: 0 16px;
-display: flex;
-flex-direction: column;
-gap: 12px;
-}
+.comp-card { background: var(–surface); border: 1px solid var(–border); border-radius: 10px; padding: 13px 14px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: box-shadow 0.15s; }
+.comp-card:active { box-shadow: 0 0 0 2px var(–gold); }
+.comp-card.s-uc       { border-left: 3px solid var(–gold); }
+.comp-card.s-awarded  { border-left: 3px solid var(–green); }
+.comp-card.s-progress { border-left: 3px solid var(–blue); }
+.comp-card.s-market   { border-left: 3px solid var(–purple); }
+.comp-card.s-tracking { border-left: 3px solid var(–light); }
+.comp-card.s-delivered{ border-left: 3px solid #5a8a5a; }
+.comp-card.s-closed   { border-left: 3px solid var(–navy); }
+.comp-card.s-valuation{ border-left: 3px solid #c07020; }
 
-.comp-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: 12px;
-overflow: hidden;
-transition: border-color 0.2s;
-cursor: pointer;
-}
-.comp-card:active { border-color: var(–accent); }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 3px; }
+.card-title { font-size: 13px; font-weight: 600; color: var(–navy); flex: 1; line-height: 1.3; }
+.card-price { font-family: ‘Libre Baskerville’, serif; font-size: 14px; font-weight: 700; color: var(–green); white-space: nowrap; }
 
-.card-header {
-padding: 14px 14px 10px;
-display: flex;
-align-items: flex-start;
-justify-content: space-between;
-gap: 10px;
-}
-.card-address {
-font-family: -apple-system, BlinkMacSystemFont, ‘SF Pro Display’, ‘Segoe UI’, sans-serif;
-font-size: 15px;
-font-weight: 700;
-line-height: 1.2;
-flex: 1;
-}
-.card-price {
-font-family: -apple-system, BlinkMacSystemFont, ‘SF Pro Display’, ‘Segoe UI’, sans-serif;
-font-size: 17px;
-font-weight: 800;
-color: var(–accent);
-white-space: nowrap;
-}
+.card-loc { font-size: 11px; color: var(–muted); margin-bottom: 7px; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.tag { font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
+.tag-uc        { background: #fff3e0; color: #c07020; }
+.tag-awarded   { background: #e8f5ee; color: var(–green); }
+.tag-progress  { background: #e8eef5; color: var(–blue); }
+.tag-market    { background: #f0eaf8; color: var(–purple); }
+.tag-tracking  { background: var(–surface2); color: var(–muted); border: 1px solid var(–border); }
+.tag-delivered { background: #eaf5ea; color: #5a8a5a; }
+.tag-closed    { background: #e8eaf0; color: var(–navy); }
+.tag-valuation { background: #fdf3e7; color: #c07020; }
+.tag-state     { background: var(–navy); color: rgba(255,255,255,0.8); }
+.tag-lead      { background: var(–surface2); color: var(–muted); border: 1px solid var(–border); }
 
-.card-location {
-display: flex;
-align-items: center;
-gap: 6px;
-padding: 0 14px 10px;
-}
-.badge {
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 10px;
-padding: 2px 7px;
-border-radius: 4px;
-border: 1px solid;
-font-weight: 500;
-}
-.badge-sub {
-color: var(–accent2);
-border-color: rgba(74, 158, 232, 0.3);
-background: rgba(74, 158, 232, 0.08);
-}
-.badge-state {
-color: var(–muted);
-border-color: var(–border);
-background: var(–surface);
-}
-.badge-occ {
-border-color: rgba(232, 200, 74, 0.3);
-background: rgba(232, 200, 74, 0.08);
-color: var(–accent);
-}
-.badge-vacant {
-color: var(–accent3);
-border-color: rgba(232, 74, 111, 0.3);
-background: rgba(232, 74, 111, 0.08);
-}
-.badge-user {
-color: #a78bfa;
-border-color: rgba(167, 139, 250, 0.3);
-background: rgba(167, 139, 250, 0.08);
-}
-.badge-contract {
-color: #fb923c;
-border-color: rgba(251, 146, 60, 0.3);
-background: rgba(251, 146, 60, 0.08);
-}
+.card-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.meta-label { font-size: 8px; color: var(–light); text-transform: uppercase; letter-spacing: 0.05em; }
+.meta-val   { font-size: 11px; font-weight: 500; color: var(–navy); margin-top: 1px; }
 
-.card-metrics {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-border-top: 1px solid var(–border);
-}
-.metric {
-padding: 10px 10px;
-border-right: 1px solid var(–border);
-text-align: center;
-}
-.metric:last-child { border-right: none; }
-.metric-val {
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 12px;
-font-weight: 500;
-color: var(–text);
-line-height: 1;
-}
-.metric-key {
-font-size: 9px;
-color: var(–muted);
-margin-top: 3px;
-letter-spacing: 0.3px;
-}
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(26,39,68,0.6); z-index: 200; display: none; align-items: flex-end; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(–surface); border-top: 3px solid var(–navy); border-radius: 16px 16px 0 0; width: 100%; max-height: 85vh; overflow-y: auto; padding: 0 0 40px; animation: slideUp 0.2s ease; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle { width: 36px; height: 3px; background: var(–border); border-radius: 2px; margin: 10px auto 4px; }
+.modal-hdr { padding: 10px 16px 12px; border-bottom: 1px solid var(–border); position: sticky; top: 0; background: var(–surface); z-index: 5; display: flex; justify-content: space-between; align-items: flex-start; }
+.modal-title { font-family: ‘Libre Baskerville’, serif; font-size: 15px; color: var(–navy); font-weight: 700; padding-right: 8px; line-height: 1.3; }
+.modal-subtitle { font-size: 11px; color: var(–muted); margin-top: 2px; }
+.modal-close { background: var(–surface2); border: 1px solid var(–border); color: var(–muted); border-radius: 50%; width: 28px; height: 28px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.modal-banner { padding: 14px 16px; background: var(–navy); display: flex; justify-content: space-between; align-items: flex-end; }
+.modal-banner-lbl { font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+.modal-banner-val { font-family: ‘Libre Baskerville’, serif; font-weight: 700; }
+.modal-banner-val.big { font-size: 26px; color: var(–gold); line-height: 1.1; }
+.modal-banner-val.med { font-size: 20px; color: rgba(255,255,255,0.85); text-align: right; }
+.modal-body { padding: 14px 16px; }
+.modal-section { margin-bottom: 16px; }
+.modal-section-title { font-size: 9px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(–border); margin-bottom: 10px; }
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.modal-item.full { grid-column: 1/-1; }
+.modal-key { font-size: 9px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.modal-val { font-size: 13px; color: var(–text); font-weight: 500; }
+.modal-val.hi   { color: var(–green); font-family: ‘Libre Baskerville’, serif; }
+.modal-val.gold { color: var(–gold);  font-family: ‘Libre Baskerville’, serif; }
+.notes-box { font-size: 12px; color: var(–muted); line-height: 1.6; padding: 10px 12px; background: var(–surface2); border-radius: 6px; border: 1px solid var(–border); }
+.empty { text-align: center; padding: 60px 20px; color: var(–muted); font-size: 13px; }
 
-.card-notes {
-padding: 10px 14px 12px;
-border-top: 1px solid var(–border);
-font-size: 12px;
-color: var(–muted);
-line-height: 1.5;
-display: none;
-}
-.card-notes.open { display: block; }
+/* TOP-LEVEL TAB STYLES */
+#top-tabs .toggle-btn { font-size: 13px; font-weight: 700; }
+#market-subtabs { margin-bottom: 10px; }
+#pipeline-subtabs { margin-bottom: 10px; }
+#market-subtabs .toggle-btn { font-size: 10px; }
 
-.card-footer {
-padding: 8px 14px;
-border-top: 1px solid var(–border);
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-.card-date {
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 10px;
-color: var(–muted);
-}
-.card-broker {
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 10px;
-color: var(–muted);
-}
-.broker-jll {
-color: var(–accent);
-}
-.expand-btn {
-background: none;
-border: none;
-color: var(–muted);
-font-size: 18px;
-cursor: pointer;
-padding: 0 2px;
-line-height: 1;
-transition: color 0.2s;
-}
-.expand-btn.open { color: var(–accent); }
+/* BLOCK FILTER PILLS */
+.block-filters { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; }
+.block-filters::-webkit-scrollbar { display: none; }
+.bpill { white-space: nowrap; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid var(–border); background: transparent; color: var(–muted); cursor: pointer; transition: all 0.15s; }
+.bpill.active { background: var(–navy); color: #fff; border-color: var(–navy); }
+.blocks-mkt-label { font-family: ‘Libre Baskerville’, serif; font-size: 13px; font-weight: 700; color: var(–navy); margin: 14px 0 6px; padding-bottom: 6px; border-bottom: 1px solid var(–border); }
+.blocks-mkt-note { font-family: ‘Inter’, sans-serif; font-size: 9px; color: var(–muted); font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; }
 
-/* JLL TAG */
-.jll-tag {
-display: inline-flex;
-align-items: center;
-gap: 3px;
-font-size: 9px;
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-background: rgba(232, 200, 74, 0.12);
-border: 1px solid rgba(232, 200, 74, 0.3);
-color: var(–accent);
-padding: 2px 6px;
-border-radius: 4px;
-margin-left: auto;
+/* SUBMARKET CARDS */
+.sub-card {
+background: var(–surface); border: 1px solid var(–border); border-radius: 10px;
+border-left: 3px solid var(–navy); padding: 10px 13px; margin-bottom: 7px;
 }
+.sub-name { font-family: ‘Libre Baskerville’, serif; font-size: 13px; font-weight: 700; color: var(–navy); margin-bottom: 8px; }
+.sub-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 4px; }
 
-/* NO RESULTS */
-.no-results {
-text-align: center;
-padding: 48px 16px;
-color: var(–muted);
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-font-size: 13px;
+/* MARKET INTEL */
+.market-body { padding: 12px; padding-bottom: 80px; }
+.mkt-section { margin-bottom: 16px; }
+.mkt-section-title {
+font-family: ‘Libre Baskerville’, serif; font-size: 14px; font-weight: 700;
+color: var(–navy); margin-bottom: 4px;
 }
+.mkt-section-sub { font-size: 10px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 
-/* FOOTER */
-.footer {
-padding: 20px 16px 10px;
-text-align: center;
-font-size: 10px;
-color: var(–soft);
-font-family: ‘SF Mono’, ‘Fira Mono’, ‘Consolas’, monospace;
-}
+.fundamentals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+.fund-card { background: var(–surface); border: 1px solid var(–border); border-radius: 10px; padding: 10px 12px; }
+.fund-val { font-family: ‘Libre Baskerville’, serif; font-size: 18px; font-weight: 700; color: var(–navy); line-height: 1; }
+.fund-lbl { font-size: 9px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px; }
+.fund-arrow { font-size: 11px; margin-left: 4px; }
+.arrow-up { color: var(–green); }
+.arrow-down { color: var(–red); }
+.arrow-flat { color: var(–muted); }
 
-/* HIGHLIGHT on JLL deals */
-.comp-card.jll-deal {
-border-left: 2px solid var(–accent);
+.insight-box { background: var(–surface); border: 1px solid var(–border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+.insight-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.insight-bullets li { font-size: 12px; color: var(–text); line-height: 1.5; padding-left: 14px; position: relative; }
+.insight-bullets li::before { content: ‘•’; position: absolute; left: 0; color: var(–gold); font-weight: 700; }
+
+.avail-card {
+background: var(–surface); border: 1px solid var(–border); border-radius: 10px;
+padding: 12px 14px; margin-bottom: 8px; cursor: pointer; transition: box-shadow 0.15s;
+box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
+.avail-card:active { box-shadow: 0 0 0 2px var(–gold); }
+.avail-card.class-a { border-left: 3px solid var(–green); }
+.avail-card.class-b { border-left: 3px solid var(–blue); }
+.avail-card.class-c { border-left: 3px solid var(–muted); }
+.avail-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 2px; }
+.avail-addr { font-size: 13px; font-weight: 600; color: var(–navy); flex: 1; line-height: 1.3; }
+.avail-sf { font-family: ‘Libre Baskerville’, serif; font-size: 14px; font-weight: 700; color: var(–green); white-space: nowrap; }
+.avail-city { font-size: 11px; color: var(–muted); margin-bottom: 7px; }
+.avail-note { font-size: 11px; color: var(–text); background: var(–surface2); border-radius: 5px; padding: 6px 9px; border: 1px solid var(–border); line-height: 1.4; margin-top: 6px; }
+.avail-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+
+.req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.req-item { background: var(–surface); border: 1px solid var(–border); border-radius: 6px; padding: 7px 10px; font-size: 11px; font-weight: 500; color: var(–navy); }
+
+.divider-lbl { font-size: 9px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; padding: 4px 0 8px; border-top: 1px solid var(–border); margin-top: 4px; }
+
 </style>
-
 </head>
 <body>
 
 <div class="header">
   <div class="header-top">
-    <div>
-      <div class="header-title">IOS <span>Boston</span></div>
-      <div class="header-sub">INDUSTRIAL SALE COMPS · GREATER BOSTON</div>
+    <div class="hdr-left">
+      <h1>Industrial Dashboard</h1>
+      <div class="hdr-sub">Greater Boston</div>
     </div>
-    <div class="last-updated">Updated<br>Mar 2026</div>
+    <div class="hdr-badge" id="comp-count">— deals</div>
   </div>
-
-  <div class="filters" id="filters">
-    <button class="filter-btn active" onclick="setFilter('All')">All</button>
-    <button class="filter-btn" onclick="setFilter('Urban')">Urban</button>
-    <button class="filter-btn" onclick="setFilter('North')">North</button>
-    <button class="filter-btn" onclick="setFilter('South')">South</button>
-    <button class="filter-btn" onclick="setFilter('495/West')">495/West</button>
-    <button class="filter-btn" onclick="setFilter('495/North')">495/North</button>
-    <button class="filter-btn" onclick="setFilter('495/South')">495/South</button>
-    <button class="filter-btn" onclick="setFilter('Worcester')">Worcester</button>
-    <button class="filter-btn" onclick="setFilter('RI')">RI</button>
-    <button class="filter-btn" onclick="setFilter('JLL')">JLL Only</button>
+  <div class="toggle-row" id="top-tabs">
+    <button class="toggle-btn active" id="tab-pipeline" onclick="switchTab('pipeline')">Pipeline</button>
+    <button class="toggle-btn"        id="tab-market"   onclick="switchTab('market')">Market</button>
   </div>
+  <div class="toggle-row" id="pipeline-subtabs" style="margin-top:-6px;">
+    <button class="toggle-btn active" id="btn-pipe-active" onclick="switchPipelineTab('active')">Active</button>
+    <button class="toggle-btn"        id="btn-pipe-closed" onclick="switchPipelineTab('closed')">Closed</button>
+  </div>
+  <div class="toggle-row" id="market-subtabs" style="display:none;margin-top:-6px;">
+    <button class="toggle-btn active" id="btn-mkt-overview" onclick="switchMarketTab('overview')">Market Overview</button>
+    <button class="toggle-btn"        id="btn-mkt-blocks"   onclick="switchMarketTab('blocks')">Large Blocks</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="search" id="search" placeholder="Search property, client, buyer, lead...">
+  </div>
+  <div class="filters" id="filters"></div>
 </div>
 
-<div class="stats-strip" id="statsStrip"></div>
-
-<div class="sort-bar">
-  <span class="sort-lbl">SORT:</span>
-  <button class="sort-btn active" onclick="setSort('date')">Date ↓</button>
-  <button class="sort-btn" onclick="setSort('price')">Price</button>
-  <button class="sort-btn" onclick="setSort('psf')">$/SF</button>
-  <button class="sort-btn" onclick="setSort('acre')">$/Acre</button>
-  <button class="sort-btn" onclick="setSort('sf')">SF</button>
-  <button class="sort-btn" onclick="setSort('cap')">Cap Rate</button>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val" id="stat-a">—</div><div class="stat-lbl" id="stat-a-lbl">Total Value</div></div>
+  <div class="stat"><div class="stat-val" id="stat-b">—</div><div class="stat-lbl" id="stat-b-lbl">Avg PSF</div></div>
+  <div class="stat"><div class="stat-val" id="stat-c">—</div><div class="stat-lbl" id="stat-c-lbl">Deals</div></div>
 </div>
 
-<div class="result-count" id="resultCount"></div>
+<div class="sort-bar" id="sort-bar"></div>
+<div class="comps-list" id="list"></div>
 
-<div class="cards" id="cards"></div>
-
-<div class="footer">JLL Sale Comps · Greater Boston · 2026 · Internal Use Only</div>
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-title" id="m-title"></div>
+        <div class="modal-subtitle" id="m-sub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalBtn()">&#x2715;</button>
+    </div>
+    <div class="modal-banner" id="m-banner"></div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
 
 <script>
-const raw = [
-  {
-    address: "118 Mystic Ave", type: "", submarket: "Urban", city: "Medford", state: "MA",
-    rsf: 28672, cls: "C", date: "2026-02-13", price: 8000000, psf: 279, acres: 0.74, perAcre: 10810811,
-    capRate: 3.66, walt: null, yrBuilt: 1973, clearHt: "", occ: 100, tenants: 1,
-    buyer: "Private", seller: "Rhino / Marcus Partners",
-    notes: "0.74 acres of IOS, 100% leased to Verizon with 4 yrs of term at ~$10.25, 5-yr fixed renewal at $10.75, 14'-16' clear",
-    broker: "Direct", mkt: "Off-Market", jll: false
-  },
-  {
-    address: "146 Leland St", type: "IOS", submarket: "495/West", city: "Framingham", state: "MA",
-    rsf: 58000, cls: "B", date: null, price: 12250000, psf: 211, acres: 4.65, perAcre: 2634409,
-    capRate: 6.65, walt: null, yrBuilt: 1973, clearHt: "14'", occ: 100, tenants: 1,
-    buyer: "Alterra", seller: "Private",
-    notes: "100% leased to Verizon, 50% coverage, ~1 yr remaining term",
-    broker: "Direct", mkt: "Off-Market", jll: false, status: "Under Contract"
-  },
-  {
-    address: "370 Wampanoag Trail", type: "", submarket: "RI", city: "Riverside", state: "RI",
-    rsf: 15400, cls: "B", date: "2026-02-12", price: 3000000, psf: 195, acres: 3.33, perAcre: 900901,
-    capRate: null, walt: null, yrBuilt: 1940, clearHt: "", occ: 0, tenants: 0,
-    buyer: "Jadian IOS", seller: "Private",
-    notes: "Vacant sale, 13 loading docks, 7 drive-ins, 11% coverage",
-    broker: "Stubblebine", mkt: "Marketed", jll: false
-  },
-  {
-    address: "19 Oak St", type: "", submarket: "495/North", city: "Chelmsford", state: "MA",
-    rsf: 2400, cls: "B", date: "2026-01-19", price: 2250000, psf: 938, acres: 1.13, perAcre: 1991150,
-    capRate: null, walt: null, yrBuilt: 1986, clearHt: "", occ: 100, tenants: 1,
-    buyer: "Bay Crane", seller: "Private",
-    notes: "User sale, 5% coverage",
-    broker: "Stubblebine", mkt: "Marketed", jll: false, isUser: true
-  },
-  {
-    address: "79-81 Concord St", type: "IOS", submarket: "North", city: "North Reading", state: "MA",
-    rsf: 6500, cls: "B", date: "2025-12-04", price: 3500000, psf: 538, acres: 3.00, perAcre: 1166667,
-    capRate: null, walt: null, yrBuilt: 2009, clearHt: "", occ: 50, tenants: 1,
-    buyer: "IG Logistics", seller: "Centre Realty Trust",
-    notes: "Sullivan Tire leases 6,500 SF repair shop and half the site, 3 drive-in doors, paved, fenced, lit",
-    broker: "JLL", mkt: "Off-Market", jll: true
-  },
-  {
-    address: "1010 Turnpike St", type: "IOS", submarket: "South", city: "Canton", state: "MA",
-    rsf: 19000, cls: "B", date: "2025-10-01", price: 7300000, psf: 384, acres: 5.05, perAcre: 1445545,
-    capRate: 6.80, walt: 5.3, yrBuilt: 2015, clearHt: "", occ: 100, tenants: 1,
-    buyer: "STICKS Investments", seller: "Premier Fence",
-    notes: "Premier Fence through Mar 2026, 10-yr lease to United Rentals at $59K/mo, 3.25% bumps, 19K SF shop, ~220K SF usable incl. building, 8.5% yr-3 ROC",
-    broker: "JLL", mkt: "Off-Market", jll: true
-  },
-  {
-    address: "120-130 Quarry", type: "IOS", submarket: "495/West", city: "Milford", state: "MA",
-    rsf: 14397, cls: "B", date: "2025-05-30", price: 8350000, psf: 580, acres: 5.91, perAcre: 1412860,
-    capRate: 5.50, walt: 3.0, yrBuilt: 2007, clearHt: "20'", occ: 100, tenants: 2,
-    buyer: "Realterm", seller: "Parsons",
-    notes: "100% leased to Ryder and PLM Fleet",
-    broker: "JLL", mkt: "Off-Market", jll: true
-  },
-  {
-    address: "223 Hartford Tpke", type: "IOS", submarket: "495/West", city: "Shrewsbury", state: "MA",
-    rsf: 9578, cls: "B", date: "2025-03-27", price: 6000000, psf: 626, acres: 4.74, perAcre: 1265823,
-    capRate: null, walt: null, yrBuilt: 1975, clearHt: "14'", occ: 100, tenants: 3,
-    buyer: "Bayside Capital", seller: "Candace Defeudis",
-    notes: "32 loading docks",
-    broker: "JLL", mkt: "Off-Market", jll: true
-  },
-  {
-    address: "18 Popes Ln", type: "IOS", submarket: "North", city: "Danvers", state: "MA",
-    rsf: 5000, cls: "B", date: "2025-02-28", price: 2500000, psf: 500, acres: 1.05, perAcre: 2380952,
-    capRate: null, walt: null, yrBuilt: 2015, clearHt: "20'", occ: 0, tenants: 0,
-    buyer: "Wood Trucking", seller: "Christopher Knowles",
-    notes: "4 drive-in doors",
-    broker: "", mkt: "", jll: false, isUser: true
-  },
-  {
-    address: "20 Industrial Rd", type: "IOS", submarket: "495/South", city: "Wrentham", state: "MA",
-    rsf: 4950, cls: "B", date: "2025-02-14", price: 3000000, psf: 606, acres: 2.98, perAcre: 1006711,
-    capRate: null, walt: null, yrBuilt: 1977, clearHt: "20'", occ: 100, tenants: 1,
-    buyer: "Matthew Khouri", seller: "Stephen Pisani",
-    notes: "2 drive-in doors, self-storage units on site",
-    broker: "", mkt: "", jll: false
-  },
-  {
-    address: "215 Bedford St", type: "IOS", submarket: "South", city: "Whitman", state: "MA",
-    rsf: 23255, cls: "B", date: "2024-12-10", price: 4300000, psf: 185, acres: 5.50, perAcre: 781818,
-    capRate: null, walt: null, yrBuilt: 1997, clearHt: "", occ: 0, tenants: 0,
-    buyer: "Alterra Property Group", seller: "ATL Construction, Inc.",
-    notes: "13 drive-in doors, leased to EquipmentShare",
-    broker: "", mkt: "", jll: false
-  },
-  {
-    address: "71 Topeka", type: "IOS", submarket: "Urban", city: "Boston", state: "MA",
-    rsf: 10000, cls: "B", date: "2024-12-05", price: 9050000, psf: 905, acres: 1.25, perAcre: 7240000,
-    capRate: 6.00, walt: 6.5, yrBuilt: 1955, clearHt: "14'", occ: 100, tenants: 1,
-    buyer: "Oliver Street Capital / Bain", seller: "Core Investments",
-    notes: "100% leased to Sunbelt Rentals, 1.25 acres parking, 3 drive-in bays with storefront",
-    broker: "", mkt: "", jll: false
-  },
-  {
-    address: "378 South Worcester St", type: "IOS", submarket: "495/South", city: "Norton", state: "MA",
-    rsf: 21049, cls: "B", date: "2024-10-15", price: 4250000, psf: 202, acres: 4.98, perAcre: 853414,
-    capRate: null, walt: 1.0, yrBuilt: 1965, clearHt: "", occ: 100, tenants: 1,
-    buyer: "Realterm", seller: "Rhino Capital Advisors LLC",
-    notes: "14 drive-in doors, leased to ThermoKing — known vacate",
-    broker: "Direct", mkt: "Marketed", jll: false
-  },
-  {
-    address: "74 Main St", type: "IOS", submarket: "North", city: "Salisbury", state: "MA",
-    rsf: 31002, cls: "B", date: "2024-09-13", price: 5750000, psf: 185, acres: 7.19, perAcre: 799722,
-    capRate: null, walt: null, yrBuilt: 1959, clearHt: "", occ: null, tenants: null,
-    buyer: "Jadian Capital", seller: "Aran Trading Limited",
-    notes: "3 parcels, mostly trailer storage, short-term SLB, 31K SF truck terminal on site",
-    broker: "", mkt: "", jll: true
-  },
-  {
-    address: "210 New Boston St", type: "IOS", submarket: "North", city: "Woburn", state: "MA",
-    rsf: 24000, cls: "B", date: "2024-07-09", price: 6900000, psf: 288, acres: 2.04, perAcre: 3382353,
-    capRate: null, walt: null, yrBuilt: 1976, clearHt: "24'", occ: 0, tenants: 0,
-    buyer: "Milton CAT", seller: "John Baldasaro",
-    notes: "3 drive-in docks, 1 tailboard, user sale",
-    broker: "", mkt: "", jll: false, isUser: true
-  },
-  {
-    address: "120&122 South Main St", type: "IOS", submarket: "Worcester", city: "Oxford", state: "MA",
-    rsf: 42139, cls: "B", date: "2024-06-26", price: 3770000, psf: 89, acres: 3.62, perAcre: 1041436,
-    capRate: null, walt: null, yrBuilt: 1980, clearHt: "36'", occ: 100, tenants: 2,
-    buyer: "Dana Companies", seller: "Thomas Anthony",
-    notes: "14 loading docks",
-    broker: "", mkt: "", jll: false
+const ACTIVE   = [{"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "11 Westford Rd", "CITY": "Ayer", "STATE": "MA", "CLIENT": "LexVest", "BUYER": "Redgate", "DEAL_SIZE": 15200000.0, "SF": "108000", "PSF": "140.74074074074073", "CAP_RATE": "0.0665", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Matthew Blackham", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "1590 John Fitch Blvd", "CITY": "South Windsor", "STATE": "CT", "CLIENT": "Sticks Investment Group", "BUYER": "Sticks Investment Group", "DEAL_SIZE": 5500000.0, "SF": "59200", "PSF": "92.9054054054054", "CAP_RATE": "0.0825", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Bobby Indeglia", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "146 Leland St", "CITY": "Framingham", "STATE": "MA", "CLIENT": "Alterra", "BUYER": "Alterra", "DEAL_SIZE": 12250000.0, "SF": "58000", "PSF": "211.20689655172413", "CAP_RATE": "0.071", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Sean Christman", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "36 Country Club Lane", "CITY": "Belmont", "STATE": "MA", "CLIENT": "Primo Brands", "BUYER": "Belmont Country Club", "DEAL_SIZE": 4200000.0, "SF": "24000", "PSF": "175", "CAP_RATE": "Vacant", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Joe Jones", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "70 1st St", "CITY": "Bridgewater", "STATE": "MA", "CLIENT": "Primo Brands", "BUYER": "Callahan Construction", "DEAL_SIZE": 3350000.0, "SF": "26700", "PSF": "125.46816479400749", "CAP_RATE": "Vacant", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Joe Jones", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "295 Ella Grasso", "CITY": "Windsor Locks", "STATE": "CT", "CLIENT": "Greenmont Group", "BUYER": "Ajax", "DEAL_SIZE": 22000000.0, "SF": "451909", "PSF": "48.682367467786655", "CAP_RATE": "0.0844", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Josh Honig", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "UNDER CONTRACT", "PROPERTY_NAME": "1023 Turnpike St", "CITY": "Stoughton", "STATE": "MA", "CLIENT": "Fabreeka", "BUYER": "Reclamation", "DEAL_SIZE": 6625000.0, "SF": "33619", "PSF": "197.06118563907313", "CAP_RATE": "0.07", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "93 North Campus", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Charles River Labs", "BUYER": "Sansone", "DEAL_SIZE": 62000000.0, "SF": "80,919 SF / 475,550 SF", "PSF": "$213 SLB / $94 Development", "CAP_RATE": "8.44% cap on SLB / 6.50% ROC on Development", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Pete Trocco", "COMMENTS": "Leaseback / development"}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "41 Safford Dr", "CITY": "Swanzey", "STATE": "NH", "CLIENT": "Switchback Capital", "BUYER": "Commonwealth Capital", "DEAL_SIZE": 5170000.0, "SF": "65150", "PSF": "79.35533384497315", "CAP_RATE": "0.0818", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Tim Keyes", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "300 Bartlett St", "CITY": "Northborough", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": "LaSalle", "DEAL_SIZE": 36000000.0, "SF": "54504", "PSF": "660.5019815059445", "CAP_RATE": "0.0575", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Greg Lauze", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "215 Salem St", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Kosow Construction", "BUYER": "Kadima", "DEAL_SIZE": 9250000.0, "SF": "62155", "PSF": "148.82149465047058", "CAP_RATE": "0.0504", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Leo Damren", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "800 Salem St", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Camber/Wheelock", "BUYER": "Fidelity", "DEAL_SIZE": 100390000.0, "SF": "237880", "PSF": "422.0195056330923", "CAP_RATE": "0.0515", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Tucker Kelton", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "AWARDED", "PROPERTY_NAME": "275 Dan Rd", "CITY": "Canton", "STATE": "MA", "CLIENT": "Organogenesis", "BUYER": "Acorn", "DEAL_SIZE": 3750000.0, "SF": "98704", "PSF": "37.99238126114443", "CAP_RATE": "7.50% ROC", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Patrick Bilbo", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN THE MARKET", "PROPERTY_NAME": "RJK Recap", "CITY": "Various", "STATE": "NH", "CLIENT": "RJ Kelly", "BUYER": "-", "DEAL_SIZE": 160000000.0, "SF": "846207", "PSF": "189.07903148993094", "CAP_RATE": "0.0602", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Rick Griffin", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "OFF MARKET", "PROPERTY_NAME": "39 Olympia Ave", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Oliver Street", "BUYER": "-", "DEAL_SIZE": 20250000.0, "SF": "77000", "PSF": "262.987012987013", "CAP_RATE": "0.0624", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Jon Hyde", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "OFF MARKET", "PROPERTY_NAME": "176 1st Flight Dr", "CITY": "Auburn", "STATE": "ME", "CLIENT": "Private", "BUYER": "-", "DEAL_SIZE": 5900000.0, "SF": "61188", "PSF": "96.4241354513957", "CAP_RATE": "0.0867", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": "Offer from Faison. BOV'd at $6.25m"}, {"sheet": "pipeline", "STATUS": "OFF MARKET", "PROPERTY_NAME": "13 Page Rd", "CITY": "Londonderry", "STATE": "NH", "CLIENT": "Rhino", "BUYER": "-", "DEAL_SIZE": 17500000.0, "SF": "75480", "PSF": "231.84949655537892", "CAP_RATE": "0.0577", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Michael Olson", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "OFF MARKET", "PROPERTY_NAME": "7 Campanelli Dr", "CITY": "Assonet", "STATE": "MA", "CLIENT": "Panattoni", "BUYER": "-", "DEAL_SIZE": 8528654.617887711, "SF": "500000", "PSF": "17.05730923577542", "CAP_RATE": "7.00% ROC", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Mark Branstetter", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "COMING TO MARKET", "PROPERTY_NAME": "Garelick Land", "CITY": "Franklin", "STATE": "MA", "CLIENT": "Garelick", "BUYER": "-", "DEAL_SIZE": null, "SF": null, "PSF": null, "CAP_RATE": null, "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "COMING TO MARKET", "PROPERTY_NAME": "400 JQA", "CITY": "Taunton", "STATE": "MA", "CLIENT": "Camber/Wheelock", "BUYER": "-", "DEAL_SIZE": 48500000.0, "SF": "300000", "PSF": "161.66666666666666", "CAP_RATE": "0.0752", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Tucker Kelton", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "COMING TO MARKET", "PROPERTY_NAME": "80 South St", "CITY": "Hopkinton", "STATE": "MA", "CLIENT": "MFA", "BUYER": "-", "DEAL_SIZE": 12052960.0, "SF": "154604", "PSF": "77.96020801531655", "CAP_RATE": "7.75% ROC", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Brendan Mulligan", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "COMING TO MARKET", "PROPERTY_NAME": "50 Shrewsbury (Loomis)", "CITY": "Boylston", "STATE": "MA", "CLIENT": "Rhino", "BUYER": "-", "DEAL_SIZE": null, "SF": null, "PSF": null, "CAP_RATE": null, "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Michael Olson", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "Vision CT Portfolio", "CITY": "Various", "STATE": "CT", "CLIENT": "Vision", "BUYER": "-", "DEAL_SIZE": 16000000.0, "SF": "550390", "PSF": "29.07029560856847", "CAP_RATE": "0.0659", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "160 Corporate Court", "CITY": "Meriden", "STATE": "CT", "CLIENT": "SkyREM", "BUYER": "-", "DEAL_SIZE": null, "SF": "241333", "PSF": "0", "CAP_RATE": null, "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "10 Creek Brook Dr", "CITY": "Haverhill", "STATE": "MA", "CLIENT": "Scout", "BUYER": null, "DEAL_SIZE": 33000000.0, "SF": "108689", "PSF": "303.6185814571852", "CAP_RATE": "0.0616", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "425 Day Hill Rd", "CITY": "Windsor", "STATE": "CT", "CLIENT": "Luzern / Foxfield", "BUYER": "-", "DEAL_SIZE": 31500000.0, "SF": "170300", "PSF": "184.9677040516735", "CAP_RATE": "0.058", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Nick Campofranco", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "586 Manley St", "CITY": "West Bridgewater", "STATE": "MA", "CLIENT": "National Development", "BUYER": "-", "DEAL_SIZE": 46500000.0, "SF": "210600", "PSF": "220.79772079772079", "CAP_RATE": "0.0548", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "JCC MA Portfolio", "CITY": "Taunton / Norwood", "STATE": "MA", "CLIENT": "James Campbell Company", "BUYER": "-", "DEAL_SIZE": 125000000.0, "SF": "782683", "PSF": "159.7070589242388", "CAP_RATE": "0.0446", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "Link Northborough", "CITY": "Northborough", "STATE": "MA", "CLIENT": "Link", "BUYER": "-", "DEAL_SIZE": null, "SF": null, "PSF": null, "CAP_RATE": null, "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "65-145 Furniture Row", "CITY": "Milford", "STATE": "CT", "CLIENT": "Corebridge", "BUYER": "-", "DEAL_SIZE": 17000000.0, "SF": "205195", "PSF": "82.84802261263675", "CAP_RATE": "0.0665", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Adam Baff", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "McCord Boroughs Portfolio", "CITY": "Northborough / Marlborough", "STATE": "MA", "CLIENT": "McCord", "BUYER": "-", "DEAL_SIZE": null, "SF": "123701", "PSF": "0", "CAP_RATE": null, "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "545 Washington St", "CITY": "Wrentham", "STATE": "MA", "CLIENT": "Bluewater / Affinius", "BUYER": "-", "DEAL_SIZE": 36500000.0, "SF": "132055", "PSF": "276.3999848547954", "CAP_RATE": "0.0524", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "46 Old Ferry", "CITY": "Methuen", "STATE": "MA", "CLIENT": "Patriot Holdings", "BUYER": "-", "DEAL_SIZE": 35000000.0, "SF": "147840", "PSF": "236.74242424242425", "CAP_RATE": null, "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Jeremiah Boucher", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "Stag Albany Portfolio", "CITY": "Albany", "STATE": "NY", "CLIENT": "STAG", "BUYER": "-", "DEAL_SIZE": null, "SF": null, "PSF": null, "CAP_RATE": null, "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Dan Wheeler", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "IN PROGRESS", "PROPERTY_NAME": "145 Commerce", "CITY": "Warwick", "STATE": "RI", "CLIENT": "NorthPoint", "BUYER": "-", "DEAL_SIZE": 73500000.0, "SF": "491496", "PSF": "149.54343473802433", "CAP_RATE": "0.0625", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "RECENTLY DELIVERED", "PROPERTY_NAME": "108 Cherry Hill Dr (Axcelis)", "CITY": "Beverly", "STATE": "MA", "CLIENT": "Broadstone", "BUYER": "-", "DEAL_SIZE": 90000000.0, "SF": "417313", "PSF": "215.6654597388531", "CAP_RATE": "0.0669", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "RECENTLY DELIVERED", "PROPERTY_NAME": "87 Avocado St", "CITY": "Springfield", "STATE": "MA", "CLIENT": null, "BUYER": "-", "DEAL_SIZE": 5500000.0, "SF": "69509", "PSF": "79.12644405760405", "CAP_RATE": "0.0823", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "RECENTLY DELIVERED", "PROPERTY_NAME": "Dan Road 4-Pack", "CITY": "Canton", "STATE": "MA", "CLIENT": "Rugby Realty", "BUYER": "-", "DEAL_SIZE": 57000000.0, "SF": "288276", "PSF": "197.7271781209674", "CAP_RATE": null, "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Ariel Levy", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "RECENTLY DELIVERED", "PROPERTY_NAME": "Brookfield / Calare South Boston Portfolio", "CITY": "Various", "STATE": "MA", "CLIENT": "Brookfield", "BUYER": "-", "DEAL_SIZE": 101110000.0, "SF": "482815", "PSF": "209.41768586311528", "CAP_RATE": "0.0605", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Kayley Laren", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "75 Shawmut Rd", "CITY": "Canton", "STATE": "MA", "CLIENT": "C.H. Powell Company", "BUYER": "-", "DEAL_SIZE": 11846616.0, "SF": "52560", "PSF": "225.39223744292238", "CAP_RATE": "7.25% ROC", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "David Powell", "COMMENTS": "Vacant value, $15m for SLB"}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "164 Fredette", "CITY": "Gardner", "STATE": "MA", "CLIENT": "Royal Oak Realty Trust", "BUYER": "-", "DEAL_SIZE": 5522991.0, "SF": "72352", "PSF": "76.33501492702344", "CAP_RATE": "8.75% ROC", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Cullen Newland", "COMMENTS": "Vacant value"}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "77 Industrial Rowe", "CITY": "Gardner", "STATE": "MA", "CLIENT": "Valley Forge", "BUYER": "-", "DEAL_SIZE": 7452478.0, "SF": "113050", "PSF": "65.92196373286157", "CAP_RATE": "9.25% ROC", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": "Chris Ambrosio", "COMMENTS": "Vacant value"}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "101 Almgren Dr", "CITY": "Agawam", "STATE": "MA", "CLIENT": "HMC Real Estate Partners", "BUYER": "-", "DEAL_SIZE": 15500000.0, "SF": "187840", "PSF": "82.51703577512777", "CAP_RATE": "0.0667", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Brendan Kolnick", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "245 Lynnfield St", "CITY": "Peabody", "STATE": "MA", "CLIENT": "Wincester Interconnect", "BUYER": "-", "DEAL_SIZE": 6750000.0, "SF": "40000", "PSF": "168.75", "CAP_RATE": "0.083", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "16 Garabedian Dr", "CITY": "Salem", "STATE": "NH", "CLIENT": null, "BUYER": "-", "DEAL_SIZE": 9500000.0, "SF": "52945", "PSF": "179.43148550382472", "CAP_RATE": "0.0751", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "40-50 Fordham Rd", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Hilco", "BUYER": "-", "DEAL_SIZE": 65500000.0, "SF": "260919", "PSF": "251.03576205642364", "CAP_RATE": "0.0425", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "111 Hayes Memorial Dr", "CITY": "Marlborough", "STATE": "MA", "CLIENT": "Berkeley", "BUYER": "-", "DEAL_SIZE": 14000000.0, "SF": "60000", "PSF": "233.33333333333334", "CAP_RATE": "0.0656", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Andrew Holmberg", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "190 Zachary Rd", "CITY": "Manchester", "STATE": "NH", "CLIENT": null, "BUYER": "-", "DEAL_SIZE": 13500000.0, "SF": "91558", "PSF": "147.44751960505909", "CAP_RATE": "0.0635", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "Wallingford CT Portfolio", "CITY": "Wallingford", "STATE": "CT", "CLIENT": "BEB Capital", "BUYER": "-", "DEAL_SIZE": 9050000.0, "SF": "84061", "PSF": "107.65991363414663", "CAP_RATE": "0.0558", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Lee Brodsky", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "23 Esquire", "CITY": "Billerica", "STATE": "MA", "CLIENT": "Marcus Partners", "BUYER": "-", "DEAL_SIZE": 20006525.0, "SF": "123868", "PSF": "161.51487874188652", "CAP_RATE": "7.50% ROC", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Michael Ferrucci", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "100 Pine Hill", "CITY": "Boylston", "STATE": "MA", "CLIENT": "Realterm", "BUYER": "-", "DEAL_SIZE": 100000000.0, "SF": "361952", "PSF": "276.27972769870036", "CAP_RATE": "0.0602", "TEAM_LEAD": "Hugo", "CLIENT_CONTACT": "Stephen Lanza", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "107 First Ave", "CITY": "Chicopee", "STATE": "MA", "CLIENT": "Chestnut Realty", "BUYER": "-", "DEAL_SIZE": 3400000.0, "SF": "40000", "PSF": "85", "CAP_RATE": "0.0758", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Christian Brannelly", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "Upton Dr Portfolio", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Davis", "BUYER": "-", "DEAL_SIZE": 33000000.0, "SF": "112776", "PSF": "292.6154500957651", "CAP_RATE": "0.0645", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "David Allen", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "40 Wisconsin", "CITY": "Norwich", "STATE": "CT", "CLIENT": "Grossman", "BUYER": "-", "DEAL_SIZE": 18500000.0, "SF": "230620", "PSF": "80.21854132338912", "CAP_RATE": "0.0681", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Jesse Faneuil", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "21-29 Great Republic", "CITY": "Gloucester", "STATE": "MA", "CLIENT": "Grossman", "BUYER": "-", "DEAL_SIZE": 15500000.0, "SF": "67800", "PSF": "228.61356932153393", "CAP_RATE": "0.0676", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Jesse Faneuil", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "230, 236 SW Cutoff & 22 Eskow", "CITY": "Worcester", "STATE": "MA", "CLIENT": "P.J.M. Family Enterprises LLC", "BUYER": "-", "DEAL_SIZE": 6500000.0, "SF": "23750", "PSF": "273.6842105263158", "CAP_RATE": "0.0443", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Melissa Murgo", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "220 Daniel Webster Hwy", "CITY": "Merrimack", "STATE": "NH", "CLIENT": "Elbit Systems", "BUYER": "-", "DEAL_SIZE": 36380027.0, "SF": "334614", "PSF": "108.72236965578249", "CAP_RATE": "8.25% ROC", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": "Roger Rhynehart", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "65 Dan Rd", "CITY": "Canton", "STATE": "MA", "CLIENT": "Organogenesis", "BUYER": "-", "DEAL_SIZE": 19750000.0, "SF": "80576", "PSF": "245.11020651310565", "CAP_RATE": "0.0777", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Sheng Wu", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "150 Dan Rd", "CITY": "Canton", "STATE": "MA", "CLIENT": "Organogenesis", "BUYER": "-", "DEAL_SIZE": 35500000.0, "SF": "79173", "PSF": "448.3851818170336", "CAP_RATE": "0.0849", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Sheng Wu", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "22 & 25 Tucker and 175 Pioneer", "CITY": "Leominster", "STATE": "MA", "CLIENT": "Arris Partners", "BUYER": "-", "DEAL_SIZE": 92500000.0, "SF": "850590", "PSF": "108.74804547431782", "CAP_RATE": "0.0537", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "Marc Pristawa", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "800 Salem St", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Camber/Wheelock", "BUYER": "-", "DEAL_SIZE": 97000000.0, "SF": "237840", "PSF": "407.83720147998656", "CAP_RATE": "0.0533", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": "Tucker Kelton", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "1 Powder Hill", "CITY": "Lincoln", "STATE": "RI", "CLIENT": "Camco Management", "BUYER": "-", "DEAL_SIZE": 8791741.0, "SF": "114730", "PSF": "76.62983526540573", "CAP_RATE": "8.00% ROC", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "27 Yankee Candle Way", "CITY": "Deerfield", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": "-", "DEAL_SIZE": 16250000.0, "SF": "256000", "PSF": "63.4765625", "CAP_RATE": "0.0748", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": "George Gregory", "COMMENTS": null}, {"sheet": "pipeline", "STATUS": "TRACKING", "PROPERTY_NAME": "80 Olympia Ave", "CITY": "Woburn", "STATE": "MA", "CLIENT": null, "BUYER": "-", "DEAL_SIZE": 7750000.0, "SF": "30000", "PSF": "258.3333333333333", "CAP_RATE": "0.0687", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null}];
+const LONGTERM = [{"sheet": "longterm", "STATUS": "TRACKING", "PROPERTY_NAME": "NorthBridge Boston Core Portfolio", "CITY": "Boylston", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": null, "DEAL_SIZE": 153000000.0, "SF": "696450.0", "PSF": "219.6855481369804", "CAP_RATE": "6.50% ROC", "TEAM_LEAD": "Hugo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "Core"}, {"sheet": "longterm", "STATUS": "TRACKING", "PROPERTY_NAME": "NorthBridge CT Assets", "CITY": "Windsor", "STATE": "CT", "CLIENT": "NorthBridge", "BUYER": null, "DEAL_SIZE": 70000000.0, "SF": "492175.0", "PSF": "142.22583430690304", "CAP_RATE": "0.0525", "TEAM_LEAD": "Hugo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "Core"}, {"sheet": "longterm", "STATUS": "TRACKING", "PROPERTY_NAME": "100 Pine Hill", "CITY": "Boylston", "STATE": "MA", "CLIENT": "Realterm", "BUYER": null, "DEAL_SIZE": 105000000.0, "SF": "361952.0", "PSF": "290.0937140836354", "CAP_RATE": "0.0575", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Pulled - Want $108M", "DEAL_TYPE": "Core"}, {"sheet": "longterm", "STATUS": "TRACKING", "PROPERTY_NAME": "305 Forbes Blvd", "CITY": "Mansfield", "STATE": "MA", "CLIENT": "UBS", "BUYER": null, "DEAL_SIZE": 70000000.0, "SF": "429057.0", "PSF": "163.14848609858365", "CAP_RATE": "0.0512", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Pulled - Didn't get to $70m", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "211 Highland St", "CITY": "East Bridgewater", "STATE": "MA", "CLIENT": "Greystar", "BUYER": null, "DEAL_SIZE": 56726010.0, "SF": "412500.0", "PSF": "137.5176", "CAP_RATE": "6.75% ROC", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "167 Moore", "CITY": "Weymouth", "STATE": "MA", "CLIENT": "Keybank", "BUYER": null, "DEAL_SIZE": 10334886.0, "SF": "75000.0", "PSF": "137.79848", "CAP_RATE": "8.25% ROC", "TEAM_LEAD": "Kyle Kaminski", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "45 Finnell", "CITY": "Weymouth", "STATE": "MA", "CLIENT": "Keybank", "BUYER": null, "DEAL_SIZE": 8573594.0, "SF": "57761.0", "PSF": "148.43222935890998", "CAP_RATE": "8.25% ROC", "TEAM_LEAD": "Kyle Kaminski", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "2 Commerce Dr", "CITY": "Tyngsboro", "STATE": "MA", "CLIENT": "Marcus", "BUYER": null, "DEAL_SIZE": 28499583.0, "SF": "125000.0", "PSF": "227.996664", "CAP_RATE": "6.35% ROC", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "6 Industrial Way", "CITY": "Salem", "STATE": "NH", "CLIENT": null, "BUYER": null, "DEAL_SIZE": 40500000.0, "SF": "155000.0", "PSF": "261.2903225806452", "CAP_RATE": "0.0614", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Sticks Portfolio", "CITY": "Various", "STATE": "MA", "CLIENT": "Sticks Investment Group", "BUYER": null, "DEAL_SIZE": 45000000.0, "SF": "209534.0", "PSF": "214.76228201628376", "CAP_RATE": "0.0544", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": "Bobby Indeglia", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "1010 W Chestnut", "CITY": "Brockton", "STATE": "MA", "CLIENT": "Reclamation", "BUYER": null, "DEAL_SIZE": 13750000.0, "SF": "84941.0", "PSF": "161.8770676116363", "CAP_RATE": "0.0345", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "38 River Rd", "CITY": "Uxbridge", "STATE": "MA", "CLIENT": "Lampin Corporation", "BUYER": null, "DEAL_SIZE": 2866667.0, "SF": "21500.0", "PSF": "133.33334883720931", "CAP_RATE": "0.075", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "39 Olympia Ave", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Oliver Street", "BUYER": null, "DEAL_SIZE": 20250000.0, "SF": "77000.0", "PSF": "262.987012987013", "CAP_RATE": "0.0624", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Jon Hyde", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "90 Huntoon Memorial Hwy", "CITY": "Leicester", "STATE": "MA", "CLIENT": "Berkeley Partners", "BUYER": null, "DEAL_SIZE": 44000000.0, "SF": "267600.0", "PSF": "164.42451420029894", "CAP_RATE": "-0.0204", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Andrew Holmberg", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "525 Myles Standish", "CITY": "Taunton", "STATE": "MA", "CLIENT": "Martignetti Companies", "BUYER": null, "DEAL_SIZE": 25500000.0, "SF": "124656.0", "PSF": "204.56295725837504", "CAP_RATE": "0.0652", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "12 St. Mark St", "CITY": "Auburn", "STATE": "MA", "CLIENT": "Martignetti Companies", "BUYER": null, "DEAL_SIZE": 12750000.0, "SF": "65802.0", "PSF": "193.76310750433117", "CAP_RATE": "0.0671", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "CRL Reno", "CITY": "Reno", "STATE": "NV", "CLIENT": "Charles River Labs", "BUYER": null, "DEAL_SIZE": 99849643.0, "SF": "465965.0", "PSF": "214.2857145922977", "CAP_RATE": "0.07", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Table Talk Pies", "CITY": "Worcester", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": null, "DEAL_SIZE": 50250000.0, "SF": "248233.0", "PSF": "202.43078075840037", "CAP_RATE": "0.065", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": "Pat Mullane", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Stockbridge Multi Tenant Portfolio", "CITY": "Marlborough, Mansfield, Franklin", "STATE": "MA", "CLIENT": "Stockbridge", "BUYER": null, "DEAL_SIZE": 82000000.0, "SF": "390555.0", "PSF": "209.9576244062936", "CAP_RATE": "0.044", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "10 Creek Brook Dr", "CITY": "Haverhill", "STATE": "MA", "CLIENT": "Scout", "BUYER": null, "DEAL_SIZE": 26920402.0, "SF": "108689.0", "PSF": "247.68285659082335", "CAP_RATE": "7.00% ROC", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Dave Pyne Portfolio", "CITY": "Milford", "STATE": "MA", "CLIENT": "Hillview", "BUYER": null, "DEAL_SIZE": 45049860.0, "SF": "172000.0", "PSF": "261.91779069767443", "CAP_RATE": "0.0536", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Dave Pyne", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "285 Circuit St", "CITY": "Hanover", "STATE": "MA", "CLIENT": "Jumbo", "BUYER": null, "DEAL_SIZE": 14500000.0, "SF": "93388.0", "PSF": "155.2662012249968", "CAP_RATE": "0.0637", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": "Tom Powers", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "12 John Rd", "CITY": "Sutton", "STATE": "MA", "CLIENT": "Arris Partners", "BUYER": null, "DEAL_SIZE": 5250000.0, "SF": "31873.0", "PSF": "164.71621748815613", "CAP_RATE": "0.0675", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": "Marc Pristawa", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "10 Forbes Rd", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Legacy Real Estate Ventures", "BUYER": null, "DEAL_SIZE": 7200000.0, "SF": "19999.0", "PSF": "360.018000900045", "CAP_RATE": "0.0738", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Jen Price", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Rivertech - 129 Concord", "CITY": "Billerica", "STATE": "MA", "CLIENT": "Griffith", "BUYER": null, "DEAL_SIZE": 104000000.0, "SF": "285772.0", "PSF": "363.9264868496564", "CAP_RATE": "0.0754", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "586 Manley St", "CITY": "West Bridgewater", "STATE": "MA", "CLIENT": "National Development", "BUYER": null, "DEAL_SIZE": 51000000.0, "SF": "210600.0", "PSF": "242.16524216524218", "CAP_RATE": "0.0533", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "180 Charles St", "CITY": "Malden", "STATE": "MA", "CLIENT": "Quaker Lane", "BUYER": null, "DEAL_SIZE": 22750000.0, "SF": "64953.0", "PSF": "350.2532600495743", "CAP_RATE": "0.009", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Brendan DeSimone", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "44, 45, 47 Dunham & 4 Enterprise", "CITY": "Billerica", "STATE": "MA", "CLIENT": "Brookfield", "BUYER": null, "DEAL_SIZE": 64500000.0, "SF": "233831.0", "PSF": "275.84024359473295", "CAP_RATE": "0.0645", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "Jonah / Ivan", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "22 Blake St", "CITY": "Medford", "STATE": "MA", "CLIENT": "MIT", "BUYER": null, "DEAL_SIZE": 29000000.0, "SF": "86775.0", "PSF": "334.1976375684241", "CAP_RATE": "0.0624", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "95 Sundial Ave", "CITY": "Manchester", "STATE": "NH", "CLIENT": "Velcro", "BUYER": null, "DEAL_SIZE": 17429620.0, "SF": "319734.0", "PSF": "54.51287632844802", "CAP_RATE": "8.00% ROC", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "434 Elm, 179 Campanelli, 75 John Hancock, 146 Will", "CITY": "Various", "STATE": "MA", "CLIENT": "Berkeley Partners", "BUYER": null, "DEAL_SIZE": 40000000.0, "SF": "189888.0", "PSF": "210.6504887091338", "CAP_RATE": "0.0662", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "100 New Boston Dr", "CITY": "Canton", "STATE": "MA", "CLIENT": "Oliver Street", "BUYER": null, "DEAL_SIZE": 31750000.0, "SF": "128000.0", "PSF": "248.046875", "CAP_RATE": "0.0244", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": "John Adair", "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "34 Catamount Drive", "CITY": "Milton", "STATE": "VT", "CLIENT": "Private", "BUYER": null, "DEAL_SIZE": 3850000.0, "SF": "10100.0", "PSF": "381.18811881188117", "CAP_RATE": "0.0667", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "275 John Hancock, 250, 350 Revolutionary, 675 Canton", "CITY": "Taunton / Norwood", "STATE": "MA", "CLIENT": "James Campbell Company", "BUYER": null, "DEAL_SIZE": 127000000.0, "SF": "782783.0", "PSF": "162.24164295852108", "CAP_RATE": "0.0255", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Bulfinch Flex/Industrial 4 Pack", "CITY": "Various", "STATE": "MA / RI", "CLIENT": "Bulfinch", "BUYER": null, "DEAL_SIZE": 50250000.0, "SF": "200941.0", "PSF": "250.07340463121017", "CAP_RATE": "0.0677", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "90/104 John Murphy & 770/790 Marshall Phelps", "CITY": "New Haven / Windsor", "STATE": "CT", "CLIENT": "Luzern", "BUYER": null, "DEAL_SIZE": 15000000.0, "SF": "126802.0", "PSF": "118.294664122017", "CAP_RATE": "0.064", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Vision CT Portfolio", "CITY": "Various", "STATE": "CT", "CLIENT": "Vision", "BUYER": null, "DEAL_SIZE": 16000000.0, "SF": "550390.0", "PSF": "29.07029560856847", "CAP_RATE": "0.0659", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Project Riverside", "CITY": "Newington", "STATE": "NH", "CLIENT": "CRH Americas Materials", "BUYER": null, "DEAL_SIZE": 5385714.0, "SF": "130000.0", "PSF": "41.42856923076923", "CAP_RATE": "7.00% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "NRT Bus Portfolio", "CITY": "Various", "STATE": "MA", "CLIENT": "JJ McCarthy", "BUYER": null, "DEAL_SIZE": 32000000.0, "SF": "153781.0", "PSF": "208.08812532107348", "CAP_RATE": "0.0775", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "241 Willard St", "CITY": "Leominster", "STATE": "MA", "CLIENT": "Private", "BUYER": null, "DEAL_SIZE": 8600000.0, "SF": "67200.0", "PSF": "127.97619047619048", "CAP_RATE": "0.0684", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Liberty Portfolio", "CITY": "Worcester", "STATE": "MA", "CLIENT": "Liberty Properties", "BUYER": null, "DEAL_SIZE": 46000000.0, "SF": "367729.0", "PSF": "125.09211946841287", "CAP_RATE": "0.075", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "7 Roessler Rd", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Private", "BUYER": null, "DEAL_SIZE": 4500000.0, "SF": "20000.0", "PSF": "225.0", "CAP_RATE": "0.0511", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Dell Westborough / Southborough Land", "CITY": "Westborough / Southborough", "STATE": "MA", "CLIENT": "Dell", "BUYER": null, "DEAL_SIZE": 66310529.0, "SF": "1312500.0", "PSF": "50.52230780952381", "CAP_RATE": "7.00% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "38 Neponset Ave", "CITY": "Foxboro", "STATE": "MA", "CLIENT": "Schneider Electric", "BUYER": null, "DEAL_SIZE": 14000000.0, "SF": "39.0", "PSF": "358974.358974359", "CAP_RATE": "7.50% ROC Industrial 6.40% ROC Multi", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "586 Manley", "CITY": "West Bridgewater", "STATE": "MA", "CLIENT": "National Development", "BUYER": null, "DEAL_SIZE": 36000000.0, "SF": "210600.0", "PSF": "170.94017094017093", "CAP_RATE": "6.25% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "64 Leona", "CITY": "Middleboro", "STATE": "MA", "CLIENT": "LPC", "BUYER": null, "DEAL_SIZE": 72000000.0, "SF": "790639.0", "PSF": "91.06558113121159", "CAP_RATE": "7.69% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "LPC NH Flex Portfolio", "CITY": "Various", "STATE": "NH", "CLIENT": "Lincoln Property Companies", "BUYER": null, "DEAL_SIZE": 80000000.0, "SF": "593026.0", "PSF": "134.9013365349917", "CAP_RATE": "0.0656", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "8 Seafood, 19-21 Alpha, 107 First Ave", "CITY": "Various", "STATE": "MA", "CLIENT": "Chestnut Realty", "BUYER": null, "DEAL_SIZE": null, "SF": null, "PSF": null, "CAP_RATE": null, "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "50 Farmington Valley", "CITY": "Plainville", "STATE": "CT", "CLIENT": "Private", "BUYER": null, "DEAL_SIZE": 13500000.0, "SF": "114860.0", "PSF": "117.53438969179871", "CAP_RATE": "0.0667", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "179 Brook St", "CITY": "Clinton", "STATE": "MA", "CLIENT": "Equity Industrial Partners", "BUYER": null, "DEAL_SIZE": 18000000.0, "SF": "64500.0", "PSF": "279.06976744186045", "CAP_RATE": "0.0893", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "3-5 Opportunity Way", "CITY": "Newburyport", "STATE": "MA", "CLIENT": "Ben Spiritos", "BUYER": null, "DEAL_SIZE": 14000000.0, "SF": "88931.0", "PSF": "157.42541970741362", "CAP_RATE": "0.0687", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "100 & 300 Potash", "CITY": "Tyngsboro", "STATE": "MA", "CLIENT": "Equity Industrial Partners", "BUYER": null, "DEAL_SIZE": 15000000.0, "SF": "94943.0", "PSF": "157.98953056044152", "CAP_RATE": "0.0817", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Summer St Land", "CITY": "Boston", "STATE": "MA", "CLIENT": null, "BUYER": null, "DEAL_SIZE": 24000000.0, "SF": "352419.0", "PSF": "68.10075506712181", "CAP_RATE": "9.00% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "200 Financial Park", "CITY": "Franklin", "STATE": "MA", "CLIENT": "Berkeley Partners", "BUYER": null, "DEAL_SIZE": 13250000.0, "SF": "65000.0", "PSF": "203.84615384615384", "CAP_RATE": "0.0609", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "100 Financial Park", "CITY": "Franklin", "STATE": "MA", "CLIENT": "Berkeley Partners", "BUYER": null, "DEAL_SIZE": 17000000.0, "SF": "285000.0", "PSF": "59.64912280701754", "CAP_RATE": "6.75% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "45 Industrial Parkway", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Camber/Wheelock", "BUYER": null, "DEAL_SIZE": 34608427.0, "SF": "89308.0", "PSF": "387.51765799256503", "CAP_RATE": "0.0677", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "Mapletree BOV - MUSLOG Fund", "CITY": "Franklin", "STATE": "MA", "CLIENT": "Mapletree", "BUYER": null, "DEAL_SIZE": 50000000.0, "SF": "337166.0", "PSF": "148.29490518023763", "CAP_RATE": "0.0357", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "554 Clark Rd", "CITY": "Tewksbury", "STATE": "MA", "CLIENT": "Oliver Street", "BUYER": null, "DEAL_SIZE": 21000000.0, "SF": "102200.0", "PSF": "205.4794520547945", "CAP_RATE": "0.0612", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "500 Groton Rd", "CITY": "Windsor", "STATE": "CT", "CLIENT": "Northpoint/BGO", "BUYER": null, "DEAL_SIZE": 94000000.0, "SF": "525497.0", "PSF": "178.87828094166093", "CAP_RATE": "0.0529", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}, {"sheet": "longterm", "STATUS": "Tracking for Future", "PROPERTY_NAME": "40-50 Fordham Rd", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Hilco", "BUYER": null, "DEAL_SIZE": 63500000.0, "SF": "260919.0", "PSF": "243.37054794783054", "CAP_RATE": "0.0551", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": null, "DEAL_TYPE": "-"}];
+const CLOSED   = [{"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "180 Pleasant", "CITY": "Rockland", "STATE": "MA", "CLIENT": "Robbie Howard Street", "BUYER": "Rockridge", "DEAL_SIZE": 3750000.0, "SF": "25000", "PSF": "150.0", "CAP_RATE": "0.08", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": null}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "INDUS CT Portfolio", "CITY": "Various", "STATE": "CT", "CLIENT": "INDUS", "BUYER": "LBA", "DEAL_SIZE": 84100000.0, "SF": "641631", "PSF": "131.07222063771857", "CAP_RATE": "0.0576", "TEAM_LEAD": "Hugo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "Michael Gamzon"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "Revvity Hopkinton", "CITY": "Hopkinton", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": "New Mountain Capital", "DEAL_SIZE": 58400000.0, "SF": "198336", "PSF": "294.44982252339463", "CAP_RATE": "0.0679", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "Greg Lauze"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "23 Middlesex", "CITY": "Tyngsboro", "STATE": "MA", "CLIENT": "moms73", "BUYER": "L&O Acquisitions", "DEAL_SIZE": 2000000.0, "SF": "12396", "PSF": "161.34236850596966", "CAP_RATE": "0.085", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "12/26/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "125 Fisher St", "CITY": "Westborough", "STATE": "MA", "CLIENT": "LPC", "BUYER": "JP Morgan", "DEAL_SIZE": 33000000.0, "SF": "198531", "PSF": "166.22089245508258", "CAP_RATE": "0.0631", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "12/22/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "8 Roessler Rd", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Oliver Street", "BUYER": "Sagard", "DEAL_SIZE": 17850000.0, "SF": "66970", "PSF": "266.53725548753175", "CAP_RATE": "0.0673", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "11/07/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "1, 13-15 Delaware Dr & 40 Lowell Rd", "CITY": "Salem", "STATE": "NH", "CLIENT": "JB Capital", "BUYER": "JB Capital", "DEAL_SIZE": 7750000.0, "SF": "54275", "PSF": "142.7913403961308", "CAP_RATE": "0.0825", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "10/06/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "1 Aegean Dr", "CITY": "Methuen", "STATE": "MA", "CLIENT": "Davis", "BUYER": "User", "DEAL_SIZE": 7095000.0, "SF": "43500", "PSF": "163.10344827586206", "CAP_RATE": "0.0274", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "08/05/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "4 Carleton Dr", "CITY": "Georgetown", "STATE": "MA", "CLIENT": "COX Engineering", "BUYER": "EIP", "DEAL_SIZE": 7700000.0, "SF": "59408", "PSF": "129.6121734446539", "CAP_RATE": "0.0844", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "08/05/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "100 Founders Dr", "CITY": "Woonsocket", "STATE": "RI", "CLIENT": "Compass Group Equity Partners", "BUYER": "Daniels Property Group", "DEAL_SIZE": 3625057.0, "SF": "36000", "PSF": "100.69602777777777", "CAP_RATE": "-", "TEAM_LEAD": "Lenny", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "07/16/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "300 Willow St & 125 Flagship Dr", "CITY": "North Andover", "STATE": "MA", "CLIENT": "Private", "BUYER": "Seyon", "DEAL_SIZE": 12500000.0, "SF": "80477", "PSF": "155.32388135740646", "CAP_RATE": "0.0579", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "06/25/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "400 Main St", "CITY": "Ashland", "STATE": "MA", "CLIENT": "Pout Rock", "BUYER": "Rhino", "DEAL_SIZE": 27872000.0, "SF": "218316", "PSF": "127.66815075395299", "CAP_RATE": "0.0811", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "06/23/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "130 Quarry Dr", "CITY": "Milford", "STATE": "MA", "CLIENT": "Realterm", "BUYER": "Realterm", "DEAL_SIZE": 5800000.0, "SF": "14397", "PSF": "402.86170730013197", "CAP_RATE": "0.0456", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "05/30/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "105 Baker Hollow Rd", "CITY": "Windsor", "STATE": "CT", "CLIENT": "UBS / Condyne", "BUYER": "Northpoint", "DEAL_SIZE": 25300000.0, "SF": "165625", "PSF": "152.75471698113208", "CAP_RATE": "0.0512", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "05/29/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "330 & 275 Hopping Brook", "CITY": "Holliston", "STATE": "MA", "CLIENT": "Baystate Engineering", "BUYER": "Marcus", "DEAL_SIZE": 11200000.0, "SF": "68000", "PSF": "164.7058823529412", "CAP_RATE": "0.0671", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "05/28/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "295 Union St", "CITY": "Walpole", "STATE": "MA", "CLIENT": "Casco / Berkeley", "BUYER": "Stockbridge", "DEAL_SIZE": 26000000.0, "SF": "85159", "PSF": "305.3112413250508", "CAP_RATE": "0.0678", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "05/08/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "100 Sanrico Dr", "CITY": "Manchester", "STATE": "CT", "CLIENT": "SkyREM", "BUYER": "B&D Holdings", "DEAL_SIZE": 12000000.0, "SF": "189450", "PSF": "63.34125098970705", "CAP_RATE": "0.0834", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "04/11/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "Berkeley Recap", "CITY": "Billerica, Woburn, Norwood", "STATE": "MA", "CLIENT": "Berkeley Partners", "BUYER": "Invesco", "DEAL_SIZE": 45000000.0, "SF": "217217", "PSF": "207.1661057836173", "CAP_RATE": "0.0566", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "03/07/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "242 Libbey Industrial Pkwy", "CITY": "Weymouth", "STATE": "MA", "CLIENT": "Sticks", "BUYER": "STICKS Investments", "DEAL_SIZE": 4700000.0, "SF": "27000", "PSF": "174.07407407407408", "CAP_RATE": "0.0543", "TEAM_LEAD": "Coffman", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "02/13/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "40 Lackey Dam Rd", "CITY": "Uxbridge", "STATE": "MA", "CLIENT": "Scannell/Crow", "BUYER": "Rockpoint", "DEAL_SIZE": 120000000.0, "SF": "607486", "PSF": "197.53541645404175", "CAP_RATE": "0.0444", "TEAM_LEAD": "Restivo", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "02/05/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "14 Garabedian Dr", "CITY": "Salem", "STATE": "NH", "CLIENT": "Private", "BUYER": "Calare", "DEAL_SIZE": 16000000.0, "SF": "108000", "PSF": "148.14814814814815", "CAP_RATE": "0.0875", "TEAM_LEAD": "Tommy", "CLIENT_CONTACT": null, "COMMENTS": null, "CLOSED_DATE": "01/15/2025"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "151 Charles F Colton Road", "CITY": "Taunton", "STATE": "MA", "CLIENT": "Ares", "BUYER": "Ares", "DEAL_SIZE": 44250000.0, "SF": "198720", "PSF": "222.67512077294685", "CAP_RATE": "0.0556", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Sullivan Tire, 3.25% annual increases, 30 tailboard positions", "CLOSED_DATE": "12/20/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "111 Ledge & 83 Parker", "CITY": "Seabrook / Newburyport", "STATE": "MA/NH", "CLIENT": "Ram Management", "BUYER": "Ram Management", "DEAL_SIZE": 14200000.0, "SF": "77638", "PSF": "182.90012622684768", "CAP_RATE": "0.1001", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2 single tenant buildings, one manufacturing, one warehouse, Munter's is a known vacate & paying above market rent", "CLOSED_DATE": "12/20/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "21 Parker Drive", "CITY": "Avon", "STATE": "MA", "CLIENT": "Confidential", "BUYER": "Confidential", "DEAL_SIZE": 18500000.0, "SF": "109300", "PSF": "169.25892040256176", "CAP_RATE": "0.0635", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Freshpoint, HelloFresh, Taylor Communcations. Rents approximately 35% below market, 1 acre of pavement leased to US Foods, 23% coverage", "CLOSED_DATE": "11/25/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "41 Progress Dr", "CITY": "Manchester", "STATE": "CT", "CLIENT": "Eastern Real Estate", "BUYER": "Eastern Real Estate", "DEAL_SIZE": 6325000.0, "SF": "69000", "PSF": "91.66666666666667", "CAP_RATE": "0.0764", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "10 year SLB to Enjet Aero, 4 tailboard & 1 drive-in door, 5.44 acres, 3% annual increases", "CLOSED_DATE": "10/15/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "116 Lundquist Dr", "CITY": "Braintree", "STATE": "MA", "CLIENT": "L&W Supply", "BUYER": "L&W Supply", "DEAL_SIZE": 16750000.0, "SF": "52200", "PSF": "320.88122605363986", "CAP_RATE": "0.0527", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Building is 100% leased to L&W Supply, 23% coverage, 1 acre of laydown space, cap rate is calculated on existingbuilding rent and doesn't include proposed yard rent", "CLOSED_DATE": "10/08/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "271 Ballardvale St", "CITY": "Wilmington", "STATE": "MA", "CLIENT": "Private", "BUYER": "Private", "DEAL_SIZE": 8500000.0, "SF": "56000", "PSF": "151.78571428571428", "CAP_RATE": "0.063", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Smyth Companies, (2) five-year fixed options no greater than 3% increases at end of term, 4,000 amps", "CLOSED_DATE": "08/04/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "28 Diana Lane", "CITY": "Dracut", "STATE": "MA", "CLIENT": "STICKS Investments", "BUYER": "STICKS Investments", "DEAL_SIZE": 8700000.0, "SF": "69000", "PSF": "126.08695652173913", "CAP_RATE": "0.064", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Verizon, low coverage site 7 acres, 15% office buildout, 10 drive-ins & no tailboard loading, rent flat through remaining term", "CLOSED_DATE": "06/27/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "158 Pines Bridge", "CITY": "Beacon Falls", "STATE": "CT", "CLIENT": "Devli Partners", "BUYER": "Devli Partners", "DEAL_SIZE": 4250000.0, "SF": "176000", "PSF": "24.147727272727273", "CAP_RATE": "0.0704", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1966. 100% leased to NEJ, 2.3 WALT, 17' clear, 15 docks, 2 drive-ins", "CLOSED_DATE": "06/24/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "70 Pleasant St", "CITY": "West Bridgewater", "STATE": "MA", "CLIENT": "STICKS Investments", "BUYER": "STICKS Investments", "DEAL_SIZE": 3800000.0, "SF": "35700", "PSF": "106.44257703081233", "CAP_RATE": "0.047", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Sunburst EMS, tenant pay ~$5psf, light manufacturing property", "CLOSED_DATE": "06/14/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "216 New Boston & 225 Merrimac", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Vigilant Holdings", "BUYER": "Vigilant Holdings", "DEAL_SIZE": 15990000.0, "SF": "89719", "PSF": "178.2231188488503", "CAP_RATE": "-", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Building put under agreement with TAW, signed lease with Waste Management through DD process, 8.36 acres, WM has purchase option on 225 Merrimac", "CLOSED_DATE": "06/13/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "48 Leonard St - Bldg 12", "CITY": "Norton", "STATE": "MA", "CLIENT": "IDI Logistics", "BUYER": "IDI Logistics", "DEAL_SIZE": 14000000.0, "SF": "60000", "PSF": "233.33333333333334", "CAP_RATE": "User", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "User sale to IDI Logistics. 16 tailboard positions & 1 drive-in", "CLOSED_DATE": "04/30/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "140 Old County Circle", "CITY": "Windsor Locks", "STATE": "CT", "CLIENT": "National Development", "BUYER": "National Development", "DEAL_SIZE": 37250000.0, "SF": "268497", "PSF": "138.73525588740284", "CAP_RATE": "0.0613", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Cross-dock facility 100% leased to Eversource on 9 year deal at $8.50nnn starting rent with 3% increases, 39 loading positions, 4,200 amps", "CLOSED_DATE": "04/17/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "16 Bulge Dr", "CITY": "Devens", "STATE": "MA", "CLIENT": "Northbridge Partners", "BUYER": "Northbridge Partners", "DEAL_SIZE": 23500000.0, "SF": "138458", "PSF": "169.72655967874735", "CAP_RATE": "0.0641", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2023, 100% occupied, Watson Marlow single-tenant, $10.57nnn starting rent, 20 year term, 45' clear, $300psf in tenant funded improvements", "CLOSED_DATE": "03/14/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "240 Ellington Dr", "CITY": "South Windsor", "STATE": "CT", "CLIENT": "Northbridge Partners", "BUYER": "Northbridge Partners", "DEAL_SIZE": 21250000.0, "SF": "180924", "PSF": "117.45263204439433", "CAP_RATE": "0.0559", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2021, 100% occupied, AMZL single-tenant, 28 tailboard, 6 drive-ins, 32' clear, 8.4 years of WALT, rents 30-40% below market", "CLOSED_DATE": "03/14/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "42 Leonard St", "CITY": "Norton", "STATE": "MA", "CLIENT": "Yale Appliance", "BUYER": "Yale Appliance", "DEAL_SIZE": 45000000.0, "SF": "220000", "PSF": "204.54545454545453", "CAP_RATE": "User", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "User Sale and BTS for Yale Appliance, 47 loading positions, part of master planned Bluestar Business Park", "CLOSED_DATE": "01/29/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "140 Constitution Blvd", "CITY": "Franklin", "STATE": "MA", "CLIENT": "Northbridge Partners", "BUYER": "Northbridge Partners", "DEAL_SIZE": 17000000.0, "SF": "102800", "PSF": "165.36964980544747", "CAP_RATE": "0.071", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2000 Construction, 27' clear height, 100% leased to JACO Inc, 6 years of WALT", "CLOSED_DATE": "01/04/2024"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "16 Delta Drive", "CITY": "Londonderry", "STATE": "NH", "CLIENT": "ECCO", "BUYER": "RJ Kelly", "DEAL_SIZE": 12000000.0, "SF": "93345", "PSF": "128.55535915153462", "CAP_RATE": "8.25% (ROC)", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Acquired Vacant, 24' clear height, 8 tailboards & 1 drive-in door, 1998 construction, 3 parcels of land totaling 16+ acres, 23ksf of Office", "CLOSED_DATE": "12/22/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "75 Campanelli", "CITY": "Stoughton", "STATE": "MA", "CLIENT": "Yale Appliance", "BUYER": "Casco / Longwharf", "DEAL_SIZE": 11650000.0, "SF": "65048", "PSF": "179.0985118681589", "CAP_RATE": "7.25% (ROC)", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1979/1998 yr built, short-term SLB to Yale Appliance with known vacate, 21' clear height, 9 tailboard & 1 drive-in, 7,895 SF of Mezz not included in footprint", "CLOSED_DATE": "45250"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "16-18 Renmar Ave", "CITY": "Walpole", "STATE": "MA", "CLIENT": "Mass Bay Movers", "BUYER": "Selko RE", "DEAL_SIZE": 7425000.0, "SF": "43000", "PSF": "172.67441860465115", "CAP_RATE": "0.0752", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1980, 100% leased Capstone Logistics, 7 year WALT, 3% annual bumps, 5 drive-in & 3 tailboard doors, 18-21' clear height, 6ksf of office", "CLOSED_DATE": "10/31/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "77 Industrial Rowe", "CITY": "Gardner", "STATE": "MA", "CLIENT": "Garlock Printing / Astara Capital", "BUYER": "Valley Forge Financial Group", "DEAL_SIZE": 9598585.0, "SF": "113050", "PSF": "84.90566121185316", "CAP_RATE": "0.0795", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1959/2004 construction, 15 year SLB to Garlock Printing on behalf of PE Sponsor Astara Capital, 50% production space & 50% 24'-30' clear warehouse, $6.75nnn starting rent with 3% bumps", "CLOSED_DATE": "45217"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "85 John Road", "CITY": "Canton", "STATE": "MA", "CLIENT": "Camber Development / Wheelock", "BUYER": "Berkeley Partners", "DEAL_SIZE": 22750000.0, "SF": "93533", "PSF": "243.2296622582404", "CAP_RATE": "0.0525", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1998, 100% occupied, 3 tenants, 4 years of WALT, $13.30nnn in-place rent, 23' clear", "CLOSED_DATE": "08/28/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "6 Henry Graf Rd", "CITY": "Newburyport", "STATE": "MA", "CLIENT": "Dianne's Fine Desserts", "BUYER": "Fundamental Income", "DEAL_SIZE": 11361266.0, "SF": "76749", "PSF": "148.03145317854305", "CAP_RATE": "0.077", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "20 year SLB of food production facility, annual escalations lesser of 1.75x CPI or 2.5%, absolute NNN", "CLOSED_DATE": "08/14/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "400 John Quincy Adams", "CITY": "Taunton", "STATE": "MA", "CLIENT": "Broadstone Net Lease", "BUYER": "Camber / Wheelock", "DEAL_SIZE": 27000000.0, "SF": "300000", "PSF": "90.0", "CAP_RATE": "0.0612", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1987, single tenant 100% leased to General Dynamics Mission Systems, 26 acres of land, half office, half 15' light manufacturing, in-place rents of $5.63 with less than 5 years of remaining term", "CLOSED_DATE": "05/31/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "64 Leona Drive", "CITY": "Middleboro", "STATE": "MA", "CLIENT": "The Christmas Tree Shops", "BUYER": "Lincoln Property Company", "DEAL_SIZE": 105000000.0, "SF": "785000", "PSF": "133.7579617834395", "CAP_RATE": "0.0859", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Sale Leaseback for 10 years @ $11.50 NNN. LL has option to downsize tenant on a third of building during first 5 years", "CLOSED_DATE": "02/16/2023"}, {"sheet": "closed", "STATUS": "CLOSED", "PROPERTY_NAME": "60 Olympia Ave", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Juniper Advisory Group", "BUYER": "Brookfield", "DEAL_SIZE": 18000000.0, "SF": "97000", "PSF": "185.56701030927834", "CAP_RATE": "8.00% ROC", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Stabilizing at a low 8% ROC, $2-$2.5mm in environmental cleanup as well as additional CapEx, 22' clear, multi-tenant", "CLOSED_DATE": "02/03/2023"}];
+[ACTIVE, LONGTERM, CLOSED].forEach(arr => arr.forEach((c,i) => c._id = i));
+
+let mode = 'active', activeFilter = 'ALL', sortKey = 'deal', filtered = [];
+
+function esc(s) { return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function clean(v) { if(v==null)return null; const s=String(v); return(s==='nan'||s==='None'||s===''||s==='null')?null:v; }
+function fmtM(n) { if(!n||isNaN(n))return'—'; return n>=1e9?'$'+(n/1e9).toFixed(2)+'B':n>=1e6?'$'+(n/1e6).toFixed(1)+'M':'$'+(n/1000).toFixed(0)+'K'; }
+function fmtFull(n) { return n?'$'+Number(n).toLocaleString():'—'; }
+function fmtPsf(v) { const n=parseFloat(v); return (!v||isNaN(n))?'—':'$'+n.toFixed(0); }
+function fmtCap(v) { if(!v||v==='—')return'—'; const n=parseFloat(v); if(!isNaN(n)&&n<1)return(n*100).toFixed(2)+'%'; return String(v); }
+function avg(a) { const v=a.filter(x=>x!=null&&!isNaN(x)&&x>0); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }
+function sum(a) { const v=a.filter(x=>x!=null&&!isNaN(x)&&x>0); return v.length?v.reduce((a,b)=>a+b,0):null; }
+
+const STATUS_CONFIG = {
+  'UNDER CONTRACT':                         { cls:'s-uc',        tag:'tag-uc',        label:'Under Contract' },
+  'UNDER CONTRACT / CLOSING':               { cls:'s-uc',        tag:'tag-uc',        label:'Under Contract' },
+  'AWARDED':                                { cls:'s-awarded',   tag:'tag-awarded',   label:'Awarded' },
+  'IN PROGRESS':                            { cls:'s-progress',  tag:'tag-progress',  label:'In Progress' },
+  'OFF MARKET':                             { cls:'s-progress',  tag:'tag-progress',  label:'Off Market' },
+  'COMING TO MARKET':                       { cls:'s-market',    tag:'tag-market',    label:'Coming to Market' },
+  'IN THE MARKET':                          { cls:'s-market',    tag:'tag-market',    label:'In the Market' },
+  'IN THE MARKET / GOING TO MARKET':        { cls:'s-market',    tag:'tag-market',    label:'In the Market' },
+  'RECENTLY DELIVERED':                     { cls:'s-delivered', tag:'tag-delivered', label:'Recently Delivered' },
+  'TRACKING':                               { cls:'s-tracking',  tag:'tag-tracking',  label:'Tracking' },
+  'VALUATIONS & PITCHES - IN PROGRESS':     { cls:'s-valuation', tag:'tag-valuation', label:'Valuation' },
+  'VALUATIONS & PITCHES - DELIVERED / TRACKING': { cls:'s-valuation', tag:'tag-valuation', label:'Valuation' },
+  'CLOSED':                                 { cls:'s-closed',    tag:'tag-closed',    label:'Closed' },
+  'Tracking for Future':                    { cls:'s-tracking',  tag:'tag-tracking',  label:'Tracking' },
+};
+function getCfg(status) { return STATUS_CONFIG[status] || { cls:'s-tracking', tag:'tag-tracking', label: status||'—' }; }
+
+const ACTIVE_FILTERS   = ['ALL','Under Contract','Awarded','In Progress','Coming to Market','Tracking','Recently Delivered','Valuation'];
+const STATUS_PRIORITY  = ['Under Contract','Awarded','In Progress','Coming to Market','Tracking','Recently Delivered','Valuation'];
+function statusPriority(c) {
+  const label = getCfg(c.STATUS).label;
+  const idx = STATUS_PRIORITY.findIndex(s => label.toLowerCase().includes(s.toLowerCase()));
+  return idx === -1 ? 99 : idx;
+}
+const LONGTERM_FILTERS = ['ALL','Tracking','Tracking for Future'];
+const CLOSED_FILTERS   = ['ALL','2026','2025','2024','2023'];
+
+function filterMatch(c, f) {
+  if (f === 'ALL') return true;
+  if (mode === 'active') {
+    const cfg = getCfg(c.STATUS);
+    return cfg.label.toLowerCase().includes(f.toLowerCase()) || c.STATUS === f.toUpperCase();
   }
-];
-
-let currentFilter = 'All';
-let currentSort = 'date';
-let openCards = new Set();
-
-function fmt$(n) {
-  if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
-  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
-  return '$' + n.toLocaleString();
-}
-function fmtSF(n) {
-  return n.toLocaleString() + ' SF';
-}
-function fmtDate(d) {
-  if (!d) return '—';
-  const [y, m, day] = d.split('-');
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return months[parseInt(m)-1] + ' ' + day + ', ' + y;
-}
-function fmtAcre(n) {
-  return n.toFixed(2) + ' ac';
+  if (mode === 'longterm') return c.STATUS && c.STATUS.toLowerCase().includes(f.toLowerCase());
+  if (mode === 'closed') return c.CLOSED_DATE && c.CLOSED_DATE.includes('/'+f+'/');
+  return true;
 }
 
-function getFiltered() {
-  let data = [...raw];
-  if (currentFilter === 'JLL') data = data.filter(d => d.jll);
-  else if (currentFilter !== 'All') data = data.filter(d => d.submarket === currentFilter);
-  return data;
+function buildFilters() {
+  const items = mode==='active' ? ACTIVE_FILTERS : mode==='longterm' ? LONGTERM_FILTERS : CLOSED_FILTERS;
+  document.getElementById('filters').innerHTML = items.map(v =>
+    `<button class="pill${v==='ALL'?' active':''}" data-val="${esc(v)}" onclick="setFilter('${esc(v)}')">${esc(v==='ALL'?'All':v)}</button>`
+  ).join('');
 }
 
-function getSorted(data) {
-  return data.sort((a, b) => {
-    if (currentSort === 'date') {
-      const da = a.date || '2026-12-31';
-      const db = b.date || '2026-12-31';
-      return db.localeCompare(da);
+function setFilter(val) {
+  activeFilter = val;
+  document.querySelectorAll('#filters .pill').forEach(b => b.classList.toggle('active', b.dataset.val===val));
+  applyFilters();
+}
+
+const SORTS = {
+  active:   [{k:'deal',l:'Deal Size ↓'},{k:'psf',l:'PSF'},{k:'az',l:'A–Z'},{k:'lead',l:'By Lead'}],
+  longterm: [{k:'deal',l:'Deal Size ↓'},{k:'psf',l:'PSF'},{k:'az',l:'A–Z'}],
+  closed:   [{k:'date',l:'Date ↓'},{k:'deal',l:'Deal Size'},{k:'psf',l:'PSF'},{k:'az',l:'A–Z'}],
+};
+
+function buildSortBar() {
+  document.getElementById('sort-bar').innerHTML = SORTS[mode].map((s,i) =>
+    `<button class="sort-btn${i===0?' active':''}" data-sort="${s.k}" onclick="setSort('${s.k}')">${esc(s.l)}</button>`
+  ).join('');
+  sortKey = SORTS[mode][0].k;
+}
+
+function setSort(k) {
+  sortKey = k;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort===k));
+  applyFilters();
+}
+
+let marketTab = 'overview';
+let pipelineTab = 'active';
+
+const PIPELINE_CLOSED_NAMES = ['11 Westford Rd', '93 North Campus'];
+
+const JLL_SALES = [{"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "180 Pleasant St", "CITY": "Rockland", "STATE": "MA", "CLIENT": "Robbie Howard Street", "BUYER": "Rockridge", "DEAL_SIZE": 3750000, "SF": "25000", "PSF": "150.0", "CAP_RATE": "8.0%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Manufacturing facility fully leased to Polymer Corporation with 4.2 years WALT, Polymer Corp has occupied the Property since 2004", "CLOSED_DATE": "02/15/2026", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "2 Fox Hollow Rd", "CITY": "Oxford", "STATE": "CT", "CLIENT": "CNK Investments, LLC", "BUYER": "J.P. Morgan", "DEAL_SIZE": 4475000, "SF": "29771", "PSF": "150.31", "CAP_RATE": "8.04%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "20 year SLB with Gen-El-Mec (part of BTX), $12.09 PSF rent, absolute NNN, 3% bumps", "CLOSED_DATE": "02/06/2026", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "New England Tradeport Shallow Bay Portfolio", "CITY": "East Granby, Windsor, Bloomfield", "STATE": "CT", "CLIENT": "Indus Realty Trust", "BUYER": "LBA", "DEAL_SIZE": 84100000, "SF": "641631", "PSF": "131.07", "CAP_RATE": "5.76%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "9 assets, 98% leased, 4.3 years WALT, 27% mark to market, 19 tenants including Tesla, Domino's, FedEx, Wayfair", "CLOSED_DATE": "02/03/2026", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "20 & 40 Ledin Dr", "CITY": "Avon", "STATE": "MA", "CLIENT": "Rhino Capital", "BUYER": "Vigilant Holdings", "DEAL_SIZE": 22650000, "SF": "123080", "PSF": "184.03", "CAP_RATE": "5.82%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2 buildings, 100% leased to Waste Management, 6.56 acres, 56% below market rents", "CLOSED_DATE": "01/30/2026", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "68-78 Elm St", "CITY": "Hopkinton", "STATE": "MA", "CLIENT": "NorthBridge", "BUYER": "New Mountain Capital", "DEAL_SIZE": 58400000, "SF": "198336", "PSF": "294.45", "CAP_RATE": "6.79%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2 buildings, 100% leased to Revvity (formerly PerkinElmer), 11.2 years WALT", "CLOSED_DATE": "01/23/2026", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "23 Middlesex Rd", "CITY": "Tyngsborough", "STATE": "MA", "CLIENT": "moms73", "BUYER": "L&O Acquisitions", "DEAL_SIZE": 2000000, "SF": "12396", "PSF": "161.34", "CAP_RATE": "8.5%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "10 year sale-leaseback with 3% annual increases, absolute net", "CLOSED_DATE": "12/28/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "125 Fisher St", "CITY": "Westborough", "STATE": "MA", "CLIENT": "LPC / Cara", "BUYER": "J.P. Morgan", "DEAL_SIZE": 33000000, "SF": "198531", "PSF": "166.22", "CAP_RATE": "6.31%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Multi-tenant light manufacturing facility, roughly 20ksf of static office vacancy", "CLOSED_DATE": "12/23/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "8 Roessler Rd", "CITY": "Woburn", "STATE": "MA", "CLIENT": "Oliver Street / Bain", "BUYER": "Sagard", "DEAL_SIZE": 17850000, "SF": "66970", "PSF": "266.54", "CAP_RATE": "6.73%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "1987, 100% leased to Atlantic Plywood, 5.9 years WALT, 24' clear, rail access", "CLOSED_DATE": "11/07/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "1 Aegean Dr", "CITY": "Methuen", "STATE": "MA", "CLIENT": "Davis Companies", "BUYER": "Private", "DEAL_SIZE": 7095000, "SF": "43500", "PSF": "163.1", "CAP_RATE": "2.74%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "43% leased to Worldpac, sold to eventual user", "CLOSED_DATE": "09/10/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "6-8 Elise St", "CITY": "Westfield", "STATE": "MA", "CLIENT": "Valley Forge Financial Group", "BUYER": "Private", "DEAL_SIZE": 7125000, "SF": "108064", "PSF": "65.93", "CAP_RATE": "6.73%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to McNairn Packaging, built in 1972 and 1974 and additions between 1991 and 1999, 7 loading docks, 2% escalations", "CLOSED_DATE": "09/03/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "4 Carleton Dr", "CITY": "Georgetown ", "STATE": "MA", "CLIENT": "Cox Engineering", "BUYER": "Equity Industrial Partners", "DEAL_SIZE": 7700000, "SF": "59480", "PSF": "129.0", "CAP_RATE": "8.5%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "5-year sale-leaseback, 4 loading docks, 3 drive-ins, 16% coverage", "CLOSED_DATE": "08/05/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "300 Willow & 125 Flagship Dr", "CITY": "North Andover", "STATE": "MA", "CLIENT": "Private", "BUYER": "Seyon", "DEAL_SIZE": 12500000, "SF": "80477", "PSF": "155.32", "CAP_RATE": "5.79%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "8.65% year 4 ROC, rents 40-45% below market", "CLOSED_DATE": "06/26/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "1 & 13-15 Delaware Drive", "CITY": "Salem", "STATE": "NH", "CLIENT": "Private", "BUYER": "JB Capital Management", "DEAL_SIZE": 4400000, "SF": "32000", "PSF": "137.5", "CAP_RATE": "8.5%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Two shallow-bay buildings sold off-market on behalf of a private seller. Partial sale leaseback (1 Delaware) with Marquis Management and NEFS. Unified Door & Hardware (FBM) at 13-15 Delaware.", "CLOSED_DATE": "06/24/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "400 Main St", "CITY": "Ashland", "STATE": "MA", "CLIENT": "Pout Rock LLC", "BUYER": "Rhino Capital Partners", "DEAL_SIZE": 27872000, "SF": "218316", "PSF": "127.67", "CAP_RATE": "9.23%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "2 building manufacturing facility leased to Kidde-Fenewal. 3.5% annual bumps, $300-$400k of annual solar income included in cap rate", "CLOSED_DATE": "06/20/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "105 Baker Hollow", "CITY": "Windsor", "STATE": "CT", "CLIENT": "Condyne / UBS", "BUYER": "Northpoint", "DEAL_SIZE": 25300000, "SF": "165625", "PSF": "152.75", "CAP_RATE": "5.15%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "100% leased to Safelite, rents 50% below market, 38 tailboard, 58 trailer spaces", "CLOSED_DATE": "05/29/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "275 & 330 Hopping Brook", "CITY": "Holliston", "STATE": "MA", "CLIENT": "Baystate Engineering", "BUYER": "Marcus Partners", "DEAL_SIZE": 11200000, "SF": "68880", "PSF": "162.6", "CAP_RATE": "6.86%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "Small-bay property, 10 tenants ranging from 2,400 - 28,000 SF", "CLOSED_DATE": "05/15/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "295 Union St ", "CITY": "Walpole", "STATE": "MA", "CLIENT": "CASCO & Berkeley", "BUYER": "Stockbridge Capital Group", "DEAL_SIZE": 26000000, "SF": "85159", "PSF": "305.31", "CAP_RATE": "6.8%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "IOS & Shallow-bay building, Tesla, Goodyear, SRS Distribution, 4+ acres of laydown space", "CLOSED_DATE": "05/08/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "32 Manning Road", "CITY": "Billerica", "STATE": "MA", "CLIENT": "Boise Building Solutions", "BUYER": "Berkeley Partners", "DEAL_SIZE": 4950000, "SF": "30040", "PSF": "164.78", "CAP_RATE": null, "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "User sale, 2 tailboard, delivered vacant", "CLOSED_DATE": "05/07/2025", "_jll_sale": true}, {"sheet": "pipeline", "STATUS": "CLOSED", "PROPERTY_NAME": "100 Sanrico", "CITY": "Manchester", "STATE": "CT", "CLIENT": "SkyREM", "BUYER": "B&D Holdings", "DEAL_SIZE": 12000000, "SF": "190646", "PSF": "62.94", "CAP_RATE": "8.34%", "TEAM_LEAD": null, "CLIENT_CONTACT": null, "COMMENTS": "24 loading docks, rents 60% of market, 100% leased to HomeGoods, tenant has termination option 9/26", "CLOSED_DATE": "04/15/2025", "_jll_sale": true}];
+JLL_SALES.forEach((c,i) => c._id = 'J'+i);
+
+function switchPipelineTab(tab) {
+  pipelineTab = tab;
+  document.getElementById('btn-pipe-active').classList.toggle('active', tab === 'active');
+  document.getElementById('btn-pipe-closed').classList.toggle('active', tab === 'closed');
+  activeFilter = 'ALL';
+  sortKey = 'deal';
+  buildFilters(); buildSortBar(); applyFilters();
+}
+
+function switchTab(tab) {
+  const marketSubtabs = document.getElementById('market-subtabs');
+  const searchWrap    = document.querySelector('.search-wrap');
+  const sortBarEl     = document.getElementById('sort-bar');
+  if (tab === 'market') {
+    document.getElementById('tab-pipeline').classList.remove('active');
+    document.getElementById('tab-market').classList.add('active');
+    marketSubtabs.style.display = 'flex';
+    document.getElementById('pipeline-subtabs').style.display = 'none';
+    searchWrap.style.display = 'none';
+    sortBarEl.style.display = 'none';
+    renderMarket();
+  } else {
+    document.getElementById('tab-market').classList.remove('active');
+    document.getElementById('tab-pipeline').classList.add('active');
+    marketSubtabs.style.display = 'none';
+    document.getElementById('pipeline-subtabs').style.display = 'flex';
+    searchWrap.style.display = 'block';
+    sortBarEl.style.display = 'flex';
+    switchPipelineTab(pipelineTab);
+  }
+}
+
+function switchMarketTab(tab) {
+  marketTab = tab;
+  document.getElementById('btn-mkt-overview').classList.toggle('active', tab === 'overview');
+  document.getElementById('btn-mkt-blocks').classList.toggle('active', tab === 'blocks');
+  renderMarket();
+}
+
+function switchMode(m) {
+  mode = m; activeFilter = 'ALL'; sortKey = 'deal';
+  document.getElementById('search').value = '';
+  buildFilters(); buildSortBar(); applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  let data;
+  if (mode === 'active') {
+    if (pipelineTab === 'closed') {
+      const pipelineClosed = ACTIVE.filter(c => PIPELINE_CLOSED_NAMES.includes(c.PROPERTY_NAME));
+      data = [...pipelineClosed, ...JLL_SALES];
+    } else {
+      data = ACTIVE.filter(c => !PIPELINE_CLOSED_NAMES.includes(c.PROPERTY_NAME));
     }
-    if (currentSort === 'price') return b.price - a.price;
-    if (currentSort === 'psf') return b.psf - a.psf;
-    if (currentSort === 'acre') return b.perAcre - a.perAcre;
-    if (currentSort === 'sf') return b.rsf - a.rsf;
-    if (currentSort === 'cap') {
-      const ca = a.capRate || 0;
-      const cb = b.capRate || 0;
-      return cb - ca;
+  } else {
+    data = mode === 'longterm' ? LONGTERM : CLOSED;
+  }
+  filtered = data.filter(c => {
+    if (!filterMatch(c, activeFilter)) return false;
+    if (q) {
+      const h = [c.PROPERTY_NAME,c.CLIENT,c.BUYER,c.TEAM_LEAD,c.CLIENT_CONTACT,c.CITY,c.STATE,c.STATUS].map(v=>clean(v)||'').join(' ').toLowerCase();
+      if (!h.includes(q)) return false;
     }
+    return true;
   });
+
+  filtered.sort((a,b) => {
+    if (sortKey==='deal' && mode==='active' && activeFilter==='ALL') {
+      const pa=statusPriority(a), pb=statusPriority(b);
+      if (pa !== pb) return pa - pb;
+      return (b.DEAL_SIZE||0)-(a.DEAL_SIZE||0);
+    }
+    if (sortKey==='deal') {
+      if (pipelineTab === 'closed' && mode === 'active') {
+        const ad = a.CLOSED_DATE||'', bd = b.CLOSED_DATE||'';
+        const toMs = d => { if(!d) return 0; const p=d.split('/'); return p.length===3?new Date(p[2],p[0]-1,p[1]).getTime()||0:0; };
+        const diff = toMs(bd) - toMs(ad);
+        if (diff !== 0) return diff;
+      }
+      return (b.DEAL_SIZE||0)-(a.DEAL_SIZE||0);
+    }
+    if (sortKey==='psf')   return (parseFloat(b.PSF)||0)-(parseFloat(a.PSF)||0);
+    if (sortKey==='az')    return (clean(a.PROPERTY_NAME)||'').localeCompare(clean(b.PROPERTY_NAME)||'');
+    if (sortKey==='lead')  return (clean(a.TEAM_LEAD)||'').localeCompare(clean(b.TEAM_LEAD)||'');
+    if (sortKey==='date')  {
+      const ad=a.CLOSED_DATE||'', bd=b.CLOSED_DATE||'';
+      const ap=ad.split('/'), bp=bd.split('/');
+      const aD=ap.length===3?new Date(ap[2],ap[0]-1,ap[1]).getTime()||0:0;
+      const bD=bp.length===3?new Date(bp[2],bp[0]-1,bp[1]).getTime()||0:0;
+      return bD-aD;
+    }
+    return 0;
+  });
+
+  renderStats(); renderList();
+  document.getElementById('comp-count').textContent = filtered.length+' deals';
 }
 
-function renderStats(data) {
-  const totalVol = data.reduce((s, d) => s + d.price, 0);
-  const avgPSF = Math.round(data.reduce((s, d) => s + d.psf, 0) / data.length);
-  const avgAcre = Math.round(data.reduce((s, d) => s + d.perAcre, 0) / data.length);
-  const capDeals = data.filter(d => d.capRate);
-  const avgCap = capDeals.length ? (capDeals.reduce((s,d) => s + d.capRate, 0) / capDeals.length).toFixed(2) : '—';
-
-  document.getElementById('statsStrip').innerHTML = `
-    <div class="stat-box">
-      <div class="stat-val">${data.length}</div>
-      <div class="stat-lbl">COMPS</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">${fmt$(totalVol)}</div>
-      <div class="stat-lbl">TOTAL VOL</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">$${avgPSF}</div>
-      <div class="stat-lbl">AVG $/SF</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">${avgCap === '—' ? avgCap : avgCap + '%'}</div>
-      <div class="stat-lbl">AVG CAP</div>
-    </div>
-  `;
+function renderStats() {
+  const deals = filtered.map(c=>c.DEAL_SIZE).filter(v=>v&&v>0);
+  const psfs  = filtered.map(c=>parseFloat(c.PSF)).filter(v=>v&&!isNaN(v)&&v>0&&v<5000);
+  const tot   = sum(deals);
+  document.getElementById('stat-a').textContent = tot ? fmtM(tot) : '—';
+  document.getElementById('stat-a-lbl').textContent = 'Total Value';
+  document.getElementById('stat-b').textContent = avg(psfs) ? '$'+avg(psfs).toFixed(0) : '—';
+  document.getElementById('stat-b-lbl').textContent = 'Avg PSF';
+  document.getElementById('stat-c').textContent = filtered.length;
+  document.getElementById('stat-c-lbl').textContent = 'Deals';
 }
 
-function renderCards(data) {
-  const container = document.getElementById('cards');
-  document.getElementById('resultCount').innerHTML = `Showing <span>${data.length}</span> of ${raw.length} comps`;
-
-  if (data.length === 0) {
-    container.innerHTML = '<div class="no-results">No comps match this filter.</div>';
-    return;
-  }
-
-  container.innerHTML = data.map((d, i) => {
-    const idx = raw.indexOf(d);
-    const isOpen = openCards.has(idx);
-
-    // Status badge
-    let statusBadge = '';
-    if (d.status === 'Under Contract') statusBadge = `<span class="badge badge-contract">Under Contract</span>`;
-    else if (d.isUser) statusBadge = `<span class="badge badge-user">User</span>`;
-
-    // Occupancy badge
-    let occBadge = '';
-    if (d.occ === 100) occBadge = `<span class="badge badge-occ">100% Leased</span>`;
-    else if (d.occ === 0) occBadge = `<span class="badge badge-vacant">Vacant</span>`;
-    else if (d.occ === 50) occBadge = `<span class="badge badge-vacant">50% Occ</span>`;
-
-    // Date display
-    let dateStr = fmtDate(d.date);
-    if (!d.date && d.status === 'Under Contract') dateStr = 'Under Contract';
-
-    // Clear height
-    const cht = d.clearHt || '—';
-    // Cap rate
-    const cap = d.capRate ? d.capRate.toFixed(2) + '%' : '—';
-    // WALT
-    const walt = d.walt ? d.walt.toFixed(1) + ' yr' : '—';
-
-    const jllTag = d.jll ? `<span class="jll-tag">★ JLL</span>` : '';
-    const brokerStr = d.broker ? `<span class="card-broker ${d.broker === 'JLL' ? 'broker-jll' : ''}">${d.broker}</span>` : '';
-
-    return `
-    <div class="comp-card ${d.jll ? 'jll-deal' : ''}" id="card-${idx}">
-      <div class="card-header">
-        <div class="card-address">${d.address}<br><span style="font-size:12px;color:var(--muted);font-family:-apple-system">${d.city}, ${d.state}</span></div>
-        <div>
-          <div class="card-price">${fmt$(d.price)}</div>
-          <div style="font-size:10px;color:var(--muted);text-align:right;font-family:'DM Mono'">${fmtSF(d.rsf)}</div>
-        </div>
+function renderList() {
+  const list = document.getElementById('list');
+  if (!filtered.length) { list.innerHTML='<div class="empty">No results found</div>'; return; }
+  list.innerHTML = filtered.map(c => {
+    const cfg   = getCfg(c.STATUS);
+    const price = c.DEAL_SIZE ? fmtM(c.DEAL_SIZE) : '—';
+    const psf   = fmtPsf(c.PSF);
+    const cap   = fmtCap(c.CAP_RATE);
+    const sf    = clean(c.SF) ? Number(String(c.SF).replace(/,/g,'')).toLocaleString()+' SF' : '—';
+    const loc   = [clean(c.CITY),clean(c.STATE)].filter(Boolean).join(', ');
+    const stateTag = c.STATE&&c.STATE!=='MA' ? `<span class="tag tag-state">${esc(c.STATE)}</span>` : '';
+    const date3    = (pipelineTab==='closed'||mode==='closed')&&c.CLOSED_DATE ? c.CLOSED_DATE : null;
+    return `<div class="comp-card ${cfg.cls}" onclick="openModal(${JSON.stringify(c._id)})">
+      <div class="card-top">
+        <div class="card-title">${esc(clean(c.PROPERTY_NAME)||'—')}</div>
+        <div class="card-price">${price}</div>
       </div>
-
-      <div class="card-location">
-        <span class="badge badge-sub">${d.submarket}</span>
-        ${occBadge}
-        ${statusBadge}
-        ${jllTag}
+      <div class="card-loc">${esc(loc)}</div>
+      <div class="card-tags">
+        <span class="tag ${cfg.tag}">${esc(cfg.label)}</span>
+        ${stateTag}
       </div>
-
-      <div class="card-metrics">
-        <div class="metric">
-          <div class="metric-val">$${d.psf}</div>
-          <div class="metric-key">$/SF</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">${fmtAcre(d.acres)}</div>
-          <div class="metric-key">ACRES</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">${cap}</div>
-          <div class="metric-key">CAP</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">${d.yrBuilt}</div>
-          <div class="metric-key">BUILT</div>
-        </div>
-      </div>
-
-      <div class="card-notes ${isOpen ? 'open' : ''}" id="notes-${idx}">
-        <div style="margin-bottom:6px"><span style="color:var(--accent);font-family:'DM Mono';font-size:10px">BUYER:</span> ${d.buyer}</div>
-        <div style="margin-bottom:6px"><span style="color:var(--accent);font-family:'DM Mono';font-size:10px">SELLER:</span> ${d.seller}</div>
-        ${d.walt ? `<div style="margin-bottom:6px"><span style="color:var(--accent);font-family:'DM Mono';font-size:10px">WALT:</span> ${walt}</div>` : ''}
-        ${d.clearHt ? `<div style="margin-bottom:6px"><span style="color:var(--accent);font-family:'DM Mono';font-size:10px">CLEAR HT:</span> ${cht}</div>` : ''}
-        ${d.perAcre ? `<div style="margin-bottom:6px"><span style="color:var(--accent);font-family:'DM Mono';font-size:10px">$/ACRE:</span> ${fmt$(d.perAcre)}</div>` : ''}
-        <div style="color:var(--muted);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;font-size:12px">${d.notes}</div>
-      </div>
-
-      <div class="card-footer">
-        <span class="card-date">${dateStr}</span>
-        ${brokerStr}
-        <button class="expand-btn ${isOpen ? 'open' : ''}" onclick="toggleCard(${idx})">${isOpen ? '▲' : '▼'}</button>
+      <div class="card-meta">
+        <div><div class="meta-label">PSF</div><div class="meta-val">${psf}</div></div>
+        <div><div class="meta-label">Size</div><div class="meta-val">${sf}</div></div>
+        <div><div class="meta-label">${mode==='closed'?'Closed':'Cap Rate'}</div><div class="meta-val">${date3||cap}</div></div>
       </div>
     </div>`;
   }).join('');
 }
 
-function toggleCard(idx) {
-  if (openCards.has(idx)) openCards.delete(idx);
-  else openCards.add(idx);
-  const notes = document.getElementById(`notes-${idx}`);
-  const btn = document.querySelector(`#card-${idx} .expand-btn`);
-  if (notes) notes.classList.toggle('open', openCards.has(idx));
-  if (btn) {
-    btn.classList.toggle('open', openCards.has(idx));
-    btn.textContent = openCards.has(idx) ? '▲' : '▼';
+function openModal(id) {
+  let data;
+  if (mode === 'active') {
+    if (pipelineTab === 'closed') {
+      const pipelineClosed = ACTIVE.filter(c => PIPELINE_CLOSED_NAMES.includes(c.PROPERTY_NAME));
+      data = [...pipelineClosed, ...JLL_SALES];
+    } else {
+      data = ACTIVE.filter(c => !PIPELINE_CLOSED_NAMES.includes(c.PROPERTY_NAME));
+    }
+  } else {
+    data = mode === 'longterm' ? LONGTERM : CLOSED;
+  }
+  const c = data.find(x=>x._id===id); if(!c) return;
+  const cfg = getCfg(c.STATUS);
+  document.getElementById('m-title').textContent = clean(c.PROPERTY_NAME)||'—';
+  document.getElementById('m-sub').textContent = [clean(c.CITY),clean(c.STATE)].filter(Boolean).join(', ');
+  document.getElementById('m-banner').innerHTML = `
+    <div><div class="modal-banner-lbl">Deal Size</div><div class="modal-banner-val big">${c.DEAL_SIZE?fmtFull(c.DEAL_SIZE):'—'}</div></div>
+    <div style="text-align:right"><div class="modal-banner-lbl">PSF</div><div class="modal-banner-val med">${fmtPsf(c.PSF)}</div></div>`;
+
+  const sfNum = clean(c.SF) ? Number(String(c.SF).replace(/,/g,'')).toLocaleString()+' SF' : '—';
+
+  let rows = `
+    <div class="modal-section"><div class="modal-section-title">Deal</div><div class="modal-grid">
+      <div class="modal-item"><div class="modal-key">Status</div><div class="modal-val"><span class="tag ${cfg.tag}">${esc(cfg.label)}</span></div></div>
+      <div class="modal-item"><div class="modal-key">Size (SF)</div><div class="modal-val hi">${sfNum}</div></div>
+      <div class="modal-item"><div class="modal-key">Deal Size</div><div class="modal-val gold">${c.DEAL_SIZE?fmtFull(c.DEAL_SIZE):'—'}</div></div>
+      <div class="modal-item"><div class="modal-key">PSF</div><div class="modal-val gold">${fmtPsf(c.PSF)}</div></div>
+      <div class="modal-item"><div class="modal-key">Cap Rate</div><div class="modal-val">${fmtCap(c.CAP_RATE)}</div></div>
+      ${c.CLOSED_DATE?`<div class="modal-item"><div class="modal-key">Closed Date</div><div class="modal-val">${esc(c.CLOSED_DATE)}</div></div>`:''}
+      ${c.DEAL_TYPE?`<div class="modal-item"><div class="modal-key">Deal Type</div><div class="modal-val">${esc(c.DEAL_TYPE)}</div></div>`:''}
+    </div></div>
+    <div class="modal-section"><div class="modal-section-title">Parties</div><div class="modal-grid">
+      <div class="modal-item"><div class="modal-key">Client</div><div class="modal-val">${esc(clean(c.CLIENT)||'—')}</div></div>
+      ${clean(c.BUYER)?`<div class="modal-item"><div class="modal-key">Buyer</div><div class="modal-val">${esc(c.BUYER)}</div></div>`:''}
+      ${clean(c.CLIENT_CONTACT)?`<div class="modal-item"><div class="modal-key">Client Contact</div><div class="modal-val">${esc(c.CLIENT_CONTACT)}</div></div>`:''}
+    </div></div>`;
+
+  if (clean(c.COMMENTS)) {
+    rows += `<div class="modal-section"><div class="modal-section-title">Comments</div><div class="notes-box">${esc(c.COMMENTS)}</div></div>`;
+  }
+
+  document.getElementById('m-body').innerHTML = rows;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e)   { if(e.target===document.getElementById('modal-overlay')) closeModalBtn(); }
+function closeModalBtn() { document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+/* ---- MARKET INTEL ---- */
+const AVAILABILITIES = [
+  { rank:1,  addr:'64 Leona Dr',               city:'Middleborough',    yr:1995, cls:'A', bldg:805347, avail:805347, pct:100, note:'Amazon trading paper to lease for 5 years but early stages' },
+  { rank:2,  addr:'27 Cross St',               city:'Plainville',       yr:2023, cls:'A', bldg:662500, avail:662500, pct:100, note:'Negotiating with 2 tenants to potentially fill the building' },
+  { rank:3,  addr:'75 Plain St',               city:'Hopedale',         yr:2024, cls:'A', bldg:616875, avail:616875, pct:100, note:'Amazon HazMat contract (supposedly with Maersk) allegedly getting done here for the full building' },
+  { rank:4,  addr:'140 Laurel St',             city:'East Bridgewater', yr:1972, cls:'B', bldg:468996, avail:468996, pct:100, note:null },
+  { rank:5,  addr:'211 Highland St',           city:'East Bridgewater', yr:2023, cls:'A', bldg:412500, avail:412500, pct:100, note:'Going to market for sale vacant' },
+  { rank:6,  addr:'25 Maple St - Bldg 3',     city:'Stoughton',        yr:2026, cls:'A', bldg:411930, avail:411930, pct:100, note:'Amazon has a lease out (possibly SSD)' },
+  { rank:7,  addr:'21 Lincoln St',             city:'West Bridgewater', yr:2024, cls:'A', bldg:350000, avail:350000, pct:100, note:null },
+  { rank:8,  addr:'1 National St',             city:'Milford',          yr:1973, cls:'B', bldg:300000, avail:300000, pct:100, note:'Champagne Logistics leased entire building' },
+  { rank:9,  addr:'35 United Dr',              city:'West Bridgewater', yr:1987, cls:'B', bldg:493000, avail:278181, pct:56,  note:null },
+  { rank:10, addr:'25 Maple St - Bldg 1',     city:'Stoughton',        yr:2026, cls:'A', bldg:274827, avail:274827, pct:100, note:null },
+  { rank:11, addr:'57 Littlefield St',         city:'Avon',             yr:1974, cls:'B', bldg:383225, avail:258224, pct:67,  note:null },
+  { rank:12, addr:'3 Silver City Dr',          city:'Taunton',          yr:2024, cls:'A', bldg:248453, avail:248453, pct:100, note:'Primo Brands leased entire building' },
+  { rank:13, addr:'150 Revolutionary Dr',      city:'Taunton',          yr:2024, cls:'A', bldg:234260, avail:234260, pct:100, note:null },
+  { rank:14, addr:'480 Sprague St',            city:'Dedham',           yr:1960, cls:'B', bldg:228560, avail:228560, pct:100, note:'Amazon Robotics has taken back 480 Sprague – off the market now' },
+  { rank:15, addr:'132 Campanelli Industrial Dr', city:'Brockton',      yr:1967, cls:'C', bldg:300114, avail:225000, pct:75,  note:null },
+  { rank:16, addr:'550 Forbes Blvd',           city:'Mansfield',        yr:1988, cls:'B', bldg:222357, avail:222357, pct:100, note:'Trading LOIs with a tenant for 50% of the space' },
+  { rank:17, addr:'900 Bedford St',            city:'Bridgewater',      yr:2023, cls:'A', bldg:219000, avail:219000, pct:100, note:'40K SF leased to Red Bull' },
+  { rank:18, addr:'241 Francis Ave',           city:'Mansfield',        yr:1974, cls:'C', bldg:352340, avail:216565, pct:61,  note:null },
+  { rank:19, addr:'586 Manley St',             city:'West Bridgewater', yr:2024, cls:'A', bldg:210600, avail:210600, pct:100, note:'Full building lease signed by SupplyOne' },
+  { rank:20, addr:'275 Bodwell St',            city:'Avon',             yr:1984, cls:'B', bldg:210000, avail:210000, pct:100, note:null },
+];
+
+const REQUIREMENTS = ['Eversource','National Grid','Woodgrain','Organogenesis','Modine','Bossard','Chex Finer Foods','MEI Industrial Solutions','Blue Valley Cabinets','JSI Cabinetry','Precision Coating','TricorBraun','CVS'];
+
+const NON_SOUTH_BLOCKS = [{"addr": "Charlton Commerce Center", "city": "Charlton", "market": "Worcester", "sf": 1197000, "pct_leased": 0, "developer": "GFI Partners", "delivery": "Q1 2027", "note": "Largest spec UC in market"}, {"addr": "123 Gilboa Street", "city": "Douglas", "market": "West", "sf": 1102500, "pct_leased": 0, "developer": "CRG", "delivery": "Q1 2024", "note": "0% leased"}, {"addr": "40 Lackey Dam Road", "city": "Uxbridge", "market": "West", "sf": 607486, "pct_leased": 73, "developer": "Scannell / Crow Holdings", "delivery": "Q1 2023", "note": "73% leased to McKesson"}, {"addr": "47 Hackett Hill Rd", "city": "Hooksett", "market": "NH", "sf": 500840, "pct_leased": 0, "developer": "Supreme Industries / Port One", "delivery": "Near-Term", "note": "Near-term spec pipeline"}, {"addr": "139 Campanelli Drive", "city": "Uxbridge", "market": "West", "sf": 450800, "pct_leased": 0, "developer": "Seyon / Morgan Stanley", "delivery": "Q1 2023", "note": "0% leased"}, {"addr": "80 Pine Hill Drive", "city": "Boylston", "market": "West", "sf": 396375, "pct_leased": 80, "developer": "NorthBridge Partners", "delivery": "Q1 2023", "note": "80% leased"}, {"addr": "475 Leominster Shirley Rd", "city": "Lunenburg", "market": "West", "sf": 372000, "pct_leased": 22, "developer": "Berkeley / Brennan / Corcoran", "delivery": "Q1 2023", "note": "22% leased"}, {"addr": "Trident Logistics Center", "city": "Revere", "market": "Urban", "sf": 367400, "pct_leased": 0, "developer": "Link Logistics / Saracen", "delivery": "Q4 2025", "note": "Under construction"}, {"addr": "7 Crow's Nest Circle", "city": "Merrimack", "market": "NH", "sf": 260000, "pct_leased": 23, "developer": "Private Individual", "delivery": "Near-Term", "note": "23% leased — near-term pipeline"}, {"addr": "800 Salem Street", "city": "Wilmington", "market": "North", "sf": 234260, "pct_leased": 0, "developer": "Camber / Wheelock", "delivery": "Q3 2024", "note": "0% leased"}, {"addr": "415 Green Street", "city": "Marlborough", "market": "West", "sf": 203265, "pct_leased": 0, "developer": "Lincoln Property Company", "delivery": "Q1 2026", "note": "Under construction"}, {"addr": "555 King Street", "city": "Franklin", "market": "South", "sf": 255400, "pct_leased": 0, "developer": "Marcus Partners", "delivery": "Near-Term", "note": "Near-term spec pipeline"}, {"addr": "6 Industrial Way", "city": "Salem", "market": "NH", "sf": 155000, "pct_leased": 37, "developer": "Profeta & Associates", "delivery": "Q3 2023", "note": "37% leased"}, {"addr": "46 Old Ferry Road", "city": "Methuen", "market": "North", "sf": 147840, "pct_leased": 0, "developer": "Patriot Holdings", "delivery": "Q1 2024", "note": "0% leased"}, {"addr": "250 Marginal Street", "city": "Chelsea", "market": "Urban", "sf": 146000, "pct_leased": 0, "developer": "Hines", "delivery": "Q2 2024", "note": "0% leased"}, {"addr": "2 Commerce Drive", "city": "Tyngsboro", "market": "North", "sf": 125000, "pct_leased": 0, "developer": "Marcus Partners", "delivery": "Q1 2026", "note": "Under construction"}, {"addr": "600 Griffin Brook Drive", "city": "Methuen", "market": "North", "sf": 95700, "pct_leased": 0, "developer": "RJ Kelly", "delivery": "Q4 2025", "note": "Under construction"}, {"addr": "63 Londonderry Tpke", "city": "Hooksett", "market": "NH", "sf": 94800, "pct_leased": 0, "developer": "Morgan Storage", "delivery": "Q4 2025", "note": "Under construction"}, {"addr": "270 Billerica Ave", "city": "Chelmsford", "market": "North", "sf": 91500, "pct_leased": 0, "developer": "DH Property Holdings", "delivery": "Q4 2025", "note": "Under construction"}, {"addr": "50 Robert Milligan Pkwy", "city": "Merrimack", "market": "North", "sf": 323750, "pct_leased": 0, "developer": "Trammell Crow / Diamond Realty", "delivery": "Q1 2024", "note": "0% leased"}, {"addr": "175 Lowell Street", "city": "Wilmington", "market": "North", "sf": 298895, "pct_leased": 0, "developer": "National Development", "delivery": "Q4 2023", "note": "0% leased"}, {"addr": "90 Huntoon Memorial Hwy", "city": "Leicester", "market": "West", "sf": 267600, "pct_leased": 0, "developer": "Berkeley / Brennan / Corcoran", "delivery": "Q2 2023", "note": "0% leased"}, {"addr": "40 Commerce Way", "city": "Tewksbury", "market": "North", "sf": 65000, "pct_leased": 0, "developer": "Rhino Capital / Ridge Real Estate", "delivery": "Q2 2024", "note": "0% leased"}];
+
+let activeBlockMkt = 'All';
+
+function filterBlocks(btn, mkt) {
+  activeBlockMkt = mkt;
+  document.querySelectorAll('.bpill').forEach(b => b.classList.toggle('active', b.dataset.mkt === mkt));
+  renderBlocksList();
+}
+
+function fmtSFk(sf) {
+  return sf >= 1000000 ? (sf/1000000).toFixed(2)+'M' : (sf/1000).toFixed(0)+'K';
+}
+
+function renderBlocksList() {
+  const container = document.getElementById('blocks-list');
+  if (!container) return;
+
+  let allBlocks = [];
+
+  AVAILABILITIES.forEach(a => {
+    allBlocks.push({
+      addr: a.addr,
+      city: a.city,
+      market: 'South',
+      availSF: a.avail,
+      bldgSF: a.bldg,
+      cls: a.cls,
+      pct: a.pct,
+      developer: null,
+      delivery: null,
+      note: a.note,
+      isSouth: true,
+    });
+  });
+
+  NON_SOUTH_BLOCKS.forEach(b => {
+    const mktLabel = b.market === 'Worcester' ? 'Worcester County' : b.market === 'NH' ? 'Southern NH' : b.market;
+    allBlocks.push({
+      addr: b.addr,
+      city: b.city,
+      market: mktLabel,
+      availSF: Math.round(b.sf * (1 - b.pct_leased/100)),
+      bldgSF: b.sf,
+      cls: 'A',
+      pct: 100 - b.pct_leased,
+      developer: b.developer,
+      delivery: b.delivery,
+      note: b.note,
+      isSouth: false,
+    });
+  });
+
+  if (activeBlockMkt !== 'All') {
+    const f = activeBlockMkt === 'Worcester' ? 'Worcester County' : activeBlockMkt === 'NH' ? 'Southern NH' : activeBlockMkt;
+    allBlocks = allBlocks.filter(b => b.market === f);
+  }
+
+  allBlocks.sort((a, b) => b.availSF - a.availSF);
+
+  const cards = allBlocks.map(b => {
+    const mktColor = {
+      'South':'var(--green)','North':'var(--blue)','West':'var(--purple)',
+      'Urban':'var(--gold)','Southern NH':'var(--muted)','Worcester County':'var(--red)'
+    }[b.market] || 'var(--muted)';
+    return `<div class="avail-card class-${b.cls.toLowerCase()}">
+      <div class="avail-top">
+        <div class="avail-addr">${esc(b.addr)}</div>
+        <div class="avail-sf">${fmtSFk(b.availSF)} SF</div>
+      </div>
+      <div class="avail-city" style="display:flex;align-items:center;gap:6px;margin-bottom:7px">
+        <span>${esc(b.city)}</span>
+        <span style="font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;background:${mktColor}18;color:${mktColor};border:1px solid ${mktColor}40;text-transform:uppercase;letter-spacing:0.04em">· ${esc(b.market)}</span>
+      </div>
+      <div class="avail-meta">
+        <div><div class="meta-label">Bldg Size</div><div class="meta-val">${fmtSFk(b.bldgSF)} SF</div></div>
+        <div><div class="meta-label">Class</div><div class="meta-val">${esc(b.cls)}</div></div>
+        <div><div class="meta-label">% Avail</div><div class="meta-val">${b.pct}%</div></div>
+      </div>
+      ${b.developer ? `<div class="avail-meta" style="margin-top:4px"><div><div class="meta-label">Developer</div><div class="meta-val" style="font-size:10px">${esc(b.developer)}</div></div>${b.delivery?`<div><div class="meta-label">Delivery</div><div class="meta-val">${esc(b.delivery)}</div></div>`:''}</div>` : ''}
+      ${b.note ? `<div class="avail-note">${esc(b.note)}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  container.innerHTML = cards || '<div class="empty">No blocks found</div>';
+}
+
+function renderMarket() {
+  const body = document.getElementById('list');
+  body.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'market-body';
+
+  if (marketTab === 'overview') {
+    wrap.innerHTML = `
+    <div class="mkt-section">
+      <div class="mkt-section-title">Boston Industrial Q1 2026</div>
+      <div class="mkt-section-sub">JLL Market Report</div>
+      <div class="fundamentals-grid">
+        <div class="fund-card"><div class="fund-val">1.28M SF<span class="fund-arrow arrow-up">↑</span></div><div class="fund-lbl">YTD Net Absorption</div></div>
+        <div class="fund-card"><div class="fund-val">8.1%<span class="fund-arrow arrow-down">↓</span></div><div class="fund-lbl">Total Vacancy</div></div>
+        <div class="fund-card"><div class="fund-val">$15.21<span class="fund-arrow arrow-flat">→</span></div><div class="fund-lbl">Avg Asking Rent PSF</div></div>
+        <div class="fund-card" onclick="openUCModal()" style="cursor:pointer;"><div class="fund-val">3.76M SF<span class="fund-arrow arrow-down">↓</span></div><div class="fund-lbl">Under Construction <span style="font-size:8px;color:var(--gold)">▶ tap</span></div></div>
+        <div class="fund-card"><div class="fund-val">83.1%<span class="fund-arrow arrow-down">↓</span></div><div class="fund-lbl">Preleased</div></div>
+        <div class="fund-card"><div class="fund-val">10.4%<span class="fund-arrow arrow-down">↓</span></div><div class="fund-lbl">Total Availability</div></div>
+      </div>
+    </div>
+
+    <div class="mkt-section">
+      <div class="mkt-section-title">Key Highlights</div>
+      <div class="insight-box">
+        <ul class="insight-bullets">
+          <li>Leasing volume up 73% and demand up 83% vs. Q1 2025 — strongest start in two years.</li>
+          <li>Net absorption of 1.28M SF — second straight quarter above 1M SF, the best two-quarter run in two years.</li>
+          <li>21M SF of active demand in the market, a 16% increase vs. Q4 2025 and 83% year-over-year. 50 tenants seeking 100K+ SF; 10 seeking 500K+ SF.</li>
+          <li>Construction pipeline down 26% vs. Q1 2025 — lowest since Q2 2021. Only 715K SF of spec space remaining under construction.</li>
+          <li>Average asking rents at $15.21 PSF, up 1.1% from Q4 2025 but still down 2% year-over-year.</li>
+          <li>Notable Q1 deals: Champagne Logistics (300K SF, Milford), Primo Brands (248K SF, Taunton), Owens &amp; Minor (234K SF, Franklin).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mkt-section">
+      <div class="mkt-section-title">Stats by Submarket</div>
+      <div class="mkt-section-sub">Q3 2025 Submarket Data · Source: JLL</div>
+      ${[
+        { name:'North',              props:484,  sf:'44.8M', rent:'$18.33', vac:'6.3%',  color:'#2c5f8a' },
+        { name:'South',              props:765,  sf:'86.1M', rent:'$13.48', vac:'10.4%', color:'#2d7a4f' },
+        { name:'West',               props:205,  sf:'24.6M', rent:'$12.81', vac:'5.3%',  color:'#6b3fa0' },
+        { name:'Urban',              props:203,  sf:'17.1M', rent:'$33.87', vac:'7.0%',  color:'#b8913a' },
+        { name:'Southern NH',        props:364,  sf:'39.3M', rent:'$12.35', vac:'6.2%',  color:'#8a8580' },
+        { name:'Worcester County',   props:429,  sf:'45.6M', rent:'$12.46', vac:'10.0%', color:'#a83228' },
+      ].map(s => `
+        <div class="sub-card" style="border-left-color:${s.color}">
+          <div class="sub-name">${s.name}</div>
+          <div class="sub-grid">
+            <div><div class="meta-label">Inventory</div><div class="meta-val">${s.sf} SF</div></div>
+            <div><div class="meta-label">Properties</div><div class="meta-val">${s.props}</div></div>
+            <div><div class="meta-label">Asking Rent</div><div class="meta-val" style="color:var(--green);font-family:'Libre Baskerville',serif">${s.rent}</div></div>
+            <div><div class="meta-label">Vacancy</div><div class="meta-val">${s.vac}</div></div>
+          </div>
+        </div>`).join('')}
+      <div class="sub-card" style="border-left-color:var(--navy);background:var(--surface2)">
+        <div class="sub-name" style="color:var(--navy)">Total Market</div>
+        <div class="sub-grid">
+          <div><div class="meta-label">Inventory</div><div class="meta-val">257.5M SF</div></div>
+          <div><div class="meta-label">Properties</div><div class="meta-val">2,450</div></div>
+          <div><div class="meta-label">Asking Rent</div><div class="meta-val" style="color:var(--green);font-family:'Libre Baskerville',serif">$15.19</div></div>
+          <div><div class="meta-label">Vacancy</div><div class="meta-val">8.3%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mkt-section">
+      <div class="mkt-section-title">South Market Snapshot</div>
+      <div class="mkt-section-sub">Q3 2025 · Most Recent Available</div>
+      <div class="fundamentals-grid">
+        <div class="fund-card"><div class="fund-val">86.1M SF</div><div class="fund-lbl">Total Inventory</div></div>
+        <div class="fund-card"><div class="fund-val">930K SF</div><div class="fund-lbl">Under Construction</div></div>
+        <div class="fund-card"><div class="fund-val">10.4%</div><div class="fund-lbl">Vacancy Rate</div></div>
+        <div class="fund-card"><div class="fund-val">$13.48</div><div class="fund-lbl">Avg Asking Rent PSF</div></div>
+      </div>
+    </div>
+    `;
+  } else {
+    wrap.innerHTML = `
+    <div class="mkt-section">
+      <div class="mkt-section-title">Large Block Availabilities</div>
+      <div class="mkt-section-sub">Source: JLL IMO Q3 2025 · Crossreferenced Q1 2026</div>
+      <div class="block-filters" id="block-filters">
+        <button class="bpill active" data-mkt="All" onclick="filterBlocks(this,'All')">All</button>
+        <button class="bpill" data-mkt="South"    onclick="filterBlocks(this,'South')">South</button>
+        <button class="bpill" data-mkt="North"    onclick="filterBlocks(this,'North')">North</button>
+        <button class="bpill" data-mkt="West"     onclick="filterBlocks(this,'West')">West</button>
+        <button class="bpill" data-mkt="NH"       onclick="filterBlocks(this,'NH')">NH</button>
+        <button class="bpill" data-mkt="Urban"    onclick="filterBlocks(this,'Urban')">Urban</button>
+        <button class="bpill" data-mkt="Worcester" onclick="filterBlocks(this,'Worcester')">Worcester</button>
+      </div>
+      <div id="blocks-list"></div>
+    </div>
+
+    <div class="mkt-section">
+      <div class="mkt-section-title">Active Requirements 75K+ SF</div>
+      <div class="mkt-section-sub">South Market</div>
+      <div class="req-grid">
+        ${REQUIREMENTS.map(r => `<div class="req-item">${esc(r)}</div>`).join('')}
+      </div>
+    </div>
+
+    <div class="mkt-section">
+      <div class="mkt-section-title">Additional Activity</div>
+      <div class="insight-box">
+        <ul class="insight-bullets">
+          <li>Electric Boat signed in Warwick, RI for 271K SF net new.</li>
+          <li>Recent big renewals: NDCP, Victory Packaging, Owens &amp; Minors.</li>
+          <li>3.6M SF of the top 20 availabilities are potentially leased — 52% of total market availability.</li>
+        </ul>
+      </div>
+    </div>
+  `;
+  }
+
+  body.appendChild(wrap);
+  document.getElementById('comp-count').textContent = 'Q1 2026';
+  if (marketTab === 'blocks') { renderBlocksList(); }
+  document.getElementById('stat-a').textContent = '$15.21';
+  document.getElementById('stat-a-lbl').textContent = 'Avg Rent PSF';
+  document.getElementById('stat-b').textContent = '8.1%';
+  document.getElementById('stat-b-lbl').textContent = 'Vacancy';
+  document.getElementById('stat-c').textContent = '3.76M';
+  document.getElementById('stat-c-lbl').textContent = 'Under Const.';
+  document.getElementById('sort-bar').innerHTML = '';
+  document.getElementById('filters').innerHTML = '';
+}
+
+document.getElementById('search').addEventListener('input', () => { if (mode !== 'market') applyFilters(); });
+
+mode = 'active'; pipelineTab = 'active';
+buildFilters(); buildSortBar(); applyFilters();
+
+// ---- UC PIPELINE — Q1 2026 (crossreferenced with Q3 2025 JLL IMO) ----
+// Q4 2025 spec deliveries removed (Trident, 440 Hartford, Griffin Brook, 63 Londonderry, 270 Billerica)
+// Q3 2025 near-term projects (Hackett Hill, Crow's Nest, 555 King) promoted to active Spec UC
+// Q4 2025 BTS deliveries (65 Theodore, Lonza, Creek Brook, Eversource) kept — still noted as delivered
+// Spec UC total ~3.76M SF matches Q1 2026 headline; BTS total ~3.6M SF (Q3 2025 pipeline unchanged)
+// 83.1% preleased per Q1 2026 dashboard data
+const UC_PIPELINE = [
+  // BTS Under Construction (3.6M SF — per Q3 2025 IMO, crossreferenced with Q1 2026)
+  { addr:'43 Steele Rd',             city:'Hudson, NH',        detail:'Target',                    sf:1400000, delivery:'Q4 2026', type:'BTS' },
+  { addr:'50 Centennial Dr',         city:'Shrewsbury, MA',    detail:'UPS Distribution Center',   sf:845000,  delivery:'Q1 2027', type:'BTS' },
+  { addr:'65 Theodore Dr',           city:'Westminster, MA',   detail:'Home Depot Distribution',   sf:600000,  delivery:'Q4 2025', type:'BTS' },
+  { addr:'1151 Innovation Way',      city:'Fall River, MA',    detail:'FreezPak',                  sf:203397,  delivery:'Q1 2026', type:'BTS' },
+  { addr:'30 Burtt Rd',              city:'Andover, MA',       detail:'Gillette Expansion',        sf:201684,  delivery:'Q3 2026', type:'BTS' },
+  { addr:'70 Corporate Dr',          city:'Portsmouth, NH',    detail:'Lonza',                     sf:100000,  delivery:'Q4 2025', type:'BTS' },
+  { addr:'2 Creek Brook Dr',         city:'Haverhill, MA',     detail:'Cafua Management / Dunkin', sf:93500,   delivery:'Q4 2025', type:'BTS' },
+  { addr:'66 Newark St',             city:'Haverhill, MA',     detail:'Frame My TV',               sf:58500,   delivery:'Q1 2026', type:'BTS' },
+  { addr:'425 John Quincy Adams Rd', city:'Taunton, MA',       detail:'Eversource',                sf:40000,   delivery:'Q4 2025', type:'BTS' },
+  { addr:'8 Millennium Dr',          city:'North Grafton, MA', detail:'Epic Polymer',              sf:30000,   delivery:'Q1 2026', type:'BTS' },
+  // Spec Under Construction — Q1 2026 (~3.76M SF)
+  // Removed Q4 2025 deliveries: Trident (367K), 440 Hartford (134K), Griffin Brook (96K), 63 Londonderry (95K), 270 Billerica (92K)
+  // Added Q3 2025 near-term projects now UC: Hackett Hill (501K), Crow's Nest (260K), 555 King (255K)
+  { addr:'Charlton Commerce Center', city:'Charlton, MA',      detail:'GFI Partners',              sf:1197000, delivery:'Q1 2027', type:'Spec', pctLeased:0   },
+  { addr:'47 Hackett Hill Rd',       city:'Hooksett, NH',      detail:'Supreme Industries / Port One', sf:500840, delivery:'Q2 2026', type:'Spec', pctLeased:0 },
+  { addr:'Maple Street – Bldg 1',    city:'Stoughton, MA',     detail:'Brookfield Properties',     sf:274827,  delivery:'Q3 2026', type:'Spec', pctLeased:0   },
+  { addr:"7 Crow's Nest Circle",     city:'Merrimack, NH',     detail:'Private Individual',         sf:260000,  delivery:'Q2 2026', type:'Spec', pctLeased:23  },
+  { addr:'555 King Street',          city:'Franklin, MA',      detail:'Marcus Partners',            sf:255400,  delivery:'Q2 2026', type:'Spec', pctLeased:0   },
+  { addr:'415 Green Street',         city:'Marlborough, MA',   detail:'Lincoln Property Co.',       sf:203265,  delivery:'Q2 2026', type:'Spec', pctLeased:0   },
+  { addr:'2 Commerce Drive',         city:'Tyngsboro, MA',     detail:'Marcus Partners',            sf:125000,  delivery:'Q1 2026', type:'Spec', pctLeased:0   },
+];
+
+function openUCModal() {
+  const body = document.getElementById('uc-modal-body');
+  const fmt = sf => sf>=1e6?(sf/1e6).toFixed(2)+'M':(sf/1000).toFixed(0)+'K';
+
+  const btsTot   = UC_PIPELINE.filter(b=>b.type==='BTS').reduce((s,b)=>s+b.sf,0);
+  const specTot  = UC_PIPELINE.filter(b=>b.type==='Spec').reduce((s,b)=>s+b.sf,0);
+  const totalUC  = btsTot + specTot;
+
+  const sorted = [...UC_PIPELINE].sort((a,b) => b.sf - a.sf);
+
+  body.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      <div style="background:var(--navy);border-radius:10px;padding:10px 12px;text-align:center;">
+        <div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:var(--gold);">${fmt(btsTot)} SF</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;">Build-to-Suit</div>
+      </div>
+      <div style="background:var(--blue);border-radius:10px;padding:10px 12px;text-align:center;">
+        <div style="font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:#fff;">${fmt(specTot)} SF</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;">Speculative</div>
+      </div>
+    </div>
+    <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Q1 2026 · 83.1% Preleased · Crossreferenced with Q3 2025 JLL IMO · Projects sorted by size</div>
+    ${sorted.map(b => {
+      const isBTS  = b.type === 'BTS';
+      const color  = isBTS ? 'var(--navy)' : 'var(--blue)';
+      const typeLabel = isBTS ? 'BTS' : 'Spec UC';
+      const badge = `<span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:3px;background:${color}18;color:${color};border:1px solid ${color}40;text-transform:uppercase;letter-spacing:.04em;">${typeLabel}</span>`;
+      const lbl = isBTS ? 'Tenant' : 'Developer';
+      const extra = !isBTS && b.pctLeased !== undefined
+        ? `<div><div style="font-size:8px;color:var(--light);text-transform:uppercase;letter-spacing:.05em;">% Leased</div><div style="font-size:11px;font-weight:500;color:var(--navy);margin-top:1px;">${b.pctLeased}%</div></div>`
+        : '';
+      return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid ${color};">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:3px;">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);flex:1;line-height:1.3;">${esc(b.addr)}</div>
+          <div style="font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--green);white-space:nowrap;">${fmt(b.sf)} SF</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px;">${esc(b.city)} ${badge}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr${!isBTS?' 1fr':''};gap:4px;">
+          <div><div style="font-size:8px;color:var(--light);text-transform:uppercase;letter-spacing:.05em;">${lbl}</div><div style="font-size:10px;font-weight:500;color:var(--navy);margin-top:1px;">${esc(b.detail)}</div></div>
+          <div><div style="font-size:8px;color:var(--light);text-transform:uppercase;letter-spacing:.05em;">Delivery</div><div style="font-size:11px;font-weight:500;color:var(--navy);margin-top:1px;">${esc(b.delivery)}</div></div>
+          ${extra}
+        </div>
+      </div>`;
+    }).join('')}
+  `;
+  const overlay = document.getElementById('uc-modal-overlay');
+  overlay.style.display = 'flex';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeUCModal(e) {
+  if (e.target === document.getElementById('uc-modal-overlay')) {
+    document.getElementById('uc-modal-overlay').classList.remove('open');
+    document.getElementById('uc-modal-overlay').style.display = 'none';
+    document.body.style.overflow = '';
   }
 }
-
-function setFilter(f) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === f);
-  });
-  render();
-}
-
-function setSort(s) {
-  currentSort = s;
-  document.querySelectorAll('.sort-btn').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('onclick').includes(`'${s}'`));
-  });
-  render();
-}
-
-function render() {
-  const filtered = getFiltered();
-  const sorted = getSorted(filtered);
-  renderStats(sorted);
-  renderCards(sorted);
-}
-
-render();
 </script>
+
+<!-- UNDER CONSTRUCTION MODAL -->
+
+<div class="modal-overlay" id="uc-modal-overlay" onclick="closeUCModal(event)" style="display:none;">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-title">Construction Pipeline</div>
+        <div class="modal-subtitle">3.76M SF UC · Q1 2026 · Source: JLL IMO</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('uc-modal-overlay').classList.remove('open');document.getElementById('uc-modal-overlay').style.display='none';document.body.style.overflow='';">&#x2715;</button>
+    </div>
+    <div class="modal-body" style="padding-bottom:40px;">
+      <div id="uc-modal-body"></div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
