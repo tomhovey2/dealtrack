@@ -7,409 +7,338 @@
 <meta name="theme-color" content="#1a2744">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Active Listings | JLL Boston Industrial</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Active Listings — JLL Boston Industrial</title>
 <style>
-  :root { color-scheme: light only; }
+  :root {
+    color-scheme: light only;
+    --bg: #f4f2ee;
+    --surface: #ffffff;
+    --surface2: #f9f8f5;
+    --border: #e2ddd6;
+    --navy: #1a2744;
+    --gold: #b8913a;
+    --green: #2d7a4f;
+    --red: #a83228;
+    --text: #1a1a1a;
+    --muted: #8a8580;
+    --light: #c8c3bb;
+    --blue: #2c5f8a;
+    --purple: #6b3fa0;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { background: #1a2744; }
-  body { font-family: 'Inter', sans-serif; background: #f4f2ee; color: #1a1a1a; min-height: 100vh; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-  /* ── Header: one block, no pills, no sort bar ── */
-  .header { background: #1a2744; padding: 14px 16px 12px; padding-top: max(14px, env(safe-area-inset-top)); position: sticky; top: 0; z-index: 100; -webkit-transform: translateZ(0); transform: translateZ(0); }
-  .hdr-title { font-family: 'Libre Baskerville', serif; font-size: 15px; color: #ffffff; font-weight: 700; letter-spacing: 0.01em; }
-  .hdr-totals { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 3px; letter-spacing: 0.05em; font-variant-numeric: tabular-nums; }
-  .search-wrap { position: relative; margin-top: 11px; }
-  .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.55); font-size: 12px; pointer-events: none; }
-  input[type=search] { width: 100%; background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.28); border-radius: 6px; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 13px; padding: 9px 10px 9px 30px; outline: none; -webkit-appearance: none; }
-  input[type=search]::placeholder { color: rgba(255,255,255,0.5); }
-  input[type=search]:focus { border-color: #c9a84c; background: rgba(255,255,255,0.18); }
+  .header {
+    background: #1a2744 !important;
+    padding: 14px 16px 12px;
+    padding-top: max(14px, env(safe-area-inset-top));
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    isolation: isolate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  .header h1 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+  .header p {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
 
-  /* ── Groups: inset containers, status is the structure ── */
-  .group { margin: 18px 12px 0; }
-  .group-hdr { display: flex; justify-content: space-between; align-items: baseline; padding: 0 6px 7px; }
-  .group-name { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1a2744; }
-  .group-count { font-size: 10px; color: #a39c93; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
-  .group-box { background: #ffffff; border: 1px solid #e4dfd6; border-radius: 10px; overflow: hidden; }
+  .filters {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 68px;
+    z-index: 90;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .fpill {
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .fpill.active {
+    background: var(--navy) !important;
+    border-color: var(--navy) !important;
+    color: #ffffff !important;
+  }
 
-  /* Column ruler — labels the aligned metric columns once per group */
-  .col-hdr { display: grid; grid-template-columns: 1fr 78px 68px; gap: 8px; padding: 7px 14px 6px; background: #faf8f5; border-bottom: 1px solid #eeeae3; }
-  .col-hdr span { font-size: 8px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: #b0a99f; text-align: right; }
-  .col-hdr span:first-child { text-align: left; }
+  .list { padding: 4px 16px 40px; }
 
-  /* ── Rows: every metric lands in the same column, every row ── */
-  .row { display: block; padding: 10px 14px 11px; border-top: 1px solid #f0ece5; cursor: pointer; }
-  .row:first-of-type { border-top: none; }
-  .row:active { background: #f7f5f1; }
-  .row-main { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
-  .row-addr { font-size: 14px; font-weight: 600; color: #1a2744; line-height: 1.3; flex: 1; padding-top: 1px; }
-  .row-priceblock { text-align: right; white-space: nowrap; }
-  .row-price { font-size: 15px; font-weight: 700; color: #1a2744; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; line-height: 1.15; }
-  .row-psf { font-size: 10px; color: #a39c93; font-variant-numeric: tabular-nums; margin-top: 1px; letter-spacing: 0.01em; }
-  .row-metrics { display: grid; grid-template-columns: 1fr 78px 68px; gap: 8px; align-items: baseline; }
-  .row-metrics > div { font-size: 11px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: #6f6960; }
-  .m-loc { text-align: left !important; color: #8a837a; overflow: hidden; text-overflow: ellipsis; }
-  .m-sf { color: #6f6960; }
-  .m-cap { font-weight: 600; }
-  .cap-pos { color: #2d7a4f; }
-  .cap-neg { color: #a83228; }
-  .roc-tag { font-size: 8px; font-weight: 600; color: #a39c93; letter-spacing: 0.04em; margin-left: 2px; }
-  .row-tenants { font-size: 11px; color: #6f6960; margin-top: 6px; line-height: 1.4; padding-left: 1px; }
-  .row-tenants b { font-weight: 500; color: #40474f; }
-  .row-vac { color: #a83228; font-weight: 600; }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 2px 10px;
+  }
+  .section-divider .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-divider .dot.market { background: var(--green); }
+  .section-divider .dot.coming { background: var(--gold); }
+  .section-divider .dot.off { background: var(--muted); }
+  .section-divider .dot.uc { background: var(--blue); }
+  .section-divider .dot.awarded { background: var(--purple); }
+  .section-divider h2 {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--navy);
+  }
+  .section-divider .count {
+    margin-left: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
 
-  .empty { text-align: center; padding: 60px 20px; color: #9a948c; font-size: 13px; }
-  .list-pad { padding-bottom: 90px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+  }
+  .card-loc {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .card-price-block {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .card-price {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .card-psf {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    white-space: nowrap;
+  }
 
-  /* ── Modal (unchanged behavior) ── */
-  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(26,39,68,0.75); z-index: 999; display: none; align-items: flex-end; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: #ffffff; border-top: 3px solid #1a2744; border-radius: 16px 16px 0 0; width: 100%; max-height: 88vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 0 40px; animation: slideUp 0.2s ease; position: relative; z-index: 1000; }
-  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  @media (prefers-reduced-motion: reduce) { .modal { animation: none; } }
-  .modal-handle { width: 36px; height: 3px; background: #e2ddd6; border-radius: 2px; margin: 10px auto 4px; }
-  .modal-hdr { padding: 10px 16px 12px; border-bottom: 1px solid #e2ddd6; position: sticky; top: 0; background: #ffffff; z-index: 5; display: flex; justify-content: space-between; align-items: flex-start; }
-  .modal-title { font-family: 'Libre Baskerville', serif; font-size: 15px; color: #1a2744; font-weight: 700; padding-right: 8px; line-height: 1.3; }
-  .modal-subtitle { font-size: 11px; color: #8a8580; margin-top: 3px; }
-  .modal-close { background: #f9f8f5; border: 1px solid #e2ddd6; color: #8a8580; border-radius: 50%; width: 30px; height: 30px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .modal-banner { padding: 16px; background: #1a2744; display: flex; justify-content: space-between; align-items: flex-end; }
-  .modal-banner-lbl { font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
-  .modal-banner-val { font-family: 'Libre Baskerville', serif; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .modal-banner-val.big { font-size: 26px; color: #c9a84c; line-height: 1.1; }
-  .modal-banner-val.med { font-size: 17px; color: rgba(255,255,255,0.9); text-align: right; }
-  .modal-body { padding: 14px 16px; background: #ffffff; }
-  .modal-section { margin-bottom: 16px; }
-  .modal-section-title { font-size: 9px; color: #8a8580; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid #e2ddd6; margin-bottom: 10px; }
-  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .modal-item.full { grid-column: 1/-1; }
-  .modal-key { font-size: 9px; color: #8a8580; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-  .modal-val { font-size: 13px; color: #1a1a1a; font-weight: 500; font-variant-numeric: tabular-nums; }
-  .modal-val.hi { color: #2d7a4f; font-family: 'Libre Baskerville', serif; }
-  .pct-leased.full { color: #2d7a4f; }
-  .pct-leased.partial { color: #a83228; }
-  .vacant-flag { color: #a83228; font-weight: 600; }
-  .notes-box { font-size: 12px; color: #6a6560; line-height: 1.6; padding: 10px 12px; background: #f9f8f5; border-radius: 6px; border: 1px solid #e2ddd6; }
-  .tenant-table { width: 100%; border-collapse: collapse; font-size: 11px; font-variant-numeric: tabular-nums; }
-  .tenant-table th { text-align: left; font-size: 8px; color: #8a8580; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 6px; border-bottom: 1px solid #e2ddd6; }
-  .tenant-table td { padding: 6px 6px; border-bottom: 1px solid #f0ede8; color: #1a1a1a; vertical-align: top; }
-  .tenant-table tr:last-child td { border-bottom: none; }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .metric:not(:first-child) {
+    border-left: 1px solid var(--border);
+    padding-left: 10px;
+    margin-left: -1px;
+  }
+  .metric-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .metric-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .metric-val.cap-pos { color: var(--green); }
+  .metric-val.cap-neg { color: var(--red); }
+  .metric-val.tbd { color: var(--muted); font-style: italic; font-weight: 500; }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="hdr-title">Active Listings</div>
-  <div class="hdr-totals" id="hdr-totals">&mdash;</div>
-  <div class="search-wrap">
-    <span class="search-icon">&#128269;</span>
-    <input type="search" id="search" placeholder="Search address, city, tenant...">
-  </div>
+  <h1>Active Listings</h1>
+  <p>JLL Boston Industrial</p>
 </div>
 
-<div class="list-pad" id="list"></div>
-
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal" id="modal"></div>
+<div class="filters" id="filters">
+  <div class="fpill active" data-val="all">All</div>
+  <div class="fpill" data-val="IN THE MARKET">In The Market</div>
+  <div class="fpill" data-val="COMING TO MARKET">Coming To Market</div>
+  <div class="fpill" data-val="OFF MARKET">Off Market</div>
+  <div class="fpill" data-val="UNDER CONTRACT">Under Contract</div>
+  <div class="fpill" data-val="AWARDED">Awarded</div>
 </div>
+
+<div class="list" id="list"></div>
 
 <script>
 const LISTINGS = [
-  {
-    id:'145-commerce', status:'In The Market', addr:'145 Commerce Dr', city:'Warwick', state:'RI',
-    client:'NorthPoint', teamLead:'Restivo', contact:'Steven Samuelson',
-    askingPrice:75000000, sf:491496, psf:153, capRate:0.0600, inPlaceCap:0.0614,
-    yearBuilt:2023, clearHeight:"40'", walt:8.3, pctLeased:100,
-    tenants:[
-      {name:'Frito-Lay', sf:93183, exp:'11/30/2034', rent:10.75},
-      {name:'Peak', sf:126900, exp:'1/31/2032', rent:10.20},
-      {name:'Electric Boat', sf:271412, exp:'5/31/2036', rent:8.50}
-    ],
-    notes:'Newly constructed high-bay warehouse below replacement cost ($150/SF vs. $250-300/SF replacement). Adjacent to TF Green Airport; 35M consumers within a 4-hour truck radius. Multi-tenant lease-up to an investment-grade tenant base.'
-  },
-  {
-    id:'50-nagog', status:'Coming To Market', addr:'50 Nagog Park', city:'Acton', state:'MA',
-    client:'Brookfield / Calare', teamLead:'Restivo', contact:'Khalil Faris',
-    askingPrice:31360000, sf:119060, psf:263, capRate:0.0609, inPlaceCap:null,
-    yearBuilt:2021, clearHeight:"30'", walt:2.7, pctLeased:100,
-    tenants:[
-      {name:'Insulet Corp. (NYSE: PODD)', sf:119060, exp:'3/31/2029', rent:16.04}
-    ],
-    notes:'100% leased to Insulet (BB / S&P), a $10.5B market-cap medical device company — serves as the distribution hub for Insulet\u2019s Omnipod manufacturing HQ next door. 3,000A power, 9 loading docks, 238 car spaces. Near-term cash flow with repositioning upside at expiration.'
-  },
-  {
-    id:'rjk-recap', status:'In The Market', addr:'RJK Recap Portfolio', city:'Various', state:'NH',
-    client:'RJ Kelly', teamLead:'Restivo', contact:'Rick Griffin',
-    askingPrice:160000000, sf:846207, psf:189, capRate:0.0602, inPlaceCap:null,
-    tenants:[], notes:'Recapitalization of the RJ Kelly New Hampshire industrial portfolio. Tenant roster and WALT available upon request.'
-  },
-  {
-    id:'80-south',  status:'In The Market', addr:'80 South St', city:'Hopkinton', state:'MA',
-    client:'MFA', teamLead:'Restivo', contact:'Brendan Mulligan',
-    askingPrice:12052960, sf:154604, psf:78, capRate:0.0775, capRateNote:'ROC',
-    tenants:[], notes:'Return-on-cost basis of 7.75%. Full rent roll available upon request.'
-  },
-  {
-    id:'brookfield-calare-sb', status:'In The Market', addr:'Brookfield / Calare South Boston Portfolio', city:'Various', state:'MA',
-    client:'Brookfield / Calare', teamLead:'Restivo', contact:'Kayley Laren',
-    askingPrice:101660000, sf:483096, psf:210, capRate:0.0559, inPlaceCap:0.0559, yearOneCap:0.0590,
-    walt:4.7, pctLeased:95, buildings:7,
-    tenants:[
-      {name:'Remtec \u2014 5 Campanelli Cir, Canton', sf:55500, exp:'7.3 yrs WALT', rent:18.04},
-      {name:'Prodrive Technologies \u2014 15-21 University Rd, Canton', sf:107617, exp:'3.6 yrs WALT', rent:12.67},
-      {name:'Fibertec \u2014 35 Scotland Blvd, Bridgewater', sf:52500, exp:'4.7 yrs WALT', rent:14.06},
-      {name:'Barrett Distribution \u2014 45 Scotland Blvd, Bridgewater', sf:80000, exp:'5.1 yrs WALT', rent:4.90},
-      {name:'Johnson & Johnson \u2014 50 Scotland Blvd, Bridgewater', sf:90600, exp:'4.4 yrs WALT', rent:15.30},
-      {name:'Winsupply / Control7 \u2014 55 Scotland Blvd, Bridgewater', sf:56703, exp:'3.0 yrs WALT', rent:13.59, vacant:26397},
-      {name:'Omni Life Science / Corin Group \u2014 480 Paramount Dr, Raynham', sf:40176, exp:'5.3 yrs WALT', rent:14.15}
-    ],
-    notes:'Critical mass of shallow-bay product at a compelling basis \u2014 replacement cost is ~$300/SF vs. $210/SF basis here. 95% leased, 4.7-year WALT with a staggered rollover schedule across 7 buildings / 8 tenants. South shallow-bay demand up 55% Q1 2025 to Q1 2026. In-place rents average $12.83 vs. $15.12 market (17.9% mark-to-market upside). 55 Scotland Blvd (Bridgewater) carries the portfolio\u2019s only vacancy at 26,397 SF.'
-  },
-  {
-    id:'545-washington', status:'In The Market', addr:'545 Washington St', city:'Wrentham', state:'MA',
-    client:'Bluewater / Affinius', teamLead:'Restivo', contact:null,
-    askingPrice:35500000, sf:132055, psf:269, capRate:0.0544, inPlaceCap:0.0544, yearOneCap:0.0554,
-    roc:0.0591, rocNote:'Yr 2', yearBuilt:2023, clearHeight:"36'", walt:5.1, pctLeased:100, buildings:1,
-    tenants:[
-      {name:'UMI Stone (stone distributor)', sf:56860, exp:'8/31/2032', rent:15.47},
-      {name:'AIT Home Delivery (furniture 3PL)', sf:75195, exp:'12/31/2030', rent:14.00}
-    ],
-    notes:'2023-construction Class A warehouse off Route 1 at the I-495 interchange, with easy access to I-95 and I-295. Two functional suites configured for the 25K\u201399K SF size range where market demand is concentrated. 36\u2032 clear, 30 dock doors, ESFR, 3,000A power, 135\u2032 truck court. 100% leased, 5.1-year WALT with 3.36% weighted average annual bumps. In-place rent $14.63 vs. $15.50 market. South industrial market saw a 55% increase in tenant demand Q1 2025 to Q1 2026 alongside an 88% decrease in SF delivered.'
-  },
-  {
-    id:'upton-dr', status:'In The Market', addr:'Upton Dr Portfolio', city:'Wilmington', state:'MA',
-    client:'Davis', teamLead:'Restivo', contact:'David Allen',
-    askingPrice:31000000, sf:112776, psf:275, capRate:0.0654, inPlaceCap:0.0569, roc:0.0818, rocNote:'Yr 5',
-    yearBuilt:1995, clearHeight:"18'", walt:3.0, pctLeased:82, buildings:3,
-    tenants:[
-      {name:'Compass Group \u2014 26 Upton Dr', sf:25000, exp:'1.6 yrs WALT', rent:19.12},
-      {name:'Onto Innovation, PVD Products, Definitive Technology Group \u2014 35 Upton Dr', sf:42776, exp:'3.3 yrs WALT', rent:20.19},
-      {name:'Watson Marlow, Xenon Corporation \u2014 37 Upton Dr', sf:45000, exp:'3.9 yrs WALT', rent:23.28, vacant:19800}
-    ],
-    notes:'Three-building flex portfolio (25,000 / 42,776 / 45,000 SF) in the North submarket \u2014 strategic infill location with intense tenant demand and minimal remaining development sites. Diverse rent roll, 3.0-year WALT, strong NOI growth runway. 82% leased; vacancy concentrated at 37 Upton Dr (Xenon Corp month-to-month holdover through 10/31/26). ROC of 8.18% by Year 5.'
-  },
-  {
-    id:'101-almgren', status:'Coming To Market', addr:'101 Almgren Dr', city:'Agawam', state:'MA',
-    client:'HMC Real Estate Partners', teamLead:'Restivo', contact:'Brendan Kolnick',
-    askingPrice:15500000, sf:187840, psf:83, capRate:0.0667, inPlaceCap:null,
-    tenants:[], notes:'Coming to market — full offering materials in preparation.'
-  },
-  {
-    id:'525-myles', status:'In The Market', addr:'525 Myles Standish Blvd', city:'Taunton', state:'MA',
-    client:'Martignetti', teamLead:'Coffman', contact:'Dean Crandall',
-    askingPrice:12500000, sf:124991, psf:100, capRate:0.0750, capRateNote:'ROC',
-    roc:0.0750, rocNote:'stabilized', yearBuilt:'1987 / 2017', clearHeight:"26\u2032 deck / 22\u2032\u201324\u2032 joist", buildings:2,
-    tenants:[],
-    notes:'Best-in-class specs within New England\u2019s largest industrial cluster: 26 loading docks with levelers, 24\u2032 clear, 38 trailer parking spaces, 65\u2032 speed bay, 150\u2032 truck court, 1,000A power. Includes 64,500 SF of refrigerated area (60\u00b0 / 47\u00b0 / 35\u00b0 zones) plus a separate 16,656 SF truck service & maintenance building. 10.31-acre site with parking expansion potential and 2.2 acres of IOS potential (32 additional trailer spaces). Underwritten to market rents \u2014 $10.00 PSF on the main building, $14.00 PSF on the maintenance building, $2.00 PSF on IOS, blending to $11.53 PSF / $1.25M NOI at a 7.50% return on cost. Asking $115/SF excludes the second story and covered outdoor storage. Rent roll available upon request.'
-  },
-  {
-    id:'41-progress', status:'In The Market', addr:'41 Progress Dr', city:'Manchester', state:'CT',
-    client:'Eastern', teamLead:'Restivo', contact:'Toby Banta',
-    askingPrice:8100000, sf:69000, psf:117, capRate:0.0675, inPlaceCap:0.0675,
-    roc:0.0714, rocNote:'Yr 2', yearBuilt:'1971 / 2026', clearHeight:"20\u2032\u201321\u2032", walt:8.0, pctLeased:100, buildings:1,
-    tenants:[
-      {name:'Enjet Aero', sf:69000, exp:'10/15/2034', rent:7.93}
-    ],
-    notes:'Long-term, mission-critical single-tenant aerospace facility \u2014 Enjet Aero has occupied for 20+ years and signed through 10/2034 on an absolute NNN lease with 8.0 years of WALT and annual escalations stepping rent from $7.93 to $9.75 PSF. $1.14M of tenant improvements invested since 2022. New EPDM roof (2026) with a 20-year warranty, 2,000A / 480V power, 4 tailboard doors plus 1 drive-in, 5.44 acres. Connecticut ranks 5th nationally for aerospace & defense economic value ($25.2B) and is the #1 US location for aircraft engine manufacturing. Hartford manufacturing rents up 70% from 2016\u20132026 with zero SF under construction.'
-  },
-  {
-    id:'27-forge', status:'Coming To Market', addr:'27 Forge Parkway', city:'Franklin', state:'MA',
-    client:'Thermo Fisher', teamLead:'Restivo', contact:'Rob Baker',
-    askingPrice:14107108, sf:109838, psf:128, capRate:0.0775, capRateNote:'ROC',
-    tenants:[], notes:'Sale-leaseback to Thermo Fisher. Coming to market \u2014 full offering materials in preparation.'
-  },
-  {
-    id:'129-leeder', status:'Coming To Market', addr:'129 Leeder Hill', city:'Hamden', state:'CT',
-    client:'ABS Management', teamLead:'Tommy', contact:'Shawn McMahon',
-    askingPrice:5000000, sf:50993, psf:98, capRate:0.0827, inPlaceCap:null,
-    tenants:[], notes:'Coming to market \u2014 full offering materials in preparation.'
-  },
-  {
-    id:'90-huntoon', status:'Coming To Market', addr:'90 Huntoon Memorial Dr', city:'Leicester', state:'MA',
-    client:'Berkeley / JMC and Co', teamLead:'Restivo', contact:'Andrew Holmberg / Peter Mahoney',
-    askingPrice:38000000, sf:267600, psf:142, capRate:-0.0238, inPlaceCap:null,
-    tenants:[], notes:'Negative in-place cap reflects near-term vacancy / lease-up story — value-add positioning. Details available upon request.'
-  },
-  {
-    id:'brookfield-concord', status:'Coming To Market', addr:'Brookfield Concord St', city:'North Reading', state:'MA',
-    client:'Brookfield', teamLead:'Restivo', contact:'Kayti Faustini',
-    askingPrice:90000000, sf:283466, psf:317, capRate:0.0449, inPlaceCap:null,
-    tenants:[], notes:'Coming to market — full offering materials in preparation.'
-  },
-  {
-    id:'176-1st-flight', status:'Off Market', addr:'176 1st Flight Dr', city:'Auburn', state:'ME',
-    client:'Private', teamLead:'Tommy', contact:null,
-    askingPrice:5900000, sf:61188, psf:96, capRate:0.0867, inPlaceCap:null,
-    tenants:[], notes:'Offer received from Faison; BOV\u2019d at $6.25M. Off-market — for select buyer relationships only.'
-  },
-  {
-    id:'7-campanelli', status:'Off Market', addr:'7 Campanelli Dr', city:'Assonet', state:'MA',
-    client:'Panattoni', teamLead:'Coffman', contact:'Mark Branstetter',
-    askingPrice:8528655, sf:500000, psf:17, capRate:0.0700, capRateNote:'ROC',
-    tenants:[], notes:'Return-on-cost basis of 7.00%. Off-market — for select buyer relationships only.'
-  },
-  {
-    id:'50-shrewsbury', status:'Off Market', addr:'50 Shrewsbury (Loomis)', city:'Boylston', state:'MA',
-    client:'Rhino', teamLead:'Coffman', contact:'Michael Olson',
-    askingPrice:7450000, sf:55175, psf:135, capRate:0.0713, inPlaceCap:null,
-    tenants:[], notes:'Off-market — for select buyer relationships only.'
-  }
+  {"status": "IN THE MARKET", "name": "41 Progress Dr", "city": "Manchester", "state": "CT", "price": "$8.05M", "psf": "$117/SF", "size": "69,000 SF", "cap": "6.75%", "buyer": "Fairview"},
+  {"status": "IN THE MARKET", "name": "525 Myles Standish", "city": "Taunton", "state": "MA", "price": "$12.5M", "psf": "$100/SF", "size": "124,991 SF", "cap": "7.50% ROC", "buyer": null},
+  {"status": "IN THE MARKET", "name": "Brookfield / Calare South Boston Portfolio", "city": "Various", "state": "MA", "price": "$101.66M", "psf": "$210/SF", "size": "483,096 SF", "cap": "5.59%", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "101 Almgren Dr", "city": "Agawam", "state": "MA", "price": "$15.5M", "psf": "$83/SF", "size": "187,840 SF", "cap": "6.67%", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "27 Forge Parkway", "city": "Franklin", "state": "MA", "price": "$14.11M", "psf": "$128/SF", "size": "109,838 SF", "cap": "7.75% ROC", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "38 Neponset Ave", "city": "Foxboro", "state": "MA", "price": "$14M", "psf": "TBD", "size": "TBD", "cap": "7.50% ROC Industrial / 6.40% ROC Multi", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "50 Nagog", "city": "Acton", "state": "MA", "price": "$31.36M", "psf": "$263/SF", "size": "119,060 SF", "cap": "6.09%", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "8 Centennial & 600 Friberg", "city": "Shrewsbury / Westborough", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "90 Huntoon Memorial", "city": "Leicester", "state": "MA", "price": "$38M", "psf": "$142/SF", "size": "267,600 SF", "cap": "-2.38%", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "Brookfield Concord St", "city": "North Reading", "state": "MA", "price": "$90M", "psf": "$318/SF", "size": "283,466 SF", "cap": "4.49%", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "Brookfield Dunham Portfolio", "city": "Billerica", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "Garelick Land", "city": "Franklin", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
+  {"status": "OFF MARKET", "name": "176 1st Flight Dr", "city": "Auburn", "state": "ME", "price": "$5.9M", "psf": "$96/SF", "size": "61,188 SF", "cap": "8.67%", "buyer": null},
+  {"status": "OFF MARKET", "name": "50 Shrewsbury (Loomis)", "city": "Boylston", "state": "MA", "price": "$7.45M", "psf": "$135/SF", "size": "55,175 SF", "cap": "7.13%", "buyer": null},
+  {"status": "OFF MARKET", "name": "7 Campanelli Dr", "city": "Assonet", "state": "MA", "price": "$8.53M", "psf": "$17/SF", "size": "500,000 SF", "cap": "7.00% ROC", "buyer": null},
+  {"status": "UNDER CONTRACT", "name": "300 Bartlett St", "city": "Northborough", "state": "MA", "price": "$36M", "psf": "$661/SF", "size": "54,504 SF", "cap": "5.75%", "buyer": "LaSalle"},
+  {"status": "UNDER CONTRACT", "name": "13 Page Rd", "city": "Londonderry", "state": "NH", "price": "$16.5M", "psf": "$219/SF", "size": "75,480 SF", "cap": "6.30%", "buyer": null},
+  {"status": "UNDER CONTRACT", "name": "80 South St", "city": "Hopkinton", "state": "MA", "price": "$9.5M", "psf": "$61/SF", "size": "154,604 SF", "cap": "7.75% ROC", "buyer": "Moxie Equities"},
+  {"status": "UNDER CONTRACT", "name": "545 Washington St", "city": "Wrentham", "state": "MA", "price": "$35M", "psf": "$265/SF", "size": "132,055 SF", "cap": "5.50%", "buyer": "BGO"},
+  {"status": "UNDER CONTRACT", "name": "145 Commerce", "city": "Warwick", "state": "RI", "price": "$73.25M", "psf": "$149/SF", "size": "491,496 SF", "cap": "6.40%", "buyer": "Apollo"},
+  {"status": "UNDER CONTRACT", "name": "12 St Mark", "city": "Auburn", "state": "MA", "price": "$7.15M", "psf": "$109/SF", "size": "65,802 SF", "cap": "7.75% ROC", "buyer": "Parsons"},
+  {"status": "UNDER CONTRACT", "name": "101 Concord St", "city": "Pawtucket", "state": "RI", "price": "$3.8M", "psf": "$143/SF", "size": "26,600 SF", "cap": "6.75%", "buyer": "Catalyst"},
+  {"status": "AWARDED", "name": "16 Delta & 5A/5B Aviation", "city": "Londonderry", "state": "NH", "price": "$43.3M", "psf": "$247/SF", "size": "175,345 SF", "cap": "6.15%", "buyer": "Morgan Stanley"},
+  {"status": "AWARDED", "name": "Upton Dr Portfolio", "city": "Wilmington", "state": "MA", "price": "$30M", "psf": "$266/SF", "size": "112,776 SF", "cap": "TBD", "buyer": "Camber"}
 ];
 
-function esc(s) { return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function fmtM(n) { if(n==null||isNaN(n)) return '\u2014'; var a=Math.abs(n); return (n<0?'-':'')+(a>=1e9?'$'+(a/1e9).toFixed(2)+'B':a>=1e6?'$'+(a/1e6).toFixed(1)+'M':'$'+(a/1000).toFixed(0)+'K'); }
-function fmtFull(n) { return n==null?'\u2014':'$'+Number(n).toLocaleString(); }
-function fmtSf(n) { return n==null?'\u2014':Number(n).toLocaleString()+' SF'; }
-function fmtPsf(n) { return n==null||isNaN(n)?'\u2014':'$'+Number(n).toFixed(0)+'/SF'; }
-function fmtCap(l) { if(l.capRate==null) return '\u2014'; var pct=(l.capRate*100).toFixed(2)+'%'; return l.capRateNote ? pct+' '+l.capRateNote : pct; }
-function fmtRent(n) { return n==null?'\u2014':'$'+Number(n).toFixed(2)+' NNN'; }
-function isPortfolio(l) { return /portfolio/i.test(l.addr) || (l.buildings && l.buildings>1); }
-function bldgLabel(l) { if (l.buildings) return l.buildings+' Building'+(l.buildings>1?'s':''); return isPortfolio(l) ? 'Portfolio' : null; }
+const SECTION_ORDER = ["UNDER CONTRACT","AWARDED","IN THE MARKET","COMING TO MARKET","OFF MARKET"];
+const SECTION_META = {
+  "UNDER CONTRACT":  { label: "Under Contract",    dot: "uc" },
+  "AWARDED":         { label: "Awarded",           dot: "awarded" },
+  "IN THE MARKET":   { label: "In The Market",    dot: "market" },
+  "COMING TO MARKET":{ label: "Coming To Market",  dot: "coming" },
+  "OFF MARKET":      { label: "Off Market",        dot: "off" }
+};
 
-var GROUPS = ['In The Market','Coming To Market','Off Market'];
-
-function matches(l, q) {
-  if (!q) return true;
-  var parts = [l.addr, l.city, l.state, l.client];
-  if (l.tenants) for (var i=0;i<l.tenants.length;i++) parts.push(l.tenants[i].name);
-  return parts.map(function(v){return v||'';}).join(' ').toLowerCase().indexOf(q) !== -1;
+function capClass(cap) {
+  if (cap === "TBD" || cap.trim().toLowerCase() === "vacant") return "tbd";
+  if (cap.trim().startsWith("-")) return "cap-neg";
+  return "cap-pos";
+}
+function valClass(v) {
+  return v === "TBD" ? "tbd" : "";
 }
 
-function render() {
-  var q = document.getElementById('search').value.toLowerCase().trim();
-  var shown = LISTINGS.filter(function(l){ return matches(l, q); });
-  var html = '';
+function render(filter) {
+  const list = document.getElementById('list');
+  const groups = {};
+  SECTION_ORDER.forEach(s => groups[s] = []);
+  LISTINGS.forEach(l => { if (filter === 'all' || l.status === filter) groups[l.status].push(l); });
 
-  for (var g=0; g<GROUPS.length; g++) {
-    var status = GROUPS[g];
-    var set = shown.filter(function(l){ return l.status === status; });
-    set.sort(function(a,b){ return (b.askingPrice||0)-(a.askingPrice||0); });
-    if (!set.length) continue;
+  let html = '';
+  let anyResults = false;
+  SECTION_ORDER.forEach(status => {
+    const items = groups[status];
+    if (!items.length) return;
+    anyResults = true;
+    const meta = SECTION_META[status];
+    html += `<div class="section-divider">
+      <div class="dot ${meta.dot}"></div>
+      <h2>${meta.label}</h2>
+      <div class="count">${items.length}</div>
+    </div>`;
+    items.forEach(l => {
+      html += `<div class="card">
+        <div class="card-top">
+          <div>
+            <div class="card-title">${l.name}</div>
+            <div class="card-loc">${l.city}, ${l.state}</div>
+          </div>
+          <div class="card-price-block">
+            <div class="card-price">${l.price}</div>
+            <div class="card-psf">${l.psf}</div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric">
+            <div class="metric-label">Buyer</div>
+            <div class="metric-val ${valClass(l.buyer || 'TBD')}">${l.buyer || 'TBD'}</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Size</div>
+            <div class="metric-val ${valClass(l.size)}">${l.size}</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Cap Rate</div>
+            <div class="metric-val ${capClass(l.cap)}">${l.cap}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+  });
 
-    html += '<div class="group">'
-      + '<div class="group-hdr"><span class="group-name">'+esc(status)+'</span><span class="group-count">'+set.length+'</span></div>'
-      + '<div class="group-box">'
-      + '<div class="col-hdr"><span>Location</span><span>Size</span><span>Cap</span></div>';
-
-    for (var i=0; i<set.length; i++) {
-      var l = set[i];
-      var capCls = (l.capRate != null && l.capRate < 0) ? 'cap-neg' : 'cap-pos';
-      var capTxt = (l.capRate == null) ? '\u2014' : (l.capRate*100).toFixed(2)+'%';
-      if (l.capRateNote) capTxt += '<span class="roc-tag">'+esc(l.capRateNote)+'</span>';
-
-      var loc = esc(l.city)+', '+esc(l.state);
-      if (l.buildings && l.buildings > 1) loc += ' \u00b7 '+l.buildings+' bldgs';
-
-      var tenantLine = '';
-      if (l.tenants && l.tenants.length) {
-        var names = [], vac = 0;
-        for (var t=0; t<l.tenants.length; t++) {
-          names.push(esc(l.tenants[t].name.split(' \u2014 ')[0]));
-          if (l.tenants[t].vacant) vac += l.tenants[t].vacant;
-        }
-        tenantLine = '<div class="row-tenants"><b>'+names.join(' \u00b7 ')+'</b>';
-        if (vac) tenantLine += ' <span class="row-vac">\u2014 '+vac.toLocaleString()+' SF vacant</span>';
-        tenantLine += '</div>';
-      }
-
-      html += '<div class="row" onclick="openModal(\''+l.id+'\')">'
-        + '<div class="row-main"><div class="row-addr">'+esc(l.addr)+'</div>'
-        + '<div class="row-priceblock">'
-        +   '<div class="row-price">'+fmtM(l.askingPrice)+'</div>'
-        +   '<div class="row-psf">'+(l.psf?'$'+Number(l.psf).toFixed(0)+'/SF':'\u2014')+'</div>'
-        + '</div></div>'
-        + '<div class="row-metrics">'
-        +   '<div class="m-loc">'+loc+'</div>'
-        +   '<div class="m-sf">'+(l.sf?Number(l.sf).toLocaleString():'\u2014')+'</div>'
-        +   '<div class="m-cap '+capCls+'">'+capTxt+'</div>'
-        + '</div>'
-        + tenantLine
-        + '</div>';
-    }
-
-    html += '</div></div>';
+  if (!anyResults) {
+    html = `<div class="empty">No listings in this category right now.</div>`;
   }
-
-  document.getElementById('list').innerHTML = html || '<div class="empty">No listings match that search.</div>';
-
-  var sf = 0, val = 0;
-  for (var k=0; k<shown.length; k++) { sf += (shown[k].sf||0); val += (shown[k].askingPrice||0); }
-  document.getElementById('hdr-totals').innerHTML = shown.length + ' LISTINGS \u00b7 '
-    + (sf ? (sf/1e6).toFixed(2)+'M SF' : '\u2014') + ' \u00b7 ' + fmtM(val);
+  list.innerHTML = html;
 }
 
-function openModal(id) {
-  var l = null;
-  for (var i=0;i<LISTINGS.length;i++) if (LISTINGS[i].id === id) l = LISTINGS[i];
-  if (!l) return;
+document.getElementById('filters').addEventListener('click', (e) => {
+  const pill = e.target.closest('.fpill');
+  if (!pill) return;
+  document.querySelectorAll('.fpill').forEach(p => p.classList.toggle('active', p === pill));
+  render(pill.dataset.val);
+});
 
-  var bl = bldgLabel(l);
-  var bits = [l.city+', '+l.state, l.status];
-  if (bl) bits.push(bl);
-  if (l.tenants && l.tenants.length === 1) bits.push('Single Tenant');
-  else if (l.tenants && l.tenants.length > 1) bits.push(l.tenants.length+' Tenants');
-
-  var tenantSection = '';
-  if (l.tenants && l.tenants.length) {
-    var rows = '';
-    for (var t=0; t<l.tenants.length; t++) {
-      var tn = l.tenants[t];
-      var vacantNote = tn.vacant ? ' <span class="vacant-flag">('+tn.vacant.toLocaleString()+' SF vacant)</span>' : '';
-      rows += '<tr><td>'+esc(tn.name)+vacantNote+'</td><td>'+fmtSf(tn.sf)+'</td><td>'+esc(tn.exp||'\u2014')+'</td><td>'+fmtRent(tn.rent)+'</td></tr>';
-    }
-    var pctCls = (l.pctLeased!=null && l.pctLeased<100) ? 'partial' : 'full';
-    tenantSection = '<div class="modal-section">'
-      + '<div class="modal-section-title">Tenant Overview'+(l.pctLeased!=null?' \u00b7 <span class="pct-leased '+pctCls+'">'+l.pctLeased+'% Leased</span>':'')+'</div>'
-      + '<table class="tenant-table"><thead><tr><th>Tenant</th><th>SF</th><th>Term</th><th>Rent</th></tr></thead><tbody>'
-      + rows + '</tbody></table></div>';
-  }
-
-  var specsSection = '<div class="modal-section">'
-    + '<div class="modal-section-title">Property Specs</div>'
-    + '<div class="modal-grid">'
-    +   '<div class="modal-item"><div class="modal-key">Building Size</div><div class="modal-val">'+fmtSf(l.sf)+'</div></div>'
-    +   '<div class="modal-item"><div class="modal-key">Price / SF</div><div class="modal-val">'+fmtPsf(l.psf)+'</div></div>'
-    +   '<div class="modal-item"><div class="modal-key">Cap Rate</div><div class="modal-val hi">'+fmtCap(l)+'</div></div>'
-    +   '<div class="modal-item"><div class="modal-key">WALT</div><div class="modal-val">'+(l.walt!=null?l.walt+' yrs':'\u2014')+'</div></div>'
-    +   (l.buildings ? '<div class="modal-item"><div class="modal-key">Buildings</div><div class="modal-val">'+l.buildings+'</div></div>' : '')
-    +   (l.yearBuilt ? '<div class="modal-item"><div class="modal-key">Year Built</div><div class="modal-val">'+esc(l.yearBuilt)+'</div></div>' : '')
-    +   (l.clearHeight ? '<div class="modal-item"><div class="modal-key">Clear Height</div><div class="modal-val">'+esc(l.clearHeight)+'</div></div>' : '')
-    +   (l.inPlaceCap ? '<div class="modal-item"><div class="modal-key">In-Place Cap</div><div class="modal-val hi">'+(l.inPlaceCap*100).toFixed(2)+'%</div></div>' : '')
-    +   (l.yearOneCap ? '<div class="modal-item"><div class="modal-key">Year 1 Cap</div><div class="modal-val hi">'+(l.yearOneCap*100).toFixed(2)+'%</div></div>' : '')
-    +   (l.roc ? '<div class="modal-item"><div class="modal-key">ROC'+(l.rocNote?' ('+esc(l.rocNote)+')':'')+'</div><div class="modal-val hi">'+(l.roc*100).toFixed(2)+'%</div></div>' : '')
-    + '</div></div>';
-
-  var dealSection = '<div class="modal-section">'
-    + '<div class="modal-section-title">Deal Info</div>'
-    + '<div class="modal-grid"><div class="modal-item full"><div class="modal-key">Client / Owner</div><div class="modal-val">'+esc(l.client||'\u2014')+'</div></div></div>'
-    + '</div>';
-
-  var notesSection = l.notes ? ('<div class="modal-section"><div class="modal-section-title">Notes</div><div class="notes-box">'+esc(l.notes)+'</div></div>') : '';
-
-  document.getElementById('modal').innerHTML = '<div class="modal-handle"></div>'
-    + '<div class="modal-hdr"><div><div class="modal-title">'+esc(l.addr)+'</div>'
-    + '<div class="modal-subtitle">'+esc(bits.join(' \u00b7 '))+'</div></div>'
-    + '<button class="modal-close" onclick="closeModalBtn()">&#x2715;</button></div>'
-    + '<div class="modal-banner"><div><div class="modal-banner-lbl">Asking Price</div>'
-    + '<div class="modal-banner-val big">'+fmtM(l.askingPrice)+'</div></div>'
-    + '<div><div class="modal-banner-lbl">Full Price</div><div class="modal-banner-val med">'+fmtFull(l.askingPrice)+'</div></div></div>'
-    + '<div class="modal-body">' + dealSection + specsSection + tenantSection + notesSection + '</div>';
-
-  var overlay = document.getElementById('modal-overlay');
-  overlay.style.display = 'flex';
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModalBtn() {
-  var o = document.getElementById('modal-overlay');
-  o.classList.remove('open');
-  o.style.display = 'none';
-  document.body.style.overflow = '';
-}
-function closeModal(e) { if (e.target.id === 'modal-overlay') closeModalBtn(); }
-
-document.getElementById('search').addEventListener('input', render);
-render();
+render('all');
 </script>
+
 </body>
 </html>
