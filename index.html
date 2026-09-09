@@ -210,6 +210,239 @@
     font-family: 'Inter', sans-serif;
     font-size: 14px;
   }
+
+  .card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .card:active {
+    transform: scale(0.985);
+    background: var(--surface2);
+  }
+  .card-chevron {
+    color: var(--light);
+    font-size: 18px;
+    margin-left: 6px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,39,68,0.5);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+  }
+  .sheet-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sheet {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    max-height: 88vh;
+    background: var(--surface);
+    border-radius: 18px 18px 0 0;
+    z-index: 201;
+    transform: translateY(100%);
+    transition: transform .25s cubic-bezier(.32,.72,0,1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+  }
+  .sheet.open {
+    transform: translateY(0);
+  }
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--light);
+    border-radius: 2px;
+    margin: 10px auto 4px;
+    flex-shrink: 0;
+  }
+  .sheet-header {
+    padding: 10px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sheet-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .sheet-status-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 3px 9px;
+    border-radius: 10px;
+    color: #fff;
+  }
+  .sheet-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .sheet-title {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .sheet-subtitle {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+  .sheet-loc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .sheet-price-row {
+    display: flex;
+    gap: 18px;
+    margin-top: 14px;
+  }
+  .sheet-price-item .val {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .sheet-price-item .val.cap-pos { color: var(--green); }
+  .sheet-price-item .val.cap-neg { color: var(--red); }
+  .sheet-price-item .lbl {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+  .sheet-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 20px 32px;
+  }
+  .sheet-section-title {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 18px 0 10px;
+  }
+  .sheet-section-title:first-child { margin-top: 0; }
+  .sheet-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sheet-highlights li {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.4;
+    padding-left: 16px;
+    position: relative;
+  }
+  .sheet-highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .sheet-specs {
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet-spec-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sheet-spec-row:last-child { border-bottom: none; }
+  .sheet-metrics .sheet-spec-row {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .sheet-metrics .sheet-spec-label {
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+  }
+  .sheet-metrics .sheet-spec-val {
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .sheet-spec-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    flex-shrink: 0;
+    width: 40%;
+  }
+  .sheet-spec-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+    text-align: right;
+    width: 60%;
+  }
+  .sheet-market {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .sheet-empty {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0 8px;
+  }
 </style>
 </head>
 <body>
@@ -230,6 +463,13 @@
 
 <div class="list" id="list"></div>
 
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header" id="sheetHeader"></div>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
+
 <script>
 const LISTINGS = [
   {"status": "IN THE MARKET", "name": "41 Progress Dr", "city": "Manchester", "state": "CT", "price": "$8.05M", "psf": "$117/SF", "size": "69,000 SF", "cap": "6.75%", "buyer": "Fairview"},
@@ -244,6 +484,7 @@ const LISTINGS = [
   {"status": "COMING TO MARKET", "name": "Brookfield Concord St", "city": "North Reading", "state": "MA", "price": "$90M", "psf": "$318/SF", "size": "283,466 SF", "cap": "4.49%", "buyer": null},
   {"status": "COMING TO MARKET", "name": "Brookfield Dunham Portfolio", "city": "Billerica", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
   {"status": "COMING TO MARKET", "name": "Garelick Land", "city": "Franklin", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
+  {"status": "COMING TO MARKET", "name": "1050 Perimeter & 5 Wentworth", "city": "Manchester / Hudson", "state": "NH", "price": "$46.0M", "psf": "$159/SF", "size": "289,408 SF", "cap": "6.98%", "buyer": null},
   {"status": "OFF MARKET", "name": "176 1st Flight Dr", "city": "Auburn", "state": "ME", "price": "$5.9M", "psf": "$96/SF", "size": "61,188 SF", "cap": "8.67%", "buyer": null},
   {"status": "OFF MARKET", "name": "50 Shrewsbury (Loomis)", "city": "Boylston", "state": "MA", "price": "$7.45M", "psf": "$135/SF", "size": "55,175 SF", "cap": "7.13%", "buyer": null},
   {"status": "OFF MARKET", "name": "7 Campanelli Dr", "city": "Assonet", "state": "MA", "price": "$8.53M", "psf": "$17/SF", "size": "500,000 SF", "cap": "7.00% ROC", "buyer": null},
@@ -258,6 +499,9 @@ const LISTINGS = [
   {"status": "AWARDED", "name": "Upton Dr Portfolio", "city": "Wilmington", "state": "MA", "price": "$30M", "psf": "$266/SF", "size": "112,776 SF", "cap": "TBD", "buyer": "Camber"}
 ];
 
+const DEAL_DETAILS = {"145 Commerce": {"subtitle": "I-95 Gateway", "metrics": [["Tenants", "Frito-Lay (93,183 SF, exp. 11/2034), Peak Electric (126,900 SF, exp. 1/2032), Electric Boat (271,412 SF, exp. 5/2036)"], ["In-Place Rent", "$8.50–$10.75 PSF (blended, by tenant)"], ["Rent Bumps", "3.0%–3.5% annually"], ["WALT", "8.3 years"], ["Going-In Cap", "6.40% (deal terms)"], ["Stabilized / ROC", "6.63% Year 2 ROC"]], "specs": [["Address", "145 Commerce Dr, Warwick, RI 02886"], ["Year Built", "2023"], ["Building RSF", "491,495 SF"], ["Land Area", "46.7 acres"], ["Clear Height", "40'"], ["Column Spacing", "54' x 50' with 60' speed bays"], ["Loading Docks", "66 existing (30 future)"], ["Drive-In Doors", "4"], ["Truck Court", "130' (185' with trailer parking)"], ["Power", "3,000A; 480V"], ["Sprinkler", "ESFR"], ["Construction", "Tilt-Up Concrete Wall Panels"], ["Zoning", "Light Industrial (LI)"]], "market": "Rhode Island Industrial Market: 73M SF total inventory, 5 buildings delivered since 2016, 8.0% YoY avg. rent growth (last 5 years), $10.72 PSF avg. asking rent."}, "545 Washington St": {"subtitle": null, "metrics": [["Tenants", "UMI Stone (stone distributor), AIT Home Delivery (furniture 3PL) — 2 suites"], ["WALT", "5.1 years"], ["Going-In Cap", "5.50% (deal terms)"], ["Year 1 Cap", "5.54% (original guidance)"], ["Stabilized / ROC", "5.91% Year 2 ROC"]], "specs": [["Address", "545 Washington St, Wrentham, MA 02093"], ["Year Built", "2023"], ["Land Size", "13.6 acres"], ["Building Size", "132,055 SF"], ["Clear Height", "36'"], ["Column Spacing", "50' x 54' with 60' speed bay"], ["Dock Doors", "30 sectional overhead (40k lb mechanical levelers)"], ["Drive-Ins", "2 doors (12' x 14')"], ["Truck Court", "135'"], ["Car Parking", "155 stalls (incl. 4 EV)"], ["Trailer Parking", "13 stalls"], ["Power", "3,000 Amps, 480/277V"], ["Fire Protection", "ESFR"], ["Construction", "Pre-cast insulated concrete"]], "market": "South Industrial Market: 55% increase in tenant demand Q1 2025 to Q1 2026, 88% decrease in SF delivered 2025–2026, $13.47 avg. rent, 9.4% YoY avg. rent growth (2016–2026)."}, "525 Myles Standish": {"subtitle": null, "metrics": [["Tenants", "Not specified in file — confirm before the call"], ["WALT", "Not specified in file"], ["Going-In Cap", "7.50% ROC (deal terms)"], ["Stabilized / ROC", "7.50% ROC"]], "specs": [["Year Built / Renovated", "1987 / 2017"], ["Site Size", "10.31 acres"], ["Zoning", "Industrial / Ind Whses"], ["Building Size", "108,335 SF total (97,656 SF warehouse / 10,679 SF office)"], ["Construction", "Concrete Block Steel Frame"], ["Clear Height", "Deck 26' / Joist 22'-24'"], ["Column Spacing", "42' x 26' | 35' x 44' | 24' x 26'"], ["Loading Docks", "26 (with levelers)"], ["Drive-In Doors", "1"], ["Vehicle Parking", "88 spaces"], ["Trailer Parking", "38"], ["Power", "1,000 amps @ 480/277V and 208/120V 3P"], ["Refrigerated Area", "60° (54,750 SF) / 47° (4,500 SF) / 35° (5,250 SF)"]], "market": null}, "41 Progress Dr": {"subtitle": null, "metrics": [["Tenants", "Aerospace tenant, not named in file (likely Enjet Aero — same tenant as prior 2024 sale at this address; confirm)"], ["WALT", "8.0 years"], ["Lease Type", "Absolute NNN, $1.14M in tenant improvements since 2022"], ["Going-In Cap", "6.75% (deal terms)"], ["In-Place Cap (orig. guidance)", "7.00%"], ["Stabilized / ROC", "Low-mid 7% Year 2 ROC"]], "specs": [["Address", "41 Progress Drive, Manchester, CT 06042"], ["Rentable SF", "69,000 SF (excl. 2nd floor office)"], ["Office SF", "~3,250 SF (5%)"], ["Year Built / Renovated", "1971 / 2026"], ["Land Area", "5.44 acres"], ["Parking", "116 spaces (1.68/1,000 SF)"], ["Roof", "EPDM Membrane (2026), new 20-year warranty"], ["Clear Height", "20'–21'"], ["Column Spacing", "50' x 40'"], ["Loading", "4 tailboard doors, 1 drive-in door"], ["Power", "2,000 amps, 480 volts"], ["Fire Protection", "Wet Sprinkler"]], "market": "Hartford Manufacturing submarket: $8.85 avg. asking rent, +70% rent growth 2016–2026, 0 SF currently under construction."}, "50 Nagog": {"subtitle": "Nagog Park", "metrics": [["Tenants", "Insulet Corporation (NYSE: PODD, 'BB' S&P) — single tenant, 100% leased, supports HQ/mfg at 100 Nagog Park"], ["WALT", "2.7 years"], ["Going-In Cap", "6.09% (deal terms)"], ["Stabilized / ROC", "Not published — offered as a teaser without pricing guidance"]], "specs": [["Year Built", "2021"], ["Building Size", "119,060 SF"], ["Occupancy", "100% leased"], ["Clear Height", "30'"], ["Power", "3,000 amps"], ["Loading Docks", "9"], ["Truck Court", "130'"], ["Parking", "238 spaces"]], "market": "Northwest submarket serves as a supply relief valve for Greater Boston's inner suburbs given increasing space constraints."}, "Brookfield / Calare South Boston Portfolio": {"subtitle": "South of Boston Seven", "metrics": [["Tenants", "Remtec, Prodrive Technologies, Fibertec, Barrett Distribution, Johnson & Johnson, Winsupply/Control7, Omni Life Science (7 buildings, 8 tenants, 95% leased)"], ["WALT", "4.7 years"], ["Going-In Cap", "5.59% (deal terms)"], ["Year 1 Cap (orig. guidance)", "5.90%"], ["MTM Yield", "7.15%"], ["Stabilized / ROC", "7.50% Year 6 YOC"]], "specs": [["Portfolio", "7 properties, 483,096 SF total, 8 tenants"], ["Avg. Building Size", "69,014 SF"], ["Avg. Suite Size", "48,310 SF"], ["Occupancy", "95%"], ["5 Campanelli Circle", "Canton, 1991, 24' clear, 55,500 SF — Remtec, 100% leased"], ["15-21 University Rd", "Canton, 1956, 22' clear, 107,617 SF — Prodrive Technologies, 100% leased"], ["35 Scotland Blvd", "Bridgewater, 1981, 24' clear, 52,500 SF — Fibertec, 100% leased"], ["45 Scotland Blvd", "Bridgewater, 1985, 30' clear, 80,000 SF — Barrett Distribution, 100% leased"], ["50 Scotland Blvd", "Bridgewater, 1988, 32' clear, 90,600 SF — Johnson & Johnson, 100% leased"], ["55 Scotland Blvd", "Bridgewater, 1989, 24' clear, 56,703 SF — Winsupply/Control7, 54% leased"], ["480 Paramount Dr", "Raynham, 2004, 20' clear, 40,176 SF — Omni Life Science, 100% leased"]], "market": "South Shallow Bay (30-100K SF): 28.7M SF total inventory, 3.8% vacancy (14.2% for 100K+ SF buildings), $13.99 PSF avg. asking rent, 8.8% YoY rent growth since 2016, 194K SF under development."}, "Upton Dr Portfolio": {"subtitle": "Boston Multi-Tenant Light Industrial Portfolio", "metrics": [["Tenants", "Compass Group, Onto Innovation, PVD Products, Definitive Technology Group, Watson Marlow, Xenon Corporation (6 tenants, 82% occupied)"], ["WALT", "3.0 years"], ["Going-In Cap", "6.54% (deal terms)"], ["In-Place Cap (orig. guidance)", "5.88%"], ["Stabilized / ROC", "8.18% Year 5 ROC"]], "specs": [["Addresses", "26, 35, 37 Upton Dr, Wilmington, MA"], ["Submarket", "North"], ["Building Type", "Flex"], ["Net Rentable SF", "112,776 SF"], ["Acres", "12.44"], ["Avg. Year Built", "1995"], ["Avg. Clear Height", "18'"], ["26 Upton Dr", "25,000 SF, 1983, 16' clear — Compass Group, 100% leased"], ["35 Upton Dr", "42,776 SF, 1998, 18' clear — Onto Innovation, PVD Products, Definitive Technology Group, 100% leased"], ["37 Upton Dr", "45,000 SF, 2000, 18' clear — Watson Marlow, Xenon Corporation, 56% leased"]], "market": null}};
+
+DEAL_DETAILS["1050 Perimeter & 5 Wentworth"] = {"subtitle": "Two-Property NH Portfolio", "metrics": [["Tenants (5 Wentworth)", "OnSemi — single tenant, 100% leased, 10.3 yr WALT"], ["Tenants (1050 Perimeter)", "Micross/Corfin, National Dentex, NH Dept. of Health & Human Services, Vibrac, Stentech, Mainely Grass, Keene State College — 86.8% leased, 7.2 yr WALT"], ["Going-In Cap (combined)", "6.98% (mid-point)"], ["Stabilized Yr 3 ROC", "8.52%"], ["5-Yr Levered IRR", "19.13% (65% LTV)"]], "specs": [["Addresses", "1050 Perimeter Rd, Manchester, NH / 5 Wentworth, Hudson, NH"], ["Combined SF", "289,408 SF"], ["1050 Perimeter SF", "145,675 SF"], ["5 Wentworth SF", "143,733 SF"], ["Combined Occupancy", "86%"]], "market": "New Hampshire industrial: recent comps 6.64%\u20138.75% cap on B-class warehouse; North MA flex/R&D comps 5.79%\u20138.50% cap."};
 const SECTION_ORDER = ["UNDER CONTRACT","AWARDED","IN THE MARKET","COMING TO MARKET","OFF MARKET"];
 const SECTION_META = {
   "UNDER CONTRACT":  { label: "Under Contract",    dot: "uc" },
@@ -295,7 +539,7 @@ function render(filter) {
       <div class="count">${items.length}</div>
     </div>`;
     items.forEach(l => {
-      html += `<div class="card">
+      html += `<div class="card" data-name="${l.name.replace(/"/g, '&quot;')}">
         <div class="card-top">
           <div>
             <div class="card-title">${l.name}</div>
@@ -305,6 +549,7 @@ function render(filter) {
             <div class="card-price">${l.price}</div>
             <div class="card-psf">${l.psf}</div>
           </div>
+          <div class="card-chevron">›</div>
         </div>
         <div class="metric-grid">
           <div class="metric">
@@ -336,6 +581,98 @@ document.getElementById('filters').addEventListener('click', (e) => {
   document.querySelectorAll('.fpill').forEach(p => p.classList.toggle('active', p === pill));
   render(pill.dataset.val);
 });
+
+const STATUS_COLOR = {
+  "UNDER CONTRACT": "var(--blue)",
+  "AWARDED": "var(--purple)",
+  "IN THE MARKET": "var(--green)",
+  "COMING TO MARKET": "var(--gold)",
+  "OFF MARKET": "var(--muted)"
+};
+
+const sheet = document.getElementById('sheet');
+const sheetBackdrop = document.getElementById('sheetBackdrop');
+const sheetHeader = document.getElementById('sheetHeader');
+const sheetBody = document.getElementById('sheetBody');
+
+function openSheet(name) {
+  const l = LISTINGS.find(x => x.name === name);
+  if (!l) return;
+  const d = DEAL_DETAILS[name];
+  const meta = SECTION_META[l.status];
+
+  sheetHeader.innerHTML = `
+    <div class="sheet-status-row">
+      <div class="sheet-status-badge" style="background:${STATUS_COLOR[l.status] || 'var(--muted)'}">${meta ? meta.label : l.status}</div>
+      <div class="sheet-close" id="sheetClose">✕</div>
+    </div>
+    <div class="sheet-title">${l.name}</div>
+    ${d && d.subtitle ? `<div class="sheet-subtitle">${d.subtitle}</div>` : ''}
+    <div class="sheet-loc">${l.city}, ${l.state}</div>
+    <div class="sheet-price-row">
+      <div class="sheet-price-item">
+        <div class="val">${l.price}</div>
+        <div class="lbl">Price</div>
+      </div>
+      <div class="sheet-price-item">
+        <div class="val">${l.psf}</div>
+        <div class="lbl">Price / SF</div>
+      </div>
+      <div class="sheet-price-item">
+        <div class="val ${capClass(l.cap)}">${l.cap}</div>
+        <div class="lbl">Cap Rate</div>
+      </div>
+      <div class="sheet-price-item">
+        <div class="val" style="font-size:15px;">${l.buyer || 'TBD'}</div>
+        <div class="lbl">Buyer</div>
+      </div>
+    </div>
+  `;
+
+  let bodyHtml = '';
+  if (d) {
+    if (d.metrics && d.metrics.length) {
+      bodyHtml += `<div class="sheet-section-title">Key Metrics</div>
+        <div class="sheet-specs sheet-metrics">${d.metrics.map(([k,v]) => `
+          <div class="sheet-spec-row">
+            <div class="sheet-spec-label">${k}</div>
+            <div class="sheet-spec-val">${v}</div>
+          </div>`).join('')}</div>`;
+    }
+    if (d.specs && d.specs.length) {
+      bodyHtml += `<div class="sheet-section-title">Property Specs</div>
+        <div class="sheet-specs">${d.specs.map(([k,v]) => `
+          <div class="sheet-spec-row">
+            <div class="sheet-spec-label">${k}</div>
+            <div class="sheet-spec-val">${v}</div>
+          </div>`).join('')}</div>`;
+    }
+    if (d.market) {
+      bodyHtml += `<div class="sheet-section-title">Market Context</div>
+        <div class="sheet-market">${d.market}</div>`;
+    }
+  } else {
+    bodyHtml = `<div class="sheet-empty">Full property package not yet loaded for this listing.<br>Contact your JLL team for details.</div>`;
+  }
+  sheetBody.innerHTML = bodyHtml;
+
+  document.getElementById('sheetClose').addEventListener('click', closeSheet);
+  sheet.classList.add('open');
+  sheetBackdrop.classList.add('open');
+}
+
+function closeSheet() {
+  sheet.classList.remove('open');
+  sheetBackdrop.classList.remove('open');
+}
+
+document.getElementById('list').addEventListener('click', (e) => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+  openSheet(card.dataset.name);
+});
+
+sheetBackdrop.addEventListener('click', closeSheet);
 
 render('all');
 </script>
