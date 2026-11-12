@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#1a2744">
+<meta name="theme-color" content="#0B2545">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Active Listings — JLL Boston Industrial</title>
@@ -26,7 +26,7 @@
     --purple: #6b3fa0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html { background: #1a2744; }
+  html { background: #0B2545; }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
   .header {
@@ -444,57 +444,62 @@
     padding: 20px 0 8px;
   }
 
-  .pg-btn {
-    width: 100%;
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    margin-bottom: 4px;
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+  /* ---- Option A2: navy compact ledger ---- */
+  :root {
+    --bg: #EEF2F7; --surface: #ffffff; --surface2: #F6F8FB; --border: #D5DEE8;
+    --navy: #0B2545; --gold: #9A6700; --green: #067647; --red: #B42318;
+    --text: #0B2545; --muted: #3F5470; --light: #8A9BB3; --blue: #1D4ED8; --purple: #6941C6;
   }
-  .pg-btn:active { opacity: 0.85; }
-  .pg-chev { transition: transform 0.2s; font-size: 16px; }
-  .pg-btn.open .pg-chev { transform: rotate(180deg); }
-  .pg-panel { display: none; padding: 14px 0 6px; }
-  .pg-panel.open { display: block; }
-  .pg-hero { display: flex; gap: 8px; }
-  .pg-hero-item {
-    flex: 1;
-    background: var(--surface2);
-    border-radius: 10px;
-    padding: 12px 8px;
-    text-align: center;
-  }
-  .pg-hero-val {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.2;
-  }
-  .pg-hero-lbl {
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--gold);
-    margin-top: 4px;
-  }
+  * { font-family: 'Inter', -apple-system, system-ui, sans-serif !important; }
+  .top { position: sticky; top: 0; z-index: 100; background: #0B2545; -webkit-transform: translateZ(0); transform: translateZ(0); }
+  .header { position: static; display: flex; flex-direction: column-reverse; background: #0B2545 !important; padding: 18px 16px 10px; padding-top: max(18px, env(safe-area-inset-top)); }
+  .header h1 { font-size: 26px; line-height: 32px; font-weight: 700; color: #ffffff; letter-spacing: 0; margin-top: 2px; }
+  .header p { font-size: 12px; font-weight: 600; color: #A9BEDB; letter-spacing: 0.06em; margin: 0; }
+  .filters { position: static; background: #0B2545; border-bottom: 0; padding: 4px 16px 14px; }
+  .fpill { min-height: 44px; background: transparent; border: 1px solid #4A6A96; color: #E3ECF7; }
+  .fpill.active { background: #ffffff !important; border-color: #ffffff !important; color: #0B2545 !important; }
+  .list { padding: 4px 16px 40px; }
+  .section-divider { padding: 20px 2px 8px; }
+  .section-divider .dot { display: none; }
+  .section-divider h2 { font-size: 13px; letter-spacing: 0.04em; }
+  .section-divider h2.h-uc { color: var(--blue); }
+  .section-divider h2.h-awarded { color: var(--purple); }
+  .section-divider h2.h-market { color: var(--green); }
+  .section-divider h2.h-coming { color: var(--gold); }
+  .section-divider h2.h-off { color: var(--muted); }
+  .section-divider .count { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .group { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .group .card { border: 0; border-bottom: 1px solid #E3E9F0; border-radius: 0; margin: 0; padding: 10px 14px; min-height: 64px; display: flex; align-items: center; gap: 12px; }
+  .group .card:last-child { border-bottom: 0; }
+  .group .card:active { transform: none; background: var(--surface2); }
+  .row-main { flex: 1; min-width: 0; }
+  .row-name { font-size: 15px; font-weight: 600; color: var(--navy); line-height: 1.25; }
+  .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .row-right { text-align: right; flex-shrink: 0; }
+  .row-price { font-size: 15px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+  .row-cap { font-size: 13px; font-weight: 600; margin-top: 2px; white-space: nowrap; }
+  .row-cap.cap-pos { color: var(--green); }
+  .row-cap.cap-neg { color: var(--red); }
+  .row-cap.tbd { color: var(--muted); font-style: italic; font-weight: 500; }
+  .row-parties { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 4px; font-size: 12.5px; color: var(--navy); }
+  .row-parties b { font-weight: 600; color: var(--muted); margin-right: 3px; }
+  /* compact density */
+  .group .card { padding: 7px 12px; min-height: 0; gap: 10px; }
+  .row-name { font-size: 14px; line-height: 1.2; }
+  .row-sub { font-size: 12px; margin-top: 1px; }
+  .row-parties { font-size: 11.5px; margin-top: 2px; gap: 0 10px; }
+  .row-price { font-size: 14px; }
+  .row-cap { font-size: 12px; margin-top: 1px; }
+  .section-divider { padding: 14px 2px 6px; }
+  .section-divider h2, .section-divider .count { font-size: 12px; }
+  .header { padding-bottom: 6px; }
+  .filters { padding-bottom: 10px; }
+  .metric-label { color: var(--muted); }
 </style>
 </head>
 <body>
 
+<div class="top">
 <div class="header">
   <h1>Active Listings</h1>
   <p>JLL Boston Industrial</p>
@@ -502,13 +507,14 @@
 
 <div class="filters" id="filters">
   <div class="fpill active" data-val="all">All</div>
-  <div class="fpill" data-val="AWARDED">Awarded</div>
-  <div class="fpill" data-val="UNDER CONTRACT">Under Contract</div>
   <div class="fpill" data-val="IN THE MARKET">In The Market</div>
   <div class="fpill" data-val="COMING TO MARKET">Coming To Market</div>
   <div class="fpill" data-val="OFF MARKET">Off Market</div>
+  <div class="fpill" data-val="UNDER CONTRACT">Under Contract</div>
+  <div class="fpill" data-val="AWARDED">Awarded</div>
 </div>
 
+</div>
 <div class="list" id="list"></div>
 
 <div class="sheet-backdrop" id="sheetBackdrop"></div>
@@ -520,32 +526,38 @@
 
 <script>
 const LISTINGS = [
-  {"status": "AWARDED", "name": "525 Myles Standish", "city": "Taunton", "state": "MA", "price": "$12.5M", "psf": "$100/SF", "size": "124,991 SF", "cap": "7.50% ROC", "buyer": "GFI"},
-  {"status": "IN THE MARKET", "name": "Brookfield / Calare South Boston Portfolio", "city": "Various", "state": "MA", "price": "$101.66M", "psf": "$210/SF", "size": "483,096 SF", "cap": "5.59%", "buyer": null},
-  {"status": "IN THE MARKET", "name": "101 Almgren Dr", "city": "Agawam", "state": "MA", "price": "$15.5M", "psf": "$83/SF", "size": "187,840 SF", "cap": "7.84%", "buyer": null},
-  {"status": "IN THE MARKET", "name": "27 Forge Parkway", "city": "Franklin", "state": "MA", "price": "$14.11M", "psf": "$128/SF", "size": "109,838 SF", "cap": "7.75% ROC", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "38 Neponset Ave", "city": "Foxboro", "state": "MA", "price": "$12.65M", "psf": "$45/SF", "size": "281,000 SF", "cap": "7.50% ROC", "buyer": null},
-  {"status": "IN THE MARKET", "name": "90 Huntoon Memorial", "city": "Leicester", "state": "MA", "price": "$38M", "psf": "$142/SF", "size": "267,600 SF", "cap": "-2.38%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "Brookfield Concord St", "city": "North Reading", "state": "MA", "price": "$92M", "psf": "$325/SF", "size": "283,466 SF", "cap": "5.38%", "buyer": null},
-  {"status": "UNDER CONTRACT", "name": "80 South St", "city": "Hopkinton", "state": "MA", "price": "$10M", "psf": "$65/SF", "size": "154,604 SF", "cap": "7.75% ROC", "buyer": "Moxie Equities"},
-  {"status": "AWARDED", "name": "16 Delta & 5A/5B Aviation", "city": "Londonderry", "state": "NH", "price": "$43.3M", "psf": "$247/SF", "size": "175,345 SF", "cap": "6.15%", "buyer": "Morgan Stanley"},
-  {"status": "AWARDED", "name": "Upton Dr Portfolio", "city": "Wilmington", "state": "MA", "price": "$30M", "psf": "$266/SF", "size": "112,776 SF", "cap": "5.88%", "buyer": "Camber"},
-  {"status": "UNDER CONTRACT", "name": "24 Rockland St", "city": "Hanover", "state": "MA", "price": "$3.1M", "psf": "$143/SF", "size": "21,700 SF", "cap": "6.89%", "buyer": "Kadima"},
-  {"status": "UNDER CONTRACT", "name": "589 & 599 Commerce Dr", "city": "Fall River", "state": "MA", "price": "$9.5M", "psf": "$185/SF", "size": "51,300 SF", "cap": "6.10%", "buyer": "Paul Joncas"},
-  {"status": "IN THE MARKET", "name": "8 Technology Dr", "city": "Chelmsford", "state": "MA", "price": "$7.3M", "psf": "$242/SF", "size": "30,226 SF", "cap": "8.24%", "buyer": null},
-  {"status": "IN THE MARKET", "name": "6 Wentworth, 12 Exec, 44 Industrial, 6 Post", "city": "Hudson / Dover / Portsmouth", "state": "NH", "price": "$42M", "psf": "$169/SF", "size": "248,914 SF", "cap": "7.15%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "780 North Colony Rd", "city": "Wallingford", "state": "CT", "price": "$7.2M", "psf": "$84/SF", "size": "86,036 SF", "cap": "5.01%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "5 Bradley Dr", "city": "Westbrook", "state": "ME", "price": "$23M", "psf": "$182/SF", "size": "126,072 SF", "cap": "6.83%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "70 Pleasant St", "city": "West Bridgewater", "state": "MA", "price": "$6M", "psf": "$168/SF", "size": "35,700 SF", "cap": "7.40%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "Horsepower Rd Land", "city": "West Bridgewater", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null},
-  {"status": "IN THE MARKET", "name": "45 Fondi Dr", "city": "Haverhill", "state": "MA", "price": "$8.75M", "psf": "$143/SF", "size": "61,000 SF", "cap": "8.90% ROC", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "530 Community Dr", "city": "Burlington", "state": "VT", "price": "$35M", "psf": "$131/SF", "size": "266,353 SF", "cap": "8.21%", "buyer": null},
-  {"status": "COMING TO MARKET", "name": "Bell Simons Portfolio", "city": "Various (6 Buildings)", "state": "MA / CT", "price": "$20M", "psf": "$110/SF", "size": "182,459 SF", "cap": "8.90%", "buyer": null}
+  {"status": "UNDER CONTRACT", "name": "16 Delta & 5A/5B Aviation", "city": "Londonderry", "state": "NH", "price": "$43.3M", "psf": "$247/SF", "size": "175,345 SF", "cap": "6.15%", "buyer": "Morgan Stanley", "seller": "RJ Kelly"},
+  {"status": "UNDER CONTRACT", "name": "525 Myles Standish", "city": "Taunton", "state": "MA", "price": "$12.5M", "psf": "$100/SF", "size": "124,991 SF", "cap": "7.50% ROC", "buyer": "GFI", "seller": "Martignetti"},
+  {"status": "UNDER CONTRACT", "name": "589 & 599 Commerce Dr", "city": "Fall River", "state": "MA", "price": "$9.5M", "psf": "$185/SF", "size": "51,300 SF", "cap": "6.20%", "buyer": "Paul Joncas", "seller": "NorthBridge"},
+  {"status": "UNDER CONTRACT", "name": "80 South St", "city": "Hopkinton", "state": "MA", "price": "$9.5M", "psf": "$61/SF", "size": "154,604 SF", "cap": "7.75% ROC", "buyer": "Moxie Equities", "seller": "MFA"},
+  {"status": "AWARDED", "name": "24 Rockland St", "city": "Hanover", "state": "MA", "price": "$3.1M", "psf": "$143/SF", "size": "21,700 SF", "cap": "6.89%", "buyer": "Kadima", "seller": "Kadima"},
+  {"status": "IN THE MARKET", "name": "101 Almgren Dr", "city": "Agawam", "state": "MA", "price": "$15.5M", "psf": "$83/SF", "size": "187,840 SF", "cap": "7.84%", "buyer": null, "seller": "HMC Real Estate Partners"},
+  {"status": "IN THE MARKET", "name": "27 Forge Parkway", "city": "Franklin", "state": "MA", "price": "$14.11M", "psf": "$128/SF", "size": "109,838 SF", "cap": "7.75% ROC", "buyer": null, "seller": "Thermo Fisher"},
+  {"status": "IN THE MARKET", "name": "45 Fondi Dr", "city": "Haverhill", "state": "MA", "price": "$8.75M", "psf": "$143/SF", "size": "61,000 SF", "cap": "8.90% ROC", "buyer": null, "seller": "MetPipe"},
+  {"status": "IN THE MARKET", "name": "6 Wentworth, 12 Exec, 44 Industrial, 6 Post", "city": "Hudson / Dover / Portsmouth", "state": "NH", "price": "$42M", "psf": "$169/SF", "size": "248,914 SF", "cap": "7.15%", "buyer": null, "seller": "RJK"},
+  {"status": "IN THE MARKET", "name": "8 Technology Dr", "city": "Chelmsford", "state": "MA", "price": "$7.3M", "psf": "$242/SF", "size": "30,226 SF", "cap": "8.24%", "buyer": null, "seller": "RJK"},
+  {"status": "IN THE MARKET", "name": "90 Huntoon Memorial", "city": "Leicester", "state": "MA", "price": "$38M", "psf": "$142/SF", "size": "267,600 SF", "cap": "-2.38%", "buyer": null, "seller": "Berkeley / JMC and Co"},
+  {"status": "IN THE MARKET", "name": "Brookfield / Calare South Boston Portfolio", "city": "Various", "state": "MA", "price": "$101.66M", "psf": "$210/SF", "size": "483,096 SF", "cap": "5.59%", "buyer": null, "seller": "Brookfield / Calare"},
+  {"status": "IN THE MARKET", "name": "Upton Dr Portfolio", "city": "Wilmington", "state": "MA", "price": "$30M", "psf": "$266/SF", "size": "112,776 SF", "cap": "5.88%", "buyer": "Camber", "seller": "Davis"},
+  {"status": "COMING TO MARKET", "name": "5 Bradley Dr", "city": "Westbrook", "state": "ME", "price": "$23M", "psf": "$182/SF", "size": "126,072 SF", "cap": "6.83%", "buyer": null, "seller": "North River"},
+  {"status": "COMING TO MARKET", "name": "50 Nagog", "city": "Acton", "state": "MA", "price": "$31.36M", "psf": "$263/SF", "size": "119,060 SF", "cap": "6.09%", "buyer": null, "seller": null},
+  {"status": "COMING TO MARKET", "name": "530 Community Dr", "city": "Burlington", "state": "VT", "price": "$35M", "psf": "$131/SF", "size": "266,353 SF", "cap": "8.21%", "buyer": null, "seller": "ReArch Co"},
+  {"status": "COMING TO MARKET", "name": "70 Pleasant St", "city": "West Bridgewater", "state": "MA", "price": "$6M", "psf": "$168/SF", "size": "35,700 SF", "cap": "7.40%", "buyer": null, "seller": "Sticks"},
+  {"status": "COMING TO MARKET", "name": "780 North Colony Rd", "city": "Wallingford", "state": "CT", "price": "$7.2M", "psf": "$84/SF", "size": "86,036 SF", "cap": "5.01%", "buyer": null, "seller": "Ultimate Realty"},
+  {"status": "COMING TO MARKET", "name": "8 Centennial & 600 Friberg", "city": "Shrewsbury / Westborough", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null, "seller": null},
+  {"status": "COMING TO MARKET", "name": "Brookfield Concord St", "city": "North Reading", "state": "MA", "price": "$92M", "psf": "$325/SF", "size": "283,466 SF", "cap": "5.38%", "buyer": null, "seller": "Brookfield"},
+  {"status": "COMING TO MARKET", "name": "Brookfield Dunham Portfolio", "city": "Billerica", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null, "seller": null},
+  {"status": "COMING TO MARKET", "name": "Garelick Land", "city": "Franklin", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null, "seller": null},
+  {"status": "COMING TO MARKET", "name": "Horsepower Rd Land", "city": "West Bridgewater", "state": "MA", "price": "TBD", "psf": "TBD", "size": "TBD", "cap": "TBD", "buyer": null, "seller": null},
+  {"status": "OFF MARKET", "name": "176 1st Flight Dr", "city": "Auburn", "state": "ME", "price": "$5.9M", "psf": "$96/SF", "size": "61,188 SF", "cap": "8.67%", "buyer": null, "seller": null},
+  {"status": "OFF MARKET", "name": "41 Progress Dr", "city": "Manchester", "state": "CT", "price": "$8.05M", "psf": "$117/SF", "size": "69,000 SF", "cap": "6.75%", "buyer": "Fairview", "seller": null},
+  {"status": "OFF MARKET", "name": "50 Shrewsbury (Loomis)", "city": "Boylston", "state": "MA", "price": "$7.45M", "psf": "$135/SF", "size": "55,175 SF", "cap": "7.13%", "buyer": null, "seller": null},
+  {"status": "OFF MARKET", "name": "7 Campanelli Dr", "city": "Assonet", "state": "MA", "price": "$8.53M", "psf": "$17/SF", "size": "500,000 SF", "cap": "7.00% ROC", "buyer": null, "seller": null}
 ];
 
-const DEAL_DETAILS = {"145 Commerce": {"subtitle": "I-95 Gateway", "metrics": [["Tenants", "Frito-Lay (93,183 SF, exp. 11/2034), Peak Electric (126,900 SF, exp. 1/2032), Electric Boat (271,412 SF, exp. 5/2036)"], ["In-Place Rent", "$8.50–$10.75 PSF (blended, by tenant)"], ["Rent Bumps", "3.0%–3.5% annually"], ["WALT", "8.3 years"], ["Going-In Cap", "6.40% (deal terms)"], ["Stabilized / ROC", "6.63% Year 2 ROC"]], "specs": [["Address", "145 Commerce Dr, Warwick, RI 02886"], ["Year Built", "2023"], ["Building RSF", "491,495 SF"], ["Land Area", "46.7 acres"], ["Clear Height", "40'"], ["Column Spacing", "54' x 50' with 60' speed bays"], ["Loading Docks", "66 existing (30 future)"], ["Drive-In Doors", "4"], ["Truck Court", "130' (185' with trailer parking)"], ["Power", "3,000A; 480V"], ["Sprinkler", "ESFR"], ["Construction", "Tilt-Up Concrete Wall Panels"], ["Zoning", "Light Industrial (LI)"]], "market": "Rhode Island Industrial Market: 73M SF total inventory, 5 buildings delivered since 2016, 8.0% YoY avg. rent growth (last 5 years), $10.72 PSF avg. asking rent."}, "525 Myles Standish": {"subtitle": null, "metrics": [["Tenants", "Not specified in file — confirm before the call"], ["WALT", "Not specified in file"], ["Going-In Cap", "7.50% ROC (deal terms)"], ["Stabilized / ROC", "7.50% ROC"]], "specs": [["Year Built / Renovated", "1987 / 2017"], ["Site Size", "10.31 acres"], ["Zoning", "Industrial / Ind Whses"], ["Building Size", "108,335 SF total (97,656 SF warehouse / 10,679 SF office)"], ["Construction", "Concrete Block Steel Frame"], ["Clear Height", "Deck 26' / Joist 22'-24'"], ["Column Spacing", "42' x 26' | 35' x 44' | 24' x 26'"], ["Loading Docks", "26 (with levelers)"], ["Drive-In Doors", "1"], ["Vehicle Parking", "88 spaces"], ["Trailer Parking", "38"], ["Power", "1,000 amps @ 480/277V and 208/120V 3P"], ["Refrigerated Area", "60° (54,750 SF) / 47° (4,500 SF) / 35° (5,250 SF)"]], "market": null}, "41 Progress Dr": {"subtitle": null, "metrics": [["Tenants", "Aerospace tenant, not named in file (likely Enjet Aero — same tenant as prior 2024 sale at this address; confirm)"], ["WALT", "8.0 years"], ["Lease Type", "Absolute NNN, $1.14M in tenant improvements since 2022"], ["Going-In Cap", "6.75% (deal terms)"], ["In-Place Cap (orig. guidance)", "7.00%"], ["Stabilized / ROC", "Low-mid 7% Year 2 ROC"]], "specs": [["Address", "41 Progress Drive, Manchester, CT 06042"], ["Rentable SF", "69,000 SF (excl. 2nd floor office)"], ["Office SF", "~3,250 SF (5%)"], ["Year Built / Renovated", "1971 / 2026"], ["Land Area", "5.44 acres"], ["Parking", "116 spaces (1.68/1,000 SF)"], ["Roof", "EPDM Membrane (2026), new 20-year warranty"], ["Clear Height", "20'–21'"], ["Column Spacing", "50' x 40'"], ["Loading", "4 tailboard doors, 1 drive-in door"], ["Power", "2,000 amps, 480 volts"], ["Fire Protection", "Wet Sprinkler"]], "market": "Hartford Manufacturing submarket: $8.85 avg. asking rent, +70% rent growth 2016–2026, 0 SF currently under construction."}, "50 Nagog": {"subtitle": "Nagog Park", "metrics": [["Tenants", "Insulet Corporation (NYSE: PODD, 'BB' S&P) — single tenant, 100% leased, supports HQ/mfg at 100 Nagog Park"], ["WALT", "2.7 years"], ["Going-In Cap", "6.09% (deal terms)"], ["Stabilized / ROC", "Not published — offered as a teaser without pricing guidance"]], "specs": [["Year Built", "2021"], ["Building Size", "119,060 SF"], ["Occupancy", "100% leased"], ["Clear Height", "30'"], ["Power", "3,000 amps"], ["Loading Docks", "9"], ["Truck Court", "130'"], ["Parking", "238 spaces"]], "market": "Northwest submarket serves as a supply relief valve for Greater Boston's inner suburbs given increasing space constraints."}, "Brookfield / Calare South Boston Portfolio": {"subtitle": "South of Boston Seven", "metrics": [["Tenants", "Remtec, Prodrive Technologies, Fibertec, Barrett Distribution, Johnson & Johnson, Winsupply/Control7, Omni Life Science (7 buildings, 8 tenants, 95% leased)"], ["WALT", "4.7 years"], ["Going-In Cap", "5.59% (deal terms)"], ["Year 1 Cap (orig. guidance)", "5.90%"], ["MTM Yield", "7.15%"], ["Stabilized / ROC", "7.50% Year 6 YOC"]], "specs": [["Portfolio", "7 properties, 483,096 SF total, 8 tenants"], ["Avg. Building Size", "69,014 SF"], ["Avg. Suite Size", "48,310 SF"], ["Occupancy", "95%"], ["5 Campanelli Circle", "Canton, 1991, 24' clear, 55,500 SF — Remtec, 100% leased"], ["15-21 University Rd", "Canton, 1956, 22' clear, 107,617 SF — Prodrive Technologies, 100% leased"], ["35 Scotland Blvd", "Bridgewater, 1981, 24' clear, 52,500 SF — Fibertec, 100% leased"], ["45 Scotland Blvd", "Bridgewater, 1985, 30' clear, 80,000 SF — Barrett Distribution, 100% leased"], ["50 Scotland Blvd", "Bridgewater, 1988, 32' clear, 90,600 SF — Johnson & Johnson, 100% leased"], ["55 Scotland Blvd", "Bridgewater, 1989, 24' clear, 56,703 SF — Winsupply/Control7, 54% leased"], ["480 Paramount Dr", "Raynham, 2004, 20' clear, 40,176 SF — Omni Life Science, 100% leased"]], "market": "South Shallow Bay (30-100K SF): 28.7M SF total inventory, 3.8% vacancy (14.2% for 100K+ SF buildings), $13.99 PSF avg. asking rent, 8.8% YoY rent growth since 2016, 194K SF under development."}, "Upton Dr Portfolio": {"subtitle": "Boston Multi-Tenant Light Industrial Portfolio", "metrics": [["Tenants", "Compass Group, Onto Innovation, PVD Products, Definitive Technology Group, Watson Marlow, Xenon Corporation (6 tenants, 82% occupied)"], ["WALT", "3.0 years"], ["Going-In Cap", "6.54% (deal terms)"], ["In-Place Cap (orig. guidance)", "5.88%"], ["Stabilized / ROC", "8.18% Year 5 ROC"]], "specs": [["Addresses", "26, 35, 37 Upton Dr, Wilmington, MA"], ["Submarket", "North"], ["Building Type", "Flex"], ["Net Rentable SF", "112,776 SF"], ["Acres", "12.44"], ["Avg. Year Built", "1995"], ["Avg. Clear Height", "18'"], ["26 Upton Dr", "25,000 SF, 1983, 16' clear — Compass Group, 100% leased"], ["35 Upton Dr", "42,776 SF, 1998, 18' clear — Onto Innovation, PVD Products, Definitive Technology Group, 100% leased"], ["37 Upton Dr", "45,000 SF, 2000, 18' clear — Watson Marlow, Xenon Corporation, 56% leased"]], "market": null}};
+const DEAL_DETAILS = {"525 Myles Standish": {"subtitle": null, "metrics": [["Tenants", "Not specified in file — confirm before the call"], ["WALT", "Not specified in file"], ["Going-In Cap", "7.50% ROC (deal terms)"], ["Stabilized / ROC", "7.50% ROC"]], "specs": [["Year Built / Renovated", "1987 / 2017"], ["Site Size", "10.31 acres"], ["Zoning", "Industrial / Ind Whses"], ["Building Size", "108,335 SF total (97,656 SF warehouse / 10,679 SF office)"], ["Construction", "Concrete Block Steel Frame"], ["Clear Height", "Deck 26’ / Joist 22’-24’"], ["Column Spacing", "42’ x 26’ | 35’ x 44’ | 24’ x 26’"], ["Loading Docks", "26 (with levelers)"], ["Drive-In Doors", "1"], ["Vehicle Parking", "88 spaces"], ["Trailer Parking", "38"], ["Power", "1,000 amps @ 480/277V and 208/120V 3P"], ["Refrigerated Area", "60° (54,750 SF) / 47° (4,500 SF) / 35° (5,250 SF)"]], "market": null}, "41 Progress Dr": {"subtitle": null, "metrics": [["Tenants", "Aerospace tenant, not named in file (likely Enjet Aero — same tenant as prior 2024 sale at this address; confirm)"], ["WALT", "8.0 years"], ["Lease Type", "Absolute NNN, $1.14M in tenant improvements since 2022"], ["Going-In Cap", "6.75% (deal terms)"], ["In-Place Cap (orig. guidance)", "7.00%"], ["Stabilized / ROC", "Low-mid 7% Year 2 ROC"]], "specs": [["Address", "41 Progress Drive, Manchester, CT 06042"], ["Rentable SF", "69,000 SF (excl. 2nd floor office)"], ["Office SF", "~3,250 SF (5%)"], ["Year Built / Renovated", "1971 / 2026"], ["Land Area", "5.44 acres"], ["Parking", "116 spaces (1.68/1,000 SF)"], ["Roof", "EPDM Membrane (2026), new 20-year warranty"], ["Clear Height", "20’–21’"], ["Column Spacing", "50’ x 40’"], ["Loading", "4 tailboard doors, 1 drive-in door"], ["Power", "2,000 amps, 480 volts"], ["Fire Protection", "Wet Sprinkler"]], "market": "Hartford Manufacturing submarket: $8.85 avg. asking rent, +70% rent growth 2016–2026, 0 SF currently under construction."}, "50 Nagog": {"subtitle": "Nagog Park", "metrics": [["Tenants", "Insulet Corporation (NYSE: PODD, ’BB’ S&P) — single tenant, 100% leased, supports HQ/mfg at 100 Nagog Park"], ["WALT", "2.7 years"], ["Going-In Cap", "6.09% (deal terms)"], ["Stabilized / ROC", "Not published — offered as a teaser without pricing guidance"]], "specs": [["Year Built", "2021"], ["Building Size", "119,060 SF"], ["Occupancy", "100% leased"], ["Clear Height", "30’"], ["Power", "3,000 amps"], ["Loading Docks", "9"], ["Truck Court", "130’"], ["Parking", "238 spaces"]], "market": "Northwest submarket serves as a supply relief valve for Greater Boston’s inner suburbs given increasing space constraints."}, "Brookfield / Calare South Boston Portfolio": {"subtitle": "South of Boston Seven", "metrics": [["Tenants", "Remtec, Prodrive Technologies, Fibertec, Barrett Distribution, Johnson & Johnson, Winsupply/Control7, Omni Life Science (7 buildings, 8 tenants, 95% leased)"], ["WALT", "4.7 years"], ["Going-In Cap", "5.59% (deal terms)"], ["Year 1 Cap (orig. guidance)", "5.90%"], ["MTM Yield", "7.15%"], ["Stabilized / ROC", "7.50% Year 6 YOC"]], "specs": [["Portfolio", "7 properties, 483,096 SF total, 8 tenants"], ["Avg. Building Size", "69,014 SF"], ["Avg. Suite Size", "48,310 SF"], ["Occupancy", "95%"], ["5 Campanelli Circle", "Canton, 1991, 24’ clear, 55,500 SF — Remtec, 100% leased"], ["15-21 University Rd", "Canton, 1956, 22’ clear, 107,617 SF — Prodrive Technologies, 100% leased"], ["35 Scotland Blvd", "Bridgewater, 1981, 24’ clear, 52,500 SF — Fibertec, 100% leased"], ["45 Scotland Blvd", "Bridgewater, 1985, 30’ clear, 80,000 SF — Barrett Distribution, 100% leased"], ["50 Scotland Blvd", "Bridgewater, 1988, 32’ clear, 90,600 SF — Johnson & Johnson, 100% leased"], ["55 Scotland Blvd", "Bridgewater, 1989, 24’ clear, 56,703 SF — Winsupply/Control7, 54% leased"], ["480 Paramount Dr", "Raynham, 2004, 20’ clear, 40,176 SF — Omni Life Science, 100% leased"]], "market": "South Shallow Bay (30-100K SF): 28.7M SF total inventory, 3.8% vacancy (14.2% for 100K+ SF buildings), $13.99 PSF avg. asking rent, 8.8% YoY rent growth since 2016, 194K SF under development."}, "Upton Dr Portfolio": {"subtitle": "Boston Multi-Tenant Light Industrial Portfolio", "metrics": [["Tenants", "Compass Group, Onto Innovation, PVD Products, Definitive Technology Group, Watson Marlow, Xenon Corporation (6 tenants, 82% occupied)"], ["WALT", "3.0 years"], ["Going-In Cap", "6.54% (deal terms)"], ["In-Place Cap (orig. guidance)", "5.88%"], ["Stabilized / ROC", "8.18% Year 5 ROC"]], "specs": [["Addresses", "26, 35, 37 Upton Dr, Wilmington, MA"], ["Submarket", "North"], ["Building Type", "Flex"], ["Net Rentable SF", "112,776 SF"], ["Acres", "12.44"], ["Avg. Year Built", "1995"], ["Avg. Clear Height", "18’"], ["26 Upton Dr", "25,000 SF, 1983, 16’ clear — Compass Group, 100% leased"], ["35 Upton Dr", "42,776 SF, 1998, 18’ clear — Onto Innovation, PVD Products, Definitive Technology Group, 100% leased"], ["37 Upton Dr", "45,000 SF, 2000, 18’ clear — Watson Marlow, Xenon Corporation, 56% leased"]], "market": null}};
 
-const SECTION_ORDER = ["AWARDED","UNDER CONTRACT","IN THE MARKET","COMING TO MARKET","OFF MARKET"];
+const SECTION_ORDER = ["UNDER CONTRACT","AWARDED","IN THE MARKET","COMING TO MARKET","OFF MARKET"];
 const SECTION_META = {
   "UNDER CONTRACT":  { label: "Under Contract",    dot: "uc" },
   "AWARDED":         { label: "Awarded",           dot: "awarded" },
@@ -578,38 +590,24 @@ function render(filter) {
     const meta = SECTION_META[status];
     html += `<div class="section-divider">
       <div class="dot ${meta.dot}"></div>
-      <h2>${meta.label}</h2>
-      <div class="count">${items.length}</div>
+      <h2 class="h-${meta.dot}">${meta.label}</h2>
+      <div class="count">${items.length} deal${items.length === 1 ? '' : 's'}</div>
     </div>`;
+    html += '<div class="group">';
     items.forEach(l => {
       html += `<div class="card" data-name="${l.name.replace(/"/g, '&quot;')}">
-        <div class="card-top">
-          <div>
-            <div class="card-title">${l.name}</div>
-            <div class="card-loc">${l.city}, ${l.state}</div>
-          </div>
-          <div class="card-price-block">
-            <div class="card-price">${l.price}</div>
-            <div class="card-psf">${l.psf}</div>
-          </div>
-          <div class="card-chevron">›</div>
+        <div class="row-main">
+          <div class="row-name">${l.name}</div>
+          <div class="row-sub">${l.city}, ${l.state} \u00b7 ${l.size}</div>
+          <div class="row-parties"><span><b>Seller</b> ${l.seller || 'TBD'}</span><span><b>Buyer</b> ${l.buyer || 'TBD'}</span></div>
         </div>
-        <div class="metric-grid">
-          <div class="metric">
-            <div class="metric-label">Buyer</div>
-            <div class="metric-val ${valClass(l.buyer || 'TBD')}">${l.buyer || 'TBD'}</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Size</div>
-            <div class="metric-val ${valClass(l.size)}">${l.size}</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Cap Rate</div>
-            <div class="metric-val ${capClass(l.cap)}">${l.cap}</div>
-          </div>
+        <div class="row-right">
+          <div class="row-price">${l.price}</div>
+          <div class="row-cap ${capClass(l.cap)}">${l.cap}</div>
         </div>
       </div>`;
     });
+    html += '</div>';
   });
 
   if (!anyResults) {
@@ -637,34 +635,6 @@ const sheet = document.getElementById('sheet');
 const sheetBackdrop = document.getElementById('sheetBackdrop');
 const sheetHeader = document.getElementById('sheetHeader');
 const sheetBody = document.getElementById('sheetBody');
-
-const PRICING_GUIDANCE = {
-  "45 Fondi Dr": {
-    headline: [["Price","$8.75M"],["Price / SF","$140/SF"],["Yield (ROC)","Mid-High 8%"]],
-    assumptions: [
-      ["Downtime","18 months"],
-      ["Lease Term","7 years, 2 months"],
-      ["Ground Floor Rent","$14.50/SF"],
-      ["2nd Floor Office Rent","$7.25/SF"],
-      ["TI","$7.50/SF"],
-      ["Leasing Commission","6%"]
-    ]
-  }
-};
-
-function pgBlock(l) {
-  const g = PRICING_GUIDANCE[l.name];
-  let inner;
-  if (g) {
-    inner = `<div class="pg-hero">${g.headline.map(([k,v]) => `<div class="pg-hero-item"><div class="pg-hero-val">${v}</div><div class="pg-hero-lbl">${k}</div></div>`).join("")}</div>`;
-    if (g.assumptions && g.assumptions.length) {
-      inner += `<div class="sheet-section-title">Underwriting Assumptions</div><div class="sheet-specs">${g.assumptions.map(([k,v]) => `<div class="sheet-spec-row"><div class="sheet-spec-label">${k}</div><div class="sheet-spec-val">${v}</div></div>`).join("")}</div>`;
-    }
-  } else {
-    inner = `<div class="sheet-empty">Pricing guidance available on request.<br>Contact your JLL team.</div>`;
-  }
-  return `<button class="pg-btn" id="pgBtn" type="button" aria-expanded="false" aria-controls="pgPanel"><span>Pricing Guidance</span><span class="pg-chev">&#9662;</span></button><div class="pg-panel" id="pgPanel">${inner}</div>`;
-}
 
 function openSheet(name) {
   const l = LISTINGS.find(x => x.name === name);
@@ -725,14 +695,7 @@ function openSheet(name) {
   } else {
     bodyHtml = `<div class="sheet-empty">Full property package not yet loaded for this listing.<br>Contact your JLL team for details.</div>`;
   }
-  if (l.status === "IN THE MARKET" || l.status === "COMING TO MARKET") bodyHtml = pgBlock(l) + bodyHtml;
   sheetBody.innerHTML = bodyHtml;
-  const pgBtn = document.getElementById("pgBtn");
-  if (pgBtn) pgBtn.addEventListener("click", () => {
-    const open = document.getElementById("pgPanel").classList.toggle("open");
-    pgBtn.classList.toggle("open", open);
-    pgBtn.setAttribute("aria-expanded", open);
-  });
 
   document.getElementById('sheetClose').addEventListener('click', closeSheet);
   sheet.classList.add('open');
@@ -752,6 +715,11 @@ document.getElementById('list').addEventListener('click', (e) => {
 
 sheetBackdrop.addEventListener('click', closeSheet);
 
+document.querySelectorAll('.fpill').forEach(p => {
+  const v = p.dataset.val;
+  const n = v === 'all' ? LISTINGS.length : LISTINGS.filter(l => l.status === v).length;
+  p.textContent += ' ' + n;
+});
 render('all');
 </script>
 
